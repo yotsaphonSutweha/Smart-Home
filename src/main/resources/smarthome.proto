@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.project.smarthome";
+option java_outer_classname = "SmartHomeServiceImpl";
+
+package smarthome;
+
+service SmartHomeService {
+    rpc makeConnection(StringRequest) returns (StringResponse) {}
+}
+
+message StringRequest {
+    string val = 1;
+}
+
+message StringResponse {
+    string val = 1;
+}
