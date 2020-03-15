@@ -9,13 +9,13 @@ public class TV implements TVInterface {
     }
 
     @Override
-    public void turnOn() {
-
+    public String turnOn() {
+        return "Turing on tv...";
     }
 
     @Override
     public void turnOff() {
-
+        System.out.println("Turning off tv...");
     }
 
     @Override
@@ -34,7 +34,10 @@ public class TV implements TVInterface {
     }
 
     @Override
-    public boolean connnected() {
+    public boolean connnected(boolean turnOn) {
+        if (turnOn) {
+            return true;
+        }
         return false;
     }
 

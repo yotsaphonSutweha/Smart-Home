@@ -1,4 +1,4 @@
-package io.grpc.project.smarthome;
+package io.grpc.project.smarthome.speakers;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
@@ -19,39 +19,39 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.15.0)",
-    comments = "Source: smarthome.proto")
-public final class SmartHomeServiceGrpc {
+    comments = "Source: speakers.proto")
+public final class SpeakersServiceGrpc {
 
-  private SmartHomeServiceGrpc() {}
+  private SpeakersServiceGrpc() {}
 
-  public static final String SERVICE_NAME = "smarthome.SmartHomeService";
+  public static final String SERVICE_NAME = "smarthome.SpeakersService";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<io.grpc.project.smarthome.StringRequest,
-      io.grpc.project.smarthome.StringResponse> getMakeConnectionMethod;
+  private static volatile io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.StringRequest,
+      io.grpc.project.smarthome.speakers.StringResponse> getMakeConnectionMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "makeConnection",
-      requestType = io.grpc.project.smarthome.StringRequest.class,
-      responseType = io.grpc.project.smarthome.StringResponse.class,
+      requestType = io.grpc.project.smarthome.speakers.StringRequest.class,
+      responseType = io.grpc.project.smarthome.speakers.StringResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<io.grpc.project.smarthome.StringRequest,
-      io.grpc.project.smarthome.StringResponse> getMakeConnectionMethod() {
-    io.grpc.MethodDescriptor<io.grpc.project.smarthome.StringRequest, io.grpc.project.smarthome.StringResponse> getMakeConnectionMethod;
-    if ((getMakeConnectionMethod = SmartHomeServiceGrpc.getMakeConnectionMethod) == null) {
-      synchronized (SmartHomeServiceGrpc.class) {
-        if ((getMakeConnectionMethod = SmartHomeServiceGrpc.getMakeConnectionMethod) == null) {
-          SmartHomeServiceGrpc.getMakeConnectionMethod = getMakeConnectionMethod = 
-              io.grpc.MethodDescriptor.<io.grpc.project.smarthome.StringRequest, io.grpc.project.smarthome.StringResponse>newBuilder()
+  public static io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.StringRequest,
+      io.grpc.project.smarthome.speakers.StringResponse> getMakeConnectionMethod() {
+    io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.StringRequest, io.grpc.project.smarthome.speakers.StringResponse> getMakeConnectionMethod;
+    if ((getMakeConnectionMethod = SpeakersServiceGrpc.getMakeConnectionMethod) == null) {
+      synchronized (SpeakersServiceGrpc.class) {
+        if ((getMakeConnectionMethod = SpeakersServiceGrpc.getMakeConnectionMethod) == null) {
+          SpeakersServiceGrpc.getMakeConnectionMethod = getMakeConnectionMethod = 
+              io.grpc.MethodDescriptor.<io.grpc.project.smarthome.speakers.StringRequest, io.grpc.project.smarthome.speakers.StringResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
-                  "smarthome.SmartHomeService", "makeConnection"))
+                  "smarthome.SpeakersService", "makeConnection"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  io.grpc.project.smarthome.StringRequest.getDefaultInstance()))
+                  io.grpc.project.smarthome.speakers.StringRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  io.grpc.project.smarthome.StringResponse.getDefaultInstance()))
-                  .setSchemaDescriptor(new SmartHomeServiceMethodDescriptorSupplier("makeConnection"))
+                  io.grpc.project.smarthome.speakers.StringResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new SpeakersServiceMethodDescriptorSupplier("makeConnection"))
                   .build();
           }
         }
@@ -62,34 +62,34 @@ public final class SmartHomeServiceGrpc {
   /**
    * Creates a new async stub that supports all call types for the service
    */
-  public static SmartHomeServiceStub newStub(io.grpc.Channel channel) {
-    return new SmartHomeServiceStub(channel);
+  public static SpeakersServiceStub newStub(io.grpc.Channel channel) {
+    return new SpeakersServiceStub(channel);
   }
 
   /**
    * Creates a new blocking-style stub that supports unary and streaming output calls on the service
    */
-  public static SmartHomeServiceBlockingStub newBlockingStub(
+  public static SpeakersServiceBlockingStub newBlockingStub(
       io.grpc.Channel channel) {
-    return new SmartHomeServiceBlockingStub(channel);
+    return new SpeakersServiceBlockingStub(channel);
   }
 
   /**
    * Creates a new ListenableFuture-style stub that supports unary calls on the service
    */
-  public static SmartHomeServiceFutureStub newFutureStub(
+  public static SpeakersServiceFutureStub newFutureStub(
       io.grpc.Channel channel) {
-    return new SmartHomeServiceFutureStub(channel);
+    return new SpeakersServiceFutureStub(channel);
   }
 
   /**
    */
-  public static abstract class SmartHomeServiceImplBase implements io.grpc.BindableService {
+  public static abstract class SpeakersServiceImplBase implements io.grpc.BindableService {
 
     /**
      */
-    public void makeConnection(io.grpc.project.smarthome.StringRequest request,
-        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.StringResponse> responseObserver) {
+    public void makeConnection(io.grpc.project.smarthome.speakers.StringRequest request,
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getMakeConnectionMethod(), responseObserver);
     }
 
@@ -99,8 +99,8 @@ public final class SmartHomeServiceGrpc {
             getMakeConnectionMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                io.grpc.project.smarthome.StringRequest,
-                io.grpc.project.smarthome.StringResponse>(
+                io.grpc.project.smarthome.speakers.StringRequest,
+                io.grpc.project.smarthome.speakers.StringResponse>(
                   this, METHODID_MAKE_CONNECTION)))
           .build();
     }
@@ -108,26 +108,26 @@ public final class SmartHomeServiceGrpc {
 
   /**
    */
-  public static final class SmartHomeServiceStub extends io.grpc.stub.AbstractStub<SmartHomeServiceStub> {
-    private SmartHomeServiceStub(io.grpc.Channel channel) {
+  public static final class SpeakersServiceStub extends io.grpc.stub.AbstractStub<SpeakersServiceStub> {
+    private SpeakersServiceStub(io.grpc.Channel channel) {
       super(channel);
     }
 
-    private SmartHomeServiceStub(io.grpc.Channel channel,
+    private SpeakersServiceStub(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected SmartHomeServiceStub build(io.grpc.Channel channel,
+    protected SpeakersServiceStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
-      return new SmartHomeServiceStub(channel, callOptions);
+      return new SpeakersServiceStub(channel, callOptions);
     }
 
     /**
      */
-    public void makeConnection(io.grpc.project.smarthome.StringRequest request,
-        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.StringResponse> responseObserver) {
+    public void makeConnection(io.grpc.project.smarthome.speakers.StringRequest request,
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getMakeConnectionMethod(), getCallOptions()), request, responseObserver);
     }
@@ -135,25 +135,25 @@ public final class SmartHomeServiceGrpc {
 
   /**
    */
-  public static final class SmartHomeServiceBlockingStub extends io.grpc.stub.AbstractStub<SmartHomeServiceBlockingStub> {
-    private SmartHomeServiceBlockingStub(io.grpc.Channel channel) {
+  public static final class SpeakersServiceBlockingStub extends io.grpc.stub.AbstractStub<SpeakersServiceBlockingStub> {
+    private SpeakersServiceBlockingStub(io.grpc.Channel channel) {
       super(channel);
     }
 
-    private SmartHomeServiceBlockingStub(io.grpc.Channel channel,
+    private SpeakersServiceBlockingStub(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected SmartHomeServiceBlockingStub build(io.grpc.Channel channel,
+    protected SpeakersServiceBlockingStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
-      return new SmartHomeServiceBlockingStub(channel, callOptions);
+      return new SpeakersServiceBlockingStub(channel, callOptions);
     }
 
     /**
      */
-    public io.grpc.project.smarthome.StringResponse makeConnection(io.grpc.project.smarthome.StringRequest request) {
+    public io.grpc.project.smarthome.speakers.StringResponse makeConnection(io.grpc.project.smarthome.speakers.StringRequest request) {
       return blockingUnaryCall(
           getChannel(), getMakeConnectionMethod(), getCallOptions(), request);
     }
@@ -161,26 +161,26 @@ public final class SmartHomeServiceGrpc {
 
   /**
    */
-  public static final class SmartHomeServiceFutureStub extends io.grpc.stub.AbstractStub<SmartHomeServiceFutureStub> {
-    private SmartHomeServiceFutureStub(io.grpc.Channel channel) {
+  public static final class SpeakersServiceFutureStub extends io.grpc.stub.AbstractStub<SpeakersServiceFutureStub> {
+    private SpeakersServiceFutureStub(io.grpc.Channel channel) {
       super(channel);
     }
 
-    private SmartHomeServiceFutureStub(io.grpc.Channel channel,
+    private SpeakersServiceFutureStub(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected SmartHomeServiceFutureStub build(io.grpc.Channel channel,
+    protected SpeakersServiceFutureStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
-      return new SmartHomeServiceFutureStub(channel, callOptions);
+      return new SpeakersServiceFutureStub(channel, callOptions);
     }
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<io.grpc.project.smarthome.StringResponse> makeConnection(
-        io.grpc.project.smarthome.StringRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<io.grpc.project.smarthome.speakers.StringResponse> makeConnection(
+        io.grpc.project.smarthome.speakers.StringRequest request) {
       return futureUnaryCall(
           getChannel().newCall(getMakeConnectionMethod(), getCallOptions()), request);
     }
@@ -193,10 +193,10 @@ public final class SmartHomeServiceGrpc {
       io.grpc.stub.ServerCalls.ServerStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.ClientStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.BidiStreamingMethod<Req, Resp> {
-    private final SmartHomeServiceImplBase serviceImpl;
+    private final SpeakersServiceImplBase serviceImpl;
     private final int methodId;
 
-    MethodHandlers(SmartHomeServiceImplBase serviceImpl, int methodId) {
+    MethodHandlers(SpeakersServiceImplBase serviceImpl, int methodId) {
       this.serviceImpl = serviceImpl;
       this.methodId = methodId;
     }
@@ -206,8 +206,8 @@ public final class SmartHomeServiceGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_MAKE_CONNECTION:
-          serviceImpl.makeConnection((io.grpc.project.smarthome.StringRequest) request,
-              (io.grpc.stub.StreamObserver<io.grpc.project.smarthome.StringResponse>) responseObserver);
+          serviceImpl.makeConnection((io.grpc.project.smarthome.speakers.StringRequest) request,
+              (io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -225,32 +225,32 @@ public final class SmartHomeServiceGrpc {
     }
   }
 
-  private static abstract class SmartHomeServiceBaseDescriptorSupplier
+  private static abstract class SpeakersServiceBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoFileDescriptorSupplier, io.grpc.protobuf.ProtoServiceDescriptorSupplier {
-    SmartHomeServiceBaseDescriptorSupplier() {}
+    SpeakersServiceBaseDescriptorSupplier() {}
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return io.grpc.project.smarthome.SmartHomeServiceImpl.getDescriptor();
+      return io.grpc.project.smarthome.speakers.SpeakersServiceImpl.getDescriptor();
     }
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.ServiceDescriptor getServiceDescriptor() {
-      return getFileDescriptor().findServiceByName("SmartHomeService");
+      return getFileDescriptor().findServiceByName("SpeakersService");
     }
   }
 
-  private static final class SmartHomeServiceFileDescriptorSupplier
-      extends SmartHomeServiceBaseDescriptorSupplier {
-    SmartHomeServiceFileDescriptorSupplier() {}
+  private static final class SpeakersServiceFileDescriptorSupplier
+      extends SpeakersServiceBaseDescriptorSupplier {
+    SpeakersServiceFileDescriptorSupplier() {}
   }
 
-  private static final class SmartHomeServiceMethodDescriptorSupplier
-      extends SmartHomeServiceBaseDescriptorSupplier
+  private static final class SpeakersServiceMethodDescriptorSupplier
+      extends SpeakersServiceBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoMethodDescriptorSupplier {
     private final String methodName;
 
-    SmartHomeServiceMethodDescriptorSupplier(String methodName) {
+    SpeakersServiceMethodDescriptorSupplier(String methodName) {
       this.methodName = methodName;
     }
 
@@ -265,11 +265,11 @@ public final class SmartHomeServiceGrpc {
   public static io.grpc.ServiceDescriptor getServiceDescriptor() {
     io.grpc.ServiceDescriptor result = serviceDescriptor;
     if (result == null) {
-      synchronized (SmartHomeServiceGrpc.class) {
+      synchronized (SpeakersServiceGrpc.class) {
         result = serviceDescriptor;
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
-              .setSchemaDescriptor(new SmartHomeServiceFileDescriptorSupplier())
+              .setSchemaDescriptor(new SpeakersServiceFileDescriptorSupplier())
               .addMethod(getMakeConnectionMethod())
               .build();
         }
