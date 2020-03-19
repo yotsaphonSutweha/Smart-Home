@@ -19,7 +19,7 @@ public class SpeakersServer extends SpeakersServiceImplBase{
         try {
             int PORT = 8001;
             JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
-            ServiceInfo serviceInfo = ServiceInfo.create("_http._tcp.local.", "speakers", PORT, "path=index.html");
+            ServiceInfo serviceInfo = ServiceInfo.create("_speakers._tcp.local.", "localhost", PORT, "Speakers server");
             jmdns.registerService(serviceInfo);
             SpeakersServer smServer = new SpeakersServer();
             Server server = ServerBuilder.forPort(PORT)
@@ -31,5 +31,23 @@ public class SpeakersServer extends SpeakersServiceImplBase{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void turnOnSpeakers(StringRequest request, StreamObserver<StringResponse> responseObserver) {
+        System.out.println("Receiving message");
+
+        StringBuilder sb = new StringBuilder(request.getVal());
+        String output = sb.toString();
+
+        System.out.println("Command: " + output);
+        String result = "";
+
+        if (output.equalsIgnoreCase("Turn on")) {
+            result = speakers.turnOn();
+        }
+
+        StringResponse response = StringResponse.newBuilder().setVal(result).build();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
     }
 }

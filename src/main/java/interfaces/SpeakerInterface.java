@@ -1,10 +1,11 @@
 package interfaces;
 
 public interface SpeakerInterface {
-    public void turnOn();
+    public String turnOn();
     public void turnOff();
     public boolean connected();
     public int increaseVolumn();
+    public int setVolumn(int volumn);
     public int lowerVolumn();
     public void turnRadioOn();
     public void turnRadioOff();

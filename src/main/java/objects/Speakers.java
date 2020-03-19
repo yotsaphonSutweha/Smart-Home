@@ -4,8 +4,8 @@ import interfaces.SpeakerInterface;
 
 public class Speakers implements SpeakerInterface {
     @Override
-    public void turnOn() {
-
+    public String turnOn() {
+        return "Turing on speakers...";
     }
 
     @Override
@@ -20,6 +20,11 @@ public class Speakers implements SpeakerInterface {
 
     @Override
     public int increaseVolumn() {
+        return 0;
+    }
+
+    @Override
+    public int setVolumn(int volumn) {
         return 0;
     }
 

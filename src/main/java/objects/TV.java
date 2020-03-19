@@ -19,16 +19,6 @@ public class TV implements TVInterface {
     }
 
     @Override
-    public int increaseVolume() {
-        return 0;
-    }
-
-    @Override
-    public int lowerVolume() {
-        return 0;
-    }
-
-    @Override
     public void mode() {
 
     }

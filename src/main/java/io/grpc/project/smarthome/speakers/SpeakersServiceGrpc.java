@@ -28,35 +28,35 @@ public final class SpeakersServiceGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.StringRequest,
-      io.grpc.project.smarthome.speakers.StringResponse> getMakeConnectionMethod;
+      io.grpc.project.smarthome.speakers.StringResponse> getTurnOnSpeakersMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "makeConnection",
+      fullMethodName = SERVICE_NAME + '/' + "turnOnSpeakers",
       requestType = io.grpc.project.smarthome.speakers.StringRequest.class,
       responseType = io.grpc.project.smarthome.speakers.StringResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.StringRequest,
-      io.grpc.project.smarthome.speakers.StringResponse> getMakeConnectionMethod() {
-    io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.StringRequest, io.grpc.project.smarthome.speakers.StringResponse> getMakeConnectionMethod;
-    if ((getMakeConnectionMethod = SpeakersServiceGrpc.getMakeConnectionMethod) == null) {
+      io.grpc.project.smarthome.speakers.StringResponse> getTurnOnSpeakersMethod() {
+    io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.StringRequest, io.grpc.project.smarthome.speakers.StringResponse> getTurnOnSpeakersMethod;
+    if ((getTurnOnSpeakersMethod = SpeakersServiceGrpc.getTurnOnSpeakersMethod) == null) {
       synchronized (SpeakersServiceGrpc.class) {
-        if ((getMakeConnectionMethod = SpeakersServiceGrpc.getMakeConnectionMethod) == null) {
-          SpeakersServiceGrpc.getMakeConnectionMethod = getMakeConnectionMethod = 
+        if ((getTurnOnSpeakersMethod = SpeakersServiceGrpc.getTurnOnSpeakersMethod) == null) {
+          SpeakersServiceGrpc.getTurnOnSpeakersMethod = getTurnOnSpeakersMethod = 
               io.grpc.MethodDescriptor.<io.grpc.project.smarthome.speakers.StringRequest, io.grpc.project.smarthome.speakers.StringResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
-                  "smarthome.SpeakersService", "makeConnection"))
+                  "smarthome.SpeakersService", "turnOnSpeakers"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   io.grpc.project.smarthome.speakers.StringRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   io.grpc.project.smarthome.speakers.StringResponse.getDefaultInstance()))
-                  .setSchemaDescriptor(new SpeakersServiceMethodDescriptorSupplier("makeConnection"))
+                  .setSchemaDescriptor(new SpeakersServiceMethodDescriptorSupplier("turnOnSpeakers"))
                   .build();
           }
         }
      }
-     return getMakeConnectionMethod;
+     return getTurnOnSpeakersMethod;
   }
 
   /**
@@ -88,20 +88,20 @@ public final class SpeakersServiceGrpc {
 
     /**
      */
-    public void makeConnection(io.grpc.project.smarthome.speakers.StringRequest request,
+    public void turnOnSpeakers(io.grpc.project.smarthome.speakers.StringRequest request,
         io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getMakeConnectionMethod(), responseObserver);
+      asyncUnimplementedUnaryCall(getTurnOnSpeakersMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            getMakeConnectionMethod(),
+            getTurnOnSpeakersMethod(),
             asyncUnaryCall(
               new MethodHandlers<
                 io.grpc.project.smarthome.speakers.StringRequest,
                 io.grpc.project.smarthome.speakers.StringResponse>(
-                  this, METHODID_MAKE_CONNECTION)))
+                  this, METHODID_TURN_ON_SPEAKERS)))
           .build();
     }
   }
@@ -126,10 +126,10 @@ public final class SpeakersServiceGrpc {
 
     /**
      */
-    public void makeConnection(io.grpc.project.smarthome.speakers.StringRequest request,
+    public void turnOnSpeakers(io.grpc.project.smarthome.speakers.StringRequest request,
         io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringResponse> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(getMakeConnectionMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getTurnOnSpeakersMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -153,9 +153,9 @@ public final class SpeakersServiceGrpc {
 
     /**
      */
-    public io.grpc.project.smarthome.speakers.StringResponse makeConnection(io.grpc.project.smarthome.speakers.StringRequest request) {
+    public io.grpc.project.smarthome.speakers.StringResponse turnOnSpeakers(io.grpc.project.smarthome.speakers.StringRequest request) {
       return blockingUnaryCall(
-          getChannel(), getMakeConnectionMethod(), getCallOptions(), request);
+          getChannel(), getTurnOnSpeakersMethod(), getCallOptions(), request);
     }
   }
 
@@ -179,14 +179,14 @@ public final class SpeakersServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<io.grpc.project.smarthome.speakers.StringResponse> makeConnection(
+    public com.google.common.util.concurrent.ListenableFuture<io.grpc.project.smarthome.speakers.StringResponse> turnOnSpeakers(
         io.grpc.project.smarthome.speakers.StringRequest request) {
       return futureUnaryCall(
-          getChannel().newCall(getMakeConnectionMethod(), getCallOptions()), request);
+          getChannel().newCall(getTurnOnSpeakersMethod(), getCallOptions()), request);
     }
   }
 
-  private static final int METHODID_MAKE_CONNECTION = 0;
+  private static final int METHODID_TURN_ON_SPEAKERS = 0;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -205,8 +205,8 @@ public final class SpeakersServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_MAKE_CONNECTION:
-          serviceImpl.makeConnection((io.grpc.project.smarthome.speakers.StringRequest) request,
+        case METHODID_TURN_ON_SPEAKERS:
+          serviceImpl.turnOnSpeakers((io.grpc.project.smarthome.speakers.StringRequest) request,
               (io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringResponse>) responseObserver);
           break;
         default:
@@ -270,7 +270,7 @@ public final class SpeakersServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new SpeakersServiceFileDescriptorSupplier())
-              .addMethod(getMakeConnectionMethod())
+              .addMethod(getTurnOnSpeakersMethod())
               .build();
         }
       }

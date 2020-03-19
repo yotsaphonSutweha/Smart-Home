@@ -35,8 +35,8 @@ public final class SpeakersServiceImpl {
     java.lang.String[] descriptorData = {
       "\n\016speakers.proto\022\tsmarthome\"\034\n\rStringReq" +
       "uest\022\013\n\003val\030\001 \001(\t\"\035\n\016StringResponse\022\013\n\003v" +
-      "al\030\001 \001(\t2Z\n\017SpeakersService\022G\n\016makeConne" +
-      "ction\022\030.smarthome.StringRequest\032\031.smarth" +
+      "al\030\001 \001(\t2Z\n\017SpeakersService\022G\n\016turnOnSpe" +
+      "akers\022\030.smarthome.StringRequest\032\031.smarth" +
       "ome.StringResponse\"\000B;\n\"io.grpc.project." +
       "smarthome.speakersB\023SpeakersServiceImplP" +
       "\001b\006proto3"

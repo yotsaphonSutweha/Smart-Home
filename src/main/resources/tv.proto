@@ -7,11 +7,15 @@ option java_outer_classname = "TvServiceImpl";
 package smarthome;
 
 service TvService {
-    rpc turnOn(StringRequest) returns (StringResponse) {}
+    rpc turnOn(BooleanRequest) returns (StringResponse) {}
 }
 
 message StringRequest {
     string val = 1;
+}
+
+message BooleanRequest {
+    bool val = 1;
 }
 
 message StringResponse {

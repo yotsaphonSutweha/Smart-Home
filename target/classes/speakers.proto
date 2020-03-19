@@ -7,7 +7,7 @@ option java_outer_classname = "SpeakersServiceImpl";
 package smarthome;
 
 service SpeakersService {
-    rpc makeConnection(StringRequest) returns (StringResponse) {}
+    rpc turnOnSpeakers(StringRequest) returns (StringResponse) {}
 }
 
 message StringRequest {
