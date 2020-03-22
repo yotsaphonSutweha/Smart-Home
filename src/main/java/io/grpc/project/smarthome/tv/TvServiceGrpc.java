@@ -27,28 +27,28 @@ public final class TvServiceGrpc {
   public static final String SERVICE_NAME = "smarthome.TvService";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.StringRequest,
+  private static volatile io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.BooleanRequest,
       io.grpc.project.smarthome.tv.StringResponse> getTurnOnMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "turnOn",
-      requestType = io.grpc.project.smarthome.tv.StringRequest.class,
+      requestType = io.grpc.project.smarthome.tv.BooleanRequest.class,
       responseType = io.grpc.project.smarthome.tv.StringResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.StringRequest,
+  public static io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.BooleanRequest,
       io.grpc.project.smarthome.tv.StringResponse> getTurnOnMethod() {
-    io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.StringRequest, io.grpc.project.smarthome.tv.StringResponse> getTurnOnMethod;
+    io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.BooleanRequest, io.grpc.project.smarthome.tv.StringResponse> getTurnOnMethod;
     if ((getTurnOnMethod = TvServiceGrpc.getTurnOnMethod) == null) {
       synchronized (TvServiceGrpc.class) {
         if ((getTurnOnMethod = TvServiceGrpc.getTurnOnMethod) == null) {
           TvServiceGrpc.getTurnOnMethod = getTurnOnMethod = 
-              io.grpc.MethodDescriptor.<io.grpc.project.smarthome.tv.StringRequest, io.grpc.project.smarthome.tv.StringResponse>newBuilder()
+              io.grpc.MethodDescriptor.<io.grpc.project.smarthome.tv.BooleanRequest, io.grpc.project.smarthome.tv.StringResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "smarthome.TvService", "turnOn"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  io.grpc.project.smarthome.tv.StringRequest.getDefaultInstance()))
+                  io.grpc.project.smarthome.tv.BooleanRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   io.grpc.project.smarthome.tv.StringResponse.getDefaultInstance()))
                   .setSchemaDescriptor(new TvServiceMethodDescriptorSupplier("turnOn"))
@@ -57,6 +57,102 @@ public final class TvServiceGrpc {
         }
      }
      return getTurnOnMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.StringRequest,
+      io.grpc.project.smarthome.tv.StringResponse> getDisplayChannelListMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "displayChannelList",
+      requestType = io.grpc.project.smarthome.tv.StringRequest.class,
+      responseType = io.grpc.project.smarthome.tv.StringResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.StringRequest,
+      io.grpc.project.smarthome.tv.StringResponse> getDisplayChannelListMethod() {
+    io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.StringRequest, io.grpc.project.smarthome.tv.StringResponse> getDisplayChannelListMethod;
+    if ((getDisplayChannelListMethod = TvServiceGrpc.getDisplayChannelListMethod) == null) {
+      synchronized (TvServiceGrpc.class) {
+        if ((getDisplayChannelListMethod = TvServiceGrpc.getDisplayChannelListMethod) == null) {
+          TvServiceGrpc.getDisplayChannelListMethod = getDisplayChannelListMethod = 
+              io.grpc.MethodDescriptor.<io.grpc.project.smarthome.tv.StringRequest, io.grpc.project.smarthome.tv.StringResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(
+                  "smarthome.TvService", "displayChannelList"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.grpc.project.smarthome.tv.StringRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.grpc.project.smarthome.tv.StringResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new TvServiceMethodDescriptorSupplier("displayChannelList"))
+                  .build();
+          }
+        }
+     }
+     return getDisplayChannelListMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.IntRequest,
+      io.grpc.project.smarthome.tv.IntResponse> getIncreaseVolumeMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "increaseVolume",
+      requestType = io.grpc.project.smarthome.tv.IntRequest.class,
+      responseType = io.grpc.project.smarthome.tv.IntResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+  public static io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.IntRequest,
+      io.grpc.project.smarthome.tv.IntResponse> getIncreaseVolumeMethod() {
+    io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.IntRequest, io.grpc.project.smarthome.tv.IntResponse> getIncreaseVolumeMethod;
+    if ((getIncreaseVolumeMethod = TvServiceGrpc.getIncreaseVolumeMethod) == null) {
+      synchronized (TvServiceGrpc.class) {
+        if ((getIncreaseVolumeMethod = TvServiceGrpc.getIncreaseVolumeMethod) == null) {
+          TvServiceGrpc.getIncreaseVolumeMethod = getIncreaseVolumeMethod = 
+              io.grpc.MethodDescriptor.<io.grpc.project.smarthome.tv.IntRequest, io.grpc.project.smarthome.tv.IntResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+              .setFullMethodName(generateFullMethodName(
+                  "smarthome.TvService", "increaseVolume"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.grpc.project.smarthome.tv.IntRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.grpc.project.smarthome.tv.IntResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new TvServiceMethodDescriptorSupplier("increaseVolume"))
+                  .build();
+          }
+        }
+     }
+     return getIncreaseVolumeMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.StringRequest,
+      io.grpc.project.smarthome.tv.StringResponse> getLiveContentMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "liveContent",
+      requestType = io.grpc.project.smarthome.tv.StringRequest.class,
+      responseType = io.grpc.project.smarthome.tv.StringResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+  public static io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.StringRequest,
+      io.grpc.project.smarthome.tv.StringResponse> getLiveContentMethod() {
+    io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.StringRequest, io.grpc.project.smarthome.tv.StringResponse> getLiveContentMethod;
+    if ((getLiveContentMethod = TvServiceGrpc.getLiveContentMethod) == null) {
+      synchronized (TvServiceGrpc.class) {
+        if ((getLiveContentMethod = TvServiceGrpc.getLiveContentMethod) == null) {
+          TvServiceGrpc.getLiveContentMethod = getLiveContentMethod = 
+              io.grpc.MethodDescriptor.<io.grpc.project.smarthome.tv.StringRequest, io.grpc.project.smarthome.tv.StringResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+              .setFullMethodName(generateFullMethodName(
+                  "smarthome.TvService", "liveContent"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.grpc.project.smarthome.tv.StringRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.grpc.project.smarthome.tv.StringResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new TvServiceMethodDescriptorSupplier("liveContent"))
+                  .build();
+          }
+        }
+     }
+     return getLiveContentMethod;
   }
 
   /**
@@ -88,9 +184,30 @@ public final class TvServiceGrpc {
 
     /**
      */
-    public void turnOn(io.grpc.project.smarthome.tv.StringRequest request,
+    public void turnOn(io.grpc.project.smarthome.tv.BooleanRequest request,
         io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getTurnOnMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void displayChannelList(io.grpc.project.smarthome.tv.StringRequest request,
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getDisplayChannelListMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.IntRequest> increaseVolume(
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.IntResponse> responseObserver) {
+      return asyncUnimplementedStreamingCall(getIncreaseVolumeMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringRequest> liveContent(
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringResponse> responseObserver) {
+      return asyncUnimplementedStreamingCall(getLiveContentMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -99,9 +216,30 @@ public final class TvServiceGrpc {
             getTurnOnMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                io.grpc.project.smarthome.tv.StringRequest,
+                io.grpc.project.smarthome.tv.BooleanRequest,
                 io.grpc.project.smarthome.tv.StringResponse>(
                   this, METHODID_TURN_ON)))
+          .addMethod(
+            getDisplayChannelListMethod(),
+            asyncServerStreamingCall(
+              new MethodHandlers<
+                io.grpc.project.smarthome.tv.StringRequest,
+                io.grpc.project.smarthome.tv.StringResponse>(
+                  this, METHODID_DISPLAY_CHANNEL_LIST)))
+          .addMethod(
+            getIncreaseVolumeMethod(),
+            asyncClientStreamingCall(
+              new MethodHandlers<
+                io.grpc.project.smarthome.tv.IntRequest,
+                io.grpc.project.smarthome.tv.IntResponse>(
+                  this, METHODID_INCREASE_VOLUME)))
+          .addMethod(
+            getLiveContentMethod(),
+            asyncBidiStreamingCall(
+              new MethodHandlers<
+                io.grpc.project.smarthome.tv.StringRequest,
+                io.grpc.project.smarthome.tv.StringResponse>(
+                  this, METHODID_LIVE_CONTENT)))
           .build();
     }
   }
@@ -126,10 +264,34 @@ public final class TvServiceGrpc {
 
     /**
      */
-    public void turnOn(io.grpc.project.smarthome.tv.StringRequest request,
+    public void turnOn(io.grpc.project.smarthome.tv.BooleanRequest request,
         io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getTurnOnMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void displayChannelList(io.grpc.project.smarthome.tv.StringRequest request,
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringResponse> responseObserver) {
+      asyncServerStreamingCall(
+          getChannel().newCall(getDisplayChannelListMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.IntRequest> increaseVolume(
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.IntResponse> responseObserver) {
+      return asyncClientStreamingCall(
+          getChannel().newCall(getIncreaseVolumeMethod(), getCallOptions()), responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringRequest> liveContent(
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringResponse> responseObserver) {
+      return asyncBidiStreamingCall(
+          getChannel().newCall(getLiveContentMethod(), getCallOptions()), responseObserver);
     }
   }
 
@@ -153,9 +315,17 @@ public final class TvServiceGrpc {
 
     /**
      */
-    public io.grpc.project.smarthome.tv.StringResponse turnOn(io.grpc.project.smarthome.tv.StringRequest request) {
+    public io.grpc.project.smarthome.tv.StringResponse turnOn(io.grpc.project.smarthome.tv.BooleanRequest request) {
       return blockingUnaryCall(
           getChannel(), getTurnOnMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public java.util.Iterator<io.grpc.project.smarthome.tv.StringResponse> displayChannelList(
+        io.grpc.project.smarthome.tv.StringRequest request) {
+      return blockingServerStreamingCall(
+          getChannel(), getDisplayChannelListMethod(), getCallOptions(), request);
     }
   }
 
@@ -180,13 +350,16 @@ public final class TvServiceGrpc {
     /**
      */
     public com.google.common.util.concurrent.ListenableFuture<io.grpc.project.smarthome.tv.StringResponse> turnOn(
-        io.grpc.project.smarthome.tv.StringRequest request) {
+        io.grpc.project.smarthome.tv.BooleanRequest request) {
       return futureUnaryCall(
           getChannel().newCall(getTurnOnMethod(), getCallOptions()), request);
     }
   }
 
   private static final int METHODID_TURN_ON = 0;
+  private static final int METHODID_DISPLAY_CHANNEL_LIST = 1;
+  private static final int METHODID_INCREASE_VOLUME = 2;
+  private static final int METHODID_LIVE_CONTENT = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -206,7 +379,11 @@ public final class TvServiceGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_TURN_ON:
-          serviceImpl.turnOn((io.grpc.project.smarthome.tv.StringRequest) request,
+          serviceImpl.turnOn((io.grpc.project.smarthome.tv.BooleanRequest) request,
+              (io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringResponse>) responseObserver);
+          break;
+        case METHODID_DISPLAY_CHANNEL_LIST:
+          serviceImpl.displayChannelList((io.grpc.project.smarthome.tv.StringRequest) request,
               (io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringResponse>) responseObserver);
           break;
         default:
@@ -219,6 +396,12 @@ public final class TvServiceGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_INCREASE_VOLUME:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.increaseVolume(
+              (io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.IntResponse>) responseObserver);
+        case METHODID_LIVE_CONTENT:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.liveContent(
+              (io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringResponse>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -271,6 +454,9 @@ public final class TvServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new TvServiceFileDescriptorSupplier())
               .addMethod(getTurnOnMethod())
+              .addMethod(getDisplayChannelListMethod())
+              .addMethod(getIncreaseVolumeMethod())
+              .addMethod(getLiveContentMethod())
               .build();
         }
       }

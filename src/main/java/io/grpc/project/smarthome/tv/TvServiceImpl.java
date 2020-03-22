@@ -20,10 +20,25 @@ public final class TvServiceImpl {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_smarthome_StringRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_smarthome_BooleanRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_smarthome_BooleanRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_smarthome_StringResponse_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_smarthome_StringResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_smarthome_IntRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_smarthome_IntRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_smarthome_IntResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_smarthome_IntResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -34,11 +49,19 @@ public final class TvServiceImpl {
   static {
     java.lang.String[] descriptorData = {
       "\n\010tv.proto\022\tsmarthome\"\034\n\rStringRequest\022\013" +
-      "\n\003val\030\001 \001(\t\"\035\n\016StringResponse\022\013\n\003val\030\001 \001" +
-      "(\t2L\n\tTvService\022?\n\006turnOn\022\030.smarthome.St" +
-      "ringRequest\032\031.smarthome.StringResponse\"\000" +
-      "B/\n\034io.grpc.project.smarthome.tvB\rTvServ" +
-      "iceImplP\001b\006proto3"
+      "\n\003val\030\001 \001(\t\"\035\n\016BooleanRequest\022\013\n\003val\030\001 \001" +
+      "(\010\"\035\n\016StringResponse\022\013\n\003val\030\001 \001(\t\"\036\n\nInt" +
+      "Request\022\020\n\010numInput\030\001 \001(\005\"\035\n\013IntResponse" +
+      "\022\016\n\006volume\030\001 \001(\0052\253\002\n\tTvService\022@\n\006turnOn" +
+      "\022\031.smarthome.BooleanRequest\032\031.smarthome." +
+      "StringResponse\"\000\022M\n\022displayChannelList\022\030" +
+      ".smarthome.StringRequest\032\031.smarthome.Str" +
+      "ingResponse\"\0000\001\022C\n\016increaseVolume\022\025.smar" +
+      "thome.IntRequest\032\026.smarthome.IntResponse" +
+      "\"\000(\001\022H\n\013liveContent\022\030.smarthome.StringRe" +
+      "quest\032\031.smarthome.StringResponse\"\000(\0010\001B/" +
+      "\n\034io.grpc.project.smarthome.tvB\rTvServic" +
+      "eImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -58,12 +81,30 @@ public final class TvServiceImpl {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_smarthome_StringRequest_descriptor,
         new java.lang.String[] { "Val", });
-    internal_static_smarthome_StringResponse_descriptor =
+    internal_static_smarthome_BooleanRequest_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_smarthome_BooleanRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_smarthome_BooleanRequest_descriptor,
+        new java.lang.String[] { "Val", });
+    internal_static_smarthome_StringResponse_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_smarthome_StringResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_smarthome_StringResponse_descriptor,
         new java.lang.String[] { "Val", });
+    internal_static_smarthome_IntRequest_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_smarthome_IntRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_smarthome_IntRequest_descriptor,
+        new java.lang.String[] { "NumInput", });
+    internal_static_smarthome_IntResponse_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_smarthome_IntResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_smarthome_IntResponse_descriptor,
+        new java.lang.String[] { "Volume", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

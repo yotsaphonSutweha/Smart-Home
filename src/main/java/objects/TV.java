@@ -2,6 +2,8 @@ package objects;
 
 import interfaces.TVInterface;
 
+import java.util.ArrayList;
+
 public class TV implements TVInterface {
 
     public TV() {
@@ -10,7 +12,7 @@ public class TV implements TVInterface {
 
     @Override
     public String turnOn() {
-        return "Turing on tv...";
+        return "is On";
     }
 
     @Override
@@ -39,5 +41,14 @@ public class TV implements TVInterface {
     @Override
     public boolean musicMode() {
         return false;
+    }
+
+    @Override
+    public ArrayList<String> channelList() {
+        ArrayList<String> channelList = new ArrayList<>();
+        channelList.add("Disney");
+        channelList.add("Cartoon Network");
+        channelList.add("Music");
+        return channelList;
     }
 }

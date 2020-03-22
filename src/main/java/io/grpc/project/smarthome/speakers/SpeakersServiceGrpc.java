@@ -27,28 +27,28 @@ public final class SpeakersServiceGrpc {
   public static final String SERVICE_NAME = "smarthome.SpeakersService";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.StringRequest,
+  private static volatile io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.BooleanRequest,
       io.grpc.project.smarthome.speakers.StringResponse> getTurnOnSpeakersMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "turnOnSpeakers",
-      requestType = io.grpc.project.smarthome.speakers.StringRequest.class,
+      requestType = io.grpc.project.smarthome.speakers.BooleanRequest.class,
       responseType = io.grpc.project.smarthome.speakers.StringResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.StringRequest,
+  public static io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.BooleanRequest,
       io.grpc.project.smarthome.speakers.StringResponse> getTurnOnSpeakersMethod() {
-    io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.StringRequest, io.grpc.project.smarthome.speakers.StringResponse> getTurnOnSpeakersMethod;
+    io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.BooleanRequest, io.grpc.project.smarthome.speakers.StringResponse> getTurnOnSpeakersMethod;
     if ((getTurnOnSpeakersMethod = SpeakersServiceGrpc.getTurnOnSpeakersMethod) == null) {
       synchronized (SpeakersServiceGrpc.class) {
         if ((getTurnOnSpeakersMethod = SpeakersServiceGrpc.getTurnOnSpeakersMethod) == null) {
           SpeakersServiceGrpc.getTurnOnSpeakersMethod = getTurnOnSpeakersMethod = 
-              io.grpc.MethodDescriptor.<io.grpc.project.smarthome.speakers.StringRequest, io.grpc.project.smarthome.speakers.StringResponse>newBuilder()
+              io.grpc.MethodDescriptor.<io.grpc.project.smarthome.speakers.BooleanRequest, io.grpc.project.smarthome.speakers.StringResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "smarthome.SpeakersService", "turnOnSpeakers"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  io.grpc.project.smarthome.speakers.StringRequest.getDefaultInstance()))
+                  io.grpc.project.smarthome.speakers.BooleanRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   io.grpc.project.smarthome.speakers.StringResponse.getDefaultInstance()))
                   .setSchemaDescriptor(new SpeakersServiceMethodDescriptorSupplier("turnOnSpeakers"))
@@ -57,6 +57,70 @@ public final class SpeakersServiceGrpc {
         }
      }
      return getTurnOnSpeakersMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.BooleanRequest,
+      io.grpc.project.smarthome.speakers.StringResponse> getDisplayInputsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "displayInputs",
+      requestType = io.grpc.project.smarthome.speakers.BooleanRequest.class,
+      responseType = io.grpc.project.smarthome.speakers.StringResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.BooleanRequest,
+      io.grpc.project.smarthome.speakers.StringResponse> getDisplayInputsMethod() {
+    io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.BooleanRequest, io.grpc.project.smarthome.speakers.StringResponse> getDisplayInputsMethod;
+    if ((getDisplayInputsMethod = SpeakersServiceGrpc.getDisplayInputsMethod) == null) {
+      synchronized (SpeakersServiceGrpc.class) {
+        if ((getDisplayInputsMethod = SpeakersServiceGrpc.getDisplayInputsMethod) == null) {
+          SpeakersServiceGrpc.getDisplayInputsMethod = getDisplayInputsMethod = 
+              io.grpc.MethodDescriptor.<io.grpc.project.smarthome.speakers.BooleanRequest, io.grpc.project.smarthome.speakers.StringResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(
+                  "smarthome.SpeakersService", "displayInputs"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.grpc.project.smarthome.speakers.BooleanRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.grpc.project.smarthome.speakers.StringResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new SpeakersServiceMethodDescriptorSupplier("displayInputs"))
+                  .build();
+          }
+        }
+     }
+     return getDisplayInputsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.StringRequest,
+      io.grpc.project.smarthome.speakers.IntResponse> getDeviceDetectionMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "deviceDetection",
+      requestType = io.grpc.project.smarthome.speakers.StringRequest.class,
+      responseType = io.grpc.project.smarthome.speakers.IntResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+  public static io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.StringRequest,
+      io.grpc.project.smarthome.speakers.IntResponse> getDeviceDetectionMethod() {
+    io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.StringRequest, io.grpc.project.smarthome.speakers.IntResponse> getDeviceDetectionMethod;
+    if ((getDeviceDetectionMethod = SpeakersServiceGrpc.getDeviceDetectionMethod) == null) {
+      synchronized (SpeakersServiceGrpc.class) {
+        if ((getDeviceDetectionMethod = SpeakersServiceGrpc.getDeviceDetectionMethod) == null) {
+          SpeakersServiceGrpc.getDeviceDetectionMethod = getDeviceDetectionMethod = 
+              io.grpc.MethodDescriptor.<io.grpc.project.smarthome.speakers.StringRequest, io.grpc.project.smarthome.speakers.IntResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+              .setFullMethodName(generateFullMethodName(
+                  "smarthome.SpeakersService", "deviceDetection"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.grpc.project.smarthome.speakers.StringRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.grpc.project.smarthome.speakers.IntResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new SpeakersServiceMethodDescriptorSupplier("deviceDetection"))
+                  .build();
+          }
+        }
+     }
+     return getDeviceDetectionMethod;
   }
 
   /**
@@ -88,9 +152,23 @@ public final class SpeakersServiceGrpc {
 
     /**
      */
-    public void turnOnSpeakers(io.grpc.project.smarthome.speakers.StringRequest request,
+    public void turnOnSpeakers(io.grpc.project.smarthome.speakers.BooleanRequest request,
         io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getTurnOnSpeakersMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void displayInputs(io.grpc.project.smarthome.speakers.BooleanRequest request,
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getDisplayInputsMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringRequest> deviceDetection(
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.IntResponse> responseObserver) {
+      return asyncUnimplementedStreamingCall(getDeviceDetectionMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -99,9 +177,23 @@ public final class SpeakersServiceGrpc {
             getTurnOnSpeakersMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                io.grpc.project.smarthome.speakers.StringRequest,
+                io.grpc.project.smarthome.speakers.BooleanRequest,
                 io.grpc.project.smarthome.speakers.StringResponse>(
                   this, METHODID_TURN_ON_SPEAKERS)))
+          .addMethod(
+            getDisplayInputsMethod(),
+            asyncServerStreamingCall(
+              new MethodHandlers<
+                io.grpc.project.smarthome.speakers.BooleanRequest,
+                io.grpc.project.smarthome.speakers.StringResponse>(
+                  this, METHODID_DISPLAY_INPUTS)))
+          .addMethod(
+            getDeviceDetectionMethod(),
+            asyncClientStreamingCall(
+              new MethodHandlers<
+                io.grpc.project.smarthome.speakers.StringRequest,
+                io.grpc.project.smarthome.speakers.IntResponse>(
+                  this, METHODID_DEVICE_DETECTION)))
           .build();
     }
   }
@@ -126,10 +218,26 @@ public final class SpeakersServiceGrpc {
 
     /**
      */
-    public void turnOnSpeakers(io.grpc.project.smarthome.speakers.StringRequest request,
+    public void turnOnSpeakers(io.grpc.project.smarthome.speakers.BooleanRequest request,
         io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getTurnOnSpeakersMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void displayInputs(io.grpc.project.smarthome.speakers.BooleanRequest request,
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringResponse> responseObserver) {
+      asyncServerStreamingCall(
+          getChannel().newCall(getDisplayInputsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringRequest> deviceDetection(
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.IntResponse> responseObserver) {
+      return asyncClientStreamingCall(
+          getChannel().newCall(getDeviceDetectionMethod(), getCallOptions()), responseObserver);
     }
   }
 
@@ -153,9 +261,17 @@ public final class SpeakersServiceGrpc {
 
     /**
      */
-    public io.grpc.project.smarthome.speakers.StringResponse turnOnSpeakers(io.grpc.project.smarthome.speakers.StringRequest request) {
+    public io.grpc.project.smarthome.speakers.StringResponse turnOnSpeakers(io.grpc.project.smarthome.speakers.BooleanRequest request) {
       return blockingUnaryCall(
           getChannel(), getTurnOnSpeakersMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public java.util.Iterator<io.grpc.project.smarthome.speakers.StringResponse> displayInputs(
+        io.grpc.project.smarthome.speakers.BooleanRequest request) {
+      return blockingServerStreamingCall(
+          getChannel(), getDisplayInputsMethod(), getCallOptions(), request);
     }
   }
 
@@ -180,13 +296,15 @@ public final class SpeakersServiceGrpc {
     /**
      */
     public com.google.common.util.concurrent.ListenableFuture<io.grpc.project.smarthome.speakers.StringResponse> turnOnSpeakers(
-        io.grpc.project.smarthome.speakers.StringRequest request) {
+        io.grpc.project.smarthome.speakers.BooleanRequest request) {
       return futureUnaryCall(
           getChannel().newCall(getTurnOnSpeakersMethod(), getCallOptions()), request);
     }
   }
 
   private static final int METHODID_TURN_ON_SPEAKERS = 0;
+  private static final int METHODID_DISPLAY_INPUTS = 1;
+  private static final int METHODID_DEVICE_DETECTION = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -206,7 +324,11 @@ public final class SpeakersServiceGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_TURN_ON_SPEAKERS:
-          serviceImpl.turnOnSpeakers((io.grpc.project.smarthome.speakers.StringRequest) request,
+          serviceImpl.turnOnSpeakers((io.grpc.project.smarthome.speakers.BooleanRequest) request,
+              (io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringResponse>) responseObserver);
+          break;
+        case METHODID_DISPLAY_INPUTS:
+          serviceImpl.displayInputs((io.grpc.project.smarthome.speakers.BooleanRequest) request,
               (io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringResponse>) responseObserver);
           break;
         default:
@@ -219,6 +341,9 @@ public final class SpeakersServiceGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_DEVICE_DETECTION:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.deviceDetection(
+              (io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.IntResponse>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -271,6 +396,8 @@ public final class SpeakersServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new SpeakersServiceFileDescriptorSupplier())
               .addMethod(getTurnOnSpeakersMethod())
+              .addMethod(getDisplayInputsMethod())
+              .addMethod(getDeviceDetectionMethod())
               .build();
         }
       }

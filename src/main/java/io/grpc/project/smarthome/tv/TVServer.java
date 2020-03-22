@@ -12,6 +12,7 @@ import objects.TV;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceEvent;
@@ -19,19 +20,16 @@ import javax.jmdns.ServiceInfo;
 import javax.jmdns.ServiceListener;
 
 public class TVServer extends TvServiceImplBase {
-    private TV tv = new TV();
+    private static TV tv = new TV();
     private static final Logger logger = Logger.getLogger(TVServer.class.getName());
     private static SpeakersServiceGrpc.SpeakersServiceBlockingStub speakersServiceBlockingStub;
+    private static SpeakersServiceGrpc.SpeakersServiceStub speakersServiceAsyncStub;
+    private ArrayList<String> deviceList = new ArrayList<>();
 
     public static class Listener implements ServiceListener {
         @Override
         public void serviceAdded(ServiceEvent serviceEvent) {
             System.out.println("Service added: " + serviceEvent.getInfo());
-            if(serviceEvent.getName().equals("localhost")) {
-                ManagedChannel channel2 = ManagedChannelBuilder.forAddress(serviceEvent.getName(), 8001).usePlaintext().build();
-                speakersServiceBlockingStub = SpeakersServiceGrpc.newBlockingStub(channel2);
-                turnOnSpeakers();
-            }
         }
 
         @Override
@@ -42,6 +40,9 @@ public class TVServer extends TvServiceImplBase {
         @Override
         public void serviceResolved(ServiceEvent serviceEvent) {
             System.out.println("Service resolved: " + serviceEvent.getInfo());
+            ManagedChannel speakerChannel = ManagedChannelBuilder.forAddress(serviceEvent.getName(), serviceEvent.getInfo().getPort()).usePlaintext().build();
+            speakersServiceBlockingStub = SpeakersServiceGrpc.newBlockingStub(speakerChannel);
+            speakersServiceAsyncStub = SpeakersServiceGrpc.newStub(speakerChannel);
         }
     }
 
@@ -63,30 +64,157 @@ public class TVServer extends TvServiceImplBase {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
-    public static void turnOnSpeakers() {
-        io.grpc.project.smarthome.speakers.StringRequest request = io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("Turn on").build();
-        io.grpc.project.smarthome.speakers.StringResponse response1 = speakersServiceBlockingStub.turnOnSpeakers(request);
-        System.out.println(response1.getVal());
+    @Override
+    public StreamObserver<io.grpc.project.smarthome.tv.StringRequest> liveContent(StreamObserver<io.grpc.project.smarthome.tv.StringResponse> responseObserver) {
+        return new StreamObserver<io.grpc.project.smarthome.tv.StringRequest>() {
+            @Override
+            public void onNext(StringRequest value) {
+                StringBuilder sb = new StringBuilder(value.getVal());
+                StringResponse res = StringResponse.newBuilder().setVal(sb.toString()).build();
+                responseObserver.onNext(res);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                responseObserver.onCompleted();
+            }
+        };
     }
 
-    public void turnOn(StringRequest request, StreamObserver<StringResponse> responseObserver) {
-        System.out.println("Receiving message");
-
+    @Override
+    public void displayChannelList(io.grpc.project.smarthome.tv.StringRequest request, StreamObserver<StringResponse> responseObserver) {
         StringBuilder sb = new StringBuilder(request.getVal());
-        String output = sb.toString();
 
-        System.out.println("Command: " + output);
-        String result = "";
-
-        if (output.equalsIgnoreCase("Turn on")) {
-            result = tv.turnOn();
-            tv.connnected(true);
+        if (sb.toString().equalsIgnoreCase("Display channels")) {
+            ArrayList<String> channels = tv.channelList();
+            for (String c : channels) {
+                responseObserver.onNext(io.grpc.project.smarthome.tv.StringResponse.newBuilder().setVal(c).build());
+            }
+            responseObserver.onCompleted();
         }
+    }
 
-        StringResponse response = StringResponse.newBuilder().setVal(result).build();
+    @Override
+    public void turnOn(io.grpc.project.smarthome.tv.BooleanRequest request, StreamObserver<StringResponse> responseObserver) {
+        System.out.println("Receiving message");
+        boolean turnOn = request.getVal();
+        String result = "";
+        if (turnOn) {
+            result = tv.turnOn();
+        }
+        StringResponse response = io.grpc.project.smarthome.tv.StringResponse.newBuilder().setVal(result).build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
+
+        turnOnSpeakers();
+        displayAvailableSpeakersInputs();
+        speakersDeviceDetecting();
+    }
+
+    @Override
+    public StreamObserver<io.grpc.project.smarthome.tv.IntRequest> increaseVolume(StreamObserver<io.grpc.project.smarthome.tv.IntResponse> responseObserver) {
+        return new StreamObserver<io.grpc.project.smarthome.tv.IntRequest>() {
+            int currentVolume = 0;
+            @Override
+            public void onNext(IntRequest value) {
+                System.out.println("Receiving volumn -> " + value.getNumInput());
+                currentVolume += value.getNumInput();
+
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                io.grpc.project.smarthome.tv.IntResponse res = IntResponse.newBuilder().setVolume(currentVolume).build();
+                responseObserver.onNext(res);
+                responseObserver.onCompleted();
+            }
+        };
+    }
+
+    public void turnOnSpeakers() {
+        io.grpc.project.smarthome.speakers.BooleanRequest request = io.grpc.project.smarthome.speakers.BooleanRequest.newBuilder().setVal(true).build();
+        io.grpc.project.smarthome.speakers.StringResponse response = speakersServiceBlockingStub.turnOnSpeakers(request);
+        System.out.println("Speaker is " + response.getVal());
+    }
+
+    public void displayAvailableSpeakersInputs() {
+        io.grpc.project.smarthome.speakers.BooleanRequest request = io.grpc.project.smarthome.speakers.BooleanRequest.newBuilder().setVal(true).build();
+        StreamObserver<io.grpc.project.smarthome.speakers.StringResponse> responseStreamObserver = new StreamObserver<io.grpc.project.smarthome.speakers.StringResponse>() {
+            @Override
+            public void onNext(io.grpc.project.smarthome.speakers.StringResponse value) {
+                System.out.println("Speaker's" + value.getVal() + " is ready");
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                System.out.println("On completed");
+            }
+        };
+
+        speakersServiceAsyncStub.displayInputs(request, responseStreamObserver);
+        threadSleep();
+    }
+
+    public void threadSleep() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public void speakersDeviceDetecting() {
+        deviceList.add("TV");
+        deviceList.add("Curtains");
+        deviceList.add("Lights");
+        StreamObserver<io.grpc.project.smarthome.speakers.IntResponse> responseObserver1 = new StreamObserver<io.grpc.project.smarthome.speakers.IntResponse>() {
+            @Override
+            public void onNext(io.grpc.project.smarthome.speakers.IntResponse value) {
+                System.out.println("Speakers can detect: " + value.getVolume() + " devices in the area");
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+
+            }
+        };
+
+        StreamObserver<io.grpc.project.smarthome.speakers.StringRequest> request = speakersServiceAsyncStub.deviceDetection(responseObserver1);
+
+        try {
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal(deviceList.get(0)).build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal(deviceList.get(1)).build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal(deviceList.get(2)).build());
+            request.onCompleted();
+
+        } catch (RuntimeException e) {
+            // Cancel RPC
+            request.onError(e);
+            throw e;
+        }
     }
 }

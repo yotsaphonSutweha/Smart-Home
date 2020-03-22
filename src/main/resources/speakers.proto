@@ -7,7 +7,10 @@ option java_outer_classname = "SpeakersServiceImpl";
 package smarthome;
 
 service SpeakersService {
-    rpc turnOnSpeakers(StringRequest) returns (StringResponse) {}
+    rpc turnOnSpeakers(BooleanRequest) returns (StringResponse) {}
+    rpc displayInputs(BooleanRequest) returns (stream StringResponse) {}
+    rpc deviceDetection(stream StringRequest) returns (IntResponse) {}
+//    rpc liveContent(stream StringRequest) returns (stream StringRequest) {}
 }
 
 message StringRequest {
@@ -16,4 +19,16 @@ message StringRequest {
 
 message StringResponse {
     string val = 1;
+}
+
+message BooleanRequest {
+    bool val = 1;
+}
+
+message IntRequest {
+    int32 numInput = 1;
+}
+
+message IntResponse {
+    int32 volume = 1;
 }

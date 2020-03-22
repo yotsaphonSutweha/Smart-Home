@@ -2,10 +2,26 @@ package objects;
 
 import interfaces.SpeakerInterface;
 
+import java.util.ArrayList;
+
 public class Speakers implements SpeakerInterface {
+    private int volume;
+    private ArrayList<String> deviceList;
+    public Speakers() {
+        volume = 0;
+    }
     @Override
     public String turnOn() {
-        return "Turing on speakers...";
+        return "is On";
+    }
+
+    @Override
+    public ArrayList<String> availableInputs() {
+        ArrayList<String> availableInputList = new ArrayList<>();
+        availableInputList.add("HDMI");
+        availableInputList.add("VGD");
+        availableInputList.add("Bluetooth");
+        return availableInputList;
     }
 
     @Override
@@ -19,18 +35,23 @@ public class Speakers implements SpeakerInterface {
     }
 
     @Override
-    public int increaseVolumn() {
-        return 0;
+    public void setDeviceList(ArrayList<String> arr) {
+        this.deviceList = arr;
     }
 
     @Override
-    public int setVolumn(int volumn) {
-        return 0;
+    public ArrayList<String> getDeviceList() {
+        return this.deviceList;
     }
 
     @Override
-    public int lowerVolumn() {
-        return 0;
+    public void setVolume(int volume) {
+        this.volume = volume;
+    }
+
+    @Override
+    public int getVolume() {
+        return this.volume;
     }
 
     @Override

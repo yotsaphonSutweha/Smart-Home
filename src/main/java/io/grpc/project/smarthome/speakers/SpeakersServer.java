@@ -7,6 +7,7 @@ import objects.Speakers;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
@@ -33,16 +34,58 @@ public class SpeakersServer extends SpeakersServiceImplBase{
         }
     }
 
-    public void turnOnSpeakers(StringRequest request, StreamObserver<StringResponse> responseObserver) {
+    @Override
+    public void displayInputs(BooleanRequest request, StreamObserver<StringResponse> responseObserver) {
+        System.out.println("Receiving commands from TV....");
+
+        boolean displayInputs = request.getVal();
+        if (displayInputs) {
+            ArrayList<String> availableInputs = speakers.availableInputs();
+            for (String input : availableInputs) {
+                responseObserver.onNext(StringResponse.newBuilder().setVal(input).build());
+            }
+            responseObserver.onCompleted();
+        }
+    }
+
+    @Override
+    public StreamObserver<StringRequest> deviceDetection(StreamObserver<IntResponse> responseObserver1) {
+        System.out.println("This is device display");
+        ArrayList<String> arr = new ArrayList<>();
+        return new StreamObserver<StringRequest>() {
+            @Override
+            public void onNext(StringRequest value) {
+                System.out.println(value.getVal());
+                arr.add(value.getVal());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                speakers.setDeviceList(arr);
+                int size = speakers.getDeviceList().size();
+                IntResponse res = IntResponse.newBuilder().setVolume(size).build();
+                responseObserver1.onNext(res);
+                responseObserver1.onCompleted();
+            }
+        };
+    }
+
+
+
+    public void turnOnSpeakers(BooleanRequest request, StreamObserver<StringResponse> responseObserver) {
         System.out.println("Receiving message");
 
-        StringBuilder sb = new StringBuilder(request.getVal());
-        String output = sb.toString();
 
-        System.out.println("Command: " + output);
+        boolean turnOn = request.getVal();
+
         String result = "";
 
-        if (output.equalsIgnoreCase("Turn on")) {
+        if (turnOn) {
             result = speakers.turnOn();
         }
 

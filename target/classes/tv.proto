@@ -8,6 +8,9 @@ package smarthome;
 
 service TvService {
     rpc turnOn(BooleanRequest) returns (StringResponse) {}
+    rpc displayChannelList(StringRequest) returns (stream StringResponse) {}
+    rpc increaseVolume(stream IntRequest) returns (IntResponse) {}
+    rpc liveContent(stream StringRequest) returns (stream StringResponse) {}
 }
 
 message StringRequest {
@@ -20,4 +23,12 @@ message BooleanRequest {
 
 message StringResponse {
     string val = 1;
+}
+
+message IntRequest {
+    int32 numInput = 1;
+}
+
+message IntResponse {
+    int32 volume = 1;
 }

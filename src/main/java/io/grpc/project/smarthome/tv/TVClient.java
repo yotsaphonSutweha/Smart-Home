@@ -28,13 +28,11 @@ public class TVClient {
                 System.out.println(serviceEvent.getName());
                 ManagedChannel channel = ManagedChannelBuilder.forAddress(serviceEvent.getName(), 8000).usePlaintext().build();
                 blockingStub = TvServiceGrpc.newBlockingStub(channel);
-                turnOn();
             }
 
             if(serviceEvent.getName().equals("localhost")) {
                 ManagedChannel channel2 = ManagedChannelBuilder.forAddress(serviceEvent.getName(), 8001).usePlaintext().build();
                 speakersServiceBlockingStub = SpeakersServiceGrpc.newBlockingStub(channel2);
-                turnOnSpeakers();
             }
         }
 
@@ -73,17 +71,17 @@ public class TVClient {
         }
 
     }
+//
+//    public static void turnOn() {
+//        StringRequest request = StringRequest.newBuilder().setVal("Turn on").build();
+//        StringResponse response = blockingStub.turnOn(request);
+//        System.out.println(response.getVal());
+//    }
 
-    public static void turnOn() {
-        StringRequest request = StringRequest.newBuilder().setVal("Turn on").build();
-        StringResponse response = blockingStub.turnOn(request);
-        System.out.println(response.getVal());
-    }
-
-    public static void turnOnSpeakers() {
-        io.grpc.project.smarthome.speakers.StringRequest request = io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("Turn on").build();
-        io.grpc.project.smarthome.speakers.StringResponse response1 = speakersServiceBlockingStub.turnOnSpeakers(request);
-        System.out.println(response1.getVal());
-    }
+//    public static void turnOnSpeakers() {
+//        io.grpc.project.smarthome.speakers.StringRequest request = io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("Turn on").build();
+//        io.grpc.project.smarthome.speakers.StringResponse response1 = speakersServiceBlockingStub.turnOnSpeakers(request);
+//        System.out.println(response1.getVal());
+//    }
 
 }
