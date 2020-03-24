@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.project.smarthome.lights";
+option java_outer_classname = "LightsServiceImpl";
+
+package smarthome;
+
+service LightsService {
+    rpc lightSwitch (BooleanRequest) returns (StringResponse) {}
+    rpc displayLightModes (StringRequest) returns (stream StringResponse) {}
+    rpc setLightMode (Modes) returns (StringResponse) {}
+    rpc lightCombiner (stream StringRequest) returns (StringResponse) {}
+}
+
+message StringRequest {
+    string val = 1;
+}
+
+message StringResponse {
+    string val = 1;
+}
+
+message BooleanRequest {
+    bool val = 1;
+}
+
+message Modes {
+    enum Mode {
+        LIGHT = 0;
+        DARK = 1;
+        DISCO = 2;
+    }
+    Mode detail = 1;
+}

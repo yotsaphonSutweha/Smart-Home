@@ -2,39 +2,54 @@ package objects;
 
 import interfaces.LightsInterface;
 
+import java.util.ArrayList;
+
 public class Lights implements LightsInterface{
-    @Override
-    public void turnOn() {
 
+    private boolean lightSwitch;
+    private ArrayList<String> lightModes = new ArrayList<>();
+    private String lightColor;
+    private String lightMode;
+
+    public Lights() {
+        this.lightSwitch = false;
+        this.lightModes.add("Light");
+        this.lightModes.add("Dark");
+        this.lightModes.add("Disco");
+        this.lightColor = "white";
+    }
+    @Override
+    public void setSwitch(boolean on) {
+        this.lightSwitch = on;
     }
 
     @Override
-    public void turnOff() {
-
+    public Boolean getSwitch() {
+        return this.lightSwitch;
     }
 
     @Override
-    public int increaseLight() {
-        return 0;
+    public ArrayList<String> getLightModes() {
+        return lightModes;
     }
 
     @Override
-    public int lowerLight() {
-        return 0;
+    public void setLightMode(String mode) {
+        this.lightMode = mode;
     }
 
     @Override
-    public String lightModels() {
-        return null;
+    public String getLightMode() {
+        return this.lightMode;
     }
 
     @Override
-    public String colours() {
-        return null;
+    public void setLightColor(String lightColor) {
+        this.lightColor = lightColor;
     }
 
     @Override
-    public boolean connected() {
-        return false;
+    public String getLightColor() {
+        return this.lightColor;
     }
 }
