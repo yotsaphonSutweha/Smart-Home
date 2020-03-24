@@ -35,6 +35,28 @@ public class SpeakersServer extends SpeakersServiceImplBase{
     }
 
     @Override
+    public StreamObserver<StringRequest> musicStreaming(StreamObserver<StringResponse> responseObserver) {
+        return new StreamObserver<StringRequest>() {
+            @Override
+            public void onNext(StringRequest value) {
+                System.out.println("Receiving the lyrics");
+                StringResponse res = StringResponse.newBuilder().setVal(value.getVal()).build();
+                responseObserver.onNext(res);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                responseObserver.onCompleted();
+            }
+        };
+    }
+
+    @Override
     public void displayInputs(BooleanRequest request, StreamObserver<StringResponse> responseObserver) {
         System.out.println("Receiving commands from TV....");
 
@@ -49,7 +71,7 @@ public class SpeakersServer extends SpeakersServiceImplBase{
     }
 
     @Override
-    public StreamObserver<StringRequest> deviceDetection(StreamObserver<IntResponse> responseObserver1) {
+    public StreamObserver<StringRequest> deviceDetection(StreamObserver<io.grpc.project.smarthome.speakers.IntResponse> responseStreamObserver) {
         System.out.println("This is device display");
         ArrayList<String> arr = new ArrayList<>();
         return new StreamObserver<StringRequest>() {
@@ -68,9 +90,10 @@ public class SpeakersServer extends SpeakersServiceImplBase{
             public void onCompleted() {
                 speakers.setDeviceList(arr);
                 int size = speakers.getDeviceList().size();
-                IntResponse res = IntResponse.newBuilder().setVolume(size).build();
-                responseObserver1.onNext(res);
-                responseObserver1.onCompleted();
+                System.out.println("Size of arr" + size);
+                io.grpc.project.smarthome.speakers.IntResponse res = io.grpc.project.smarthome.speakers.IntResponse.newBuilder().setNum(size).build();
+                responseStreamObserver.onNext(res);
+                responseStreamObserver.onCompleted();
             }
         };
     }
@@ -88,7 +111,7 @@ public class SpeakersServer extends SpeakersServiceImplBase{
         if (turnOn) {
             result = speakers.turnOn();
         }
-
+        speakers.setConnectedToTv(true);
         StringResponse response = StringResponse.newBuilder().setVal(result).build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();

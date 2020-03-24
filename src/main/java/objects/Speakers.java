@@ -7,8 +7,13 @@ import java.util.ArrayList;
 public class Speakers implements SpeakerInterface {
     private int volume;
     private ArrayList<String> deviceList;
+    private boolean radioOn;
+    private boolean connectedToTv;
+
     public Speakers() {
         volume = 0;
+        radioOn = false;
+        connectedToTv = false;
     }
     @Override
     public String turnOn() {
@@ -25,13 +30,18 @@ public class Speakers implements SpeakerInterface {
     }
 
     @Override
-    public void turnOff() {
-
+    public void setConnectedToTv(boolean connectedToTv) {
+        this.connectedToTv = connectedToTv;
     }
 
     @Override
-    public boolean connected() {
-        return false;
+    public boolean connectedToTV() {
+        return this.connectedToTv;
+    }
+
+    @Override
+    public void turnOff() {
+
     }
 
     @Override
@@ -55,17 +65,13 @@ public class Speakers implements SpeakerInterface {
     }
 
     @Override
-    public void turnRadioOn() {
-
+    public void turnRadioOn(boolean radioOn) {
+        this.radioOn = radioOn;
     }
 
     @Override
-    public void turnRadioOff() {
-
+    public boolean getRadioOn() {
+        return this.radioOn;
     }
 
-    @Override
-    public boolean musicMode() {
-        return false;
-    }
 }

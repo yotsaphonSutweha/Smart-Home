@@ -46,7 +46,6 @@ public class TVServer extends TvServiceImplBase {
         }
     }
 
-
     public static void main(String[] args) throws IOException, InterruptedException {
         try {
             int PORT = 8000;
@@ -114,9 +113,11 @@ public class TVServer extends TvServiceImplBase {
         responseObserver.onNext(response);
         responseObserver.onCompleted();
 
-        turnOnSpeakers();
-        displayAvailableSpeakersInputs();
+        // Speakers features
+//        turnOnSpeakers();
+//        displayAvailableSpeakersInputs();
         speakersDeviceDetecting();
+//        musicStreaming();
     }
 
     @Override
@@ -183,13 +184,15 @@ public class TVServer extends TvServiceImplBase {
     }
 
     public void speakersDeviceDetecting() {
+
         deviceList.add("TV");
         deviceList.add("Curtains");
         deviceList.add("Lights");
-        StreamObserver<io.grpc.project.smarthome.speakers.IntResponse> responseObserver1 = new StreamObserver<io.grpc.project.smarthome.speakers.IntResponse>() {
+
+        StreamObserver<io.grpc.project.smarthome.speakers.StringRequest> request = speakersServiceAsyncStub.deviceDetection(new StreamObserver<io.grpc.project.smarthome.speakers.IntResponse>() {
             @Override
             public void onNext(io.grpc.project.smarthome.speakers.IntResponse value) {
-                System.out.println("Speakers can detect: " + value.getVolume() + " devices in the area");
+                System.out.println("The amount of available connected devices are " + value.getNum());
             }
 
             @Override
@@ -199,22 +202,57 @@ public class TVServer extends TvServiceImplBase {
 
             @Override
             public void onCompleted() {
-
+                System.out.println("Device detection on completed");
             }
-        };
-
-        StreamObserver<io.grpc.project.smarthome.speakers.StringRequest> request = speakersServiceAsyncStub.deviceDetection(responseObserver1);
+        });
 
         try {
             request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal(deviceList.get(0)).build());
             request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal(deviceList.get(1)).build());
             request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal(deviceList.get(2)).build());
+            threadSleep();
             request.onCompleted();
 
         } catch (RuntimeException e) {
             // Cancel RPC
             request.onError(e);
             throw e;
+        }
+    }
+
+    public void musicStreaming() {
+
+        StreamObserver<io.grpc.project.smarthome.speakers.StringRequest> request = speakersServiceAsyncStub.musicStreaming(new StreamObserver<io.grpc.project.smarthome.speakers.StringResponse>() {
+            @Override
+            public void onNext(io.grpc.project.smarthome.speakers.StringResponse value) {
+                System.out.println(value.getVal());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                System.out.println("Music has stopped");
+            }
+        });
+
+        try {
+            System.out.println("Playing Get Down Saturday night song...");
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("Saturday morning,").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("Friday's enemy").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("Housework is calling,").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("But where to begin").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("Kids are out of school,").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("Trying to find a friend").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("Everybody's busy,").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("Can't wait for the night to begin").build());
+            threadSleep();
+            request.onCompleted();
+        } catch (RuntimeException e) {
+            request.onError(e);
         }
     }
 }

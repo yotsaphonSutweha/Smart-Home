@@ -112,7 +112,6 @@ public class GUIClient extends JFrame {
             request.onNext(StringRequest.newBuilder().setVal("Bil becomes the greatest engineer").build());
             request.onNext(StringRequest.newBuilder().setVal("Bil marries with a girl named Sandra").build());
             request.onCompleted();
-
         } catch (RuntimeException e) {
             // Cancel RPC
             request.onError(e);

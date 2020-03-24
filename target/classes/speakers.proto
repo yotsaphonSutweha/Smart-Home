@@ -10,7 +10,7 @@ service SpeakersService {
     rpc turnOnSpeakers(BooleanRequest) returns (StringResponse) {}
     rpc displayInputs(BooleanRequest) returns (stream StringResponse) {}
     rpc deviceDetection(stream StringRequest) returns (IntResponse) {}
-//    rpc liveContent(stream StringRequest) returns (stream StringRequest) {}
+    rpc musicStreaming(stream StringRequest) returns (stream StringResponse) {}
 }
 
 message StringRequest {
@@ -30,5 +30,5 @@ message IntRequest {
 }
 
 message IntResponse {
-    int32 volume = 1;
+    int32 num = 1;
 }

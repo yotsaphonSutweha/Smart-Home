@@ -16,7 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private IntResponse() {
-    volume_ = 0;
+    num_ = 0;
   }
 
   @java.lang.Override
@@ -45,7 +45,7 @@ private static final long serialVersionUID = 0L;
             break;
           case 8: {
 
-            volume_ = input.readInt32();
+            num_ = input.readInt32();
             break;
           }
           default: {
@@ -80,13 +80,13 @@ private static final long serialVersionUID = 0L;
             io.grpc.project.smarthome.speakers.IntResponse.class, io.grpc.project.smarthome.speakers.IntResponse.Builder.class);
   }
 
-  public static final int VOLUME_FIELD_NUMBER = 1;
-  private int volume_;
+  public static final int NUM_FIELD_NUMBER = 1;
+  private int num_;
   /**
-   * <code>int32 volume = 1;</code>
+   * <code>int32 num = 1;</code>
    */
-  public int getVolume() {
-    return volume_;
+  public int getNum() {
+    return num_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -103,8 +103,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (volume_ != 0) {
-      output.writeInt32(1, volume_);
+    if (num_ != 0) {
+      output.writeInt32(1, num_);
     }
     unknownFields.writeTo(output);
   }
@@ -115,9 +115,9 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (volume_ != 0) {
+    if (num_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, volume_);
+        .computeInt32Size(1, num_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -135,8 +135,8 @@ private static final long serialVersionUID = 0L;
     io.grpc.project.smarthome.speakers.IntResponse other = (io.grpc.project.smarthome.speakers.IntResponse) obj;
 
     boolean result = true;
-    result = result && (getVolume()
-        == other.getVolume());
+    result = result && (getNum()
+        == other.getNum());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -148,8 +148,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + VOLUME_FIELD_NUMBER;
-    hash = (53 * hash) + getVolume();
+    hash = (37 * hash) + NUM_FIELD_NUMBER;
+    hash = (53 * hash) + getNum();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -283,7 +283,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      volume_ = 0;
+      num_ = 0;
 
       return this;
     }
@@ -311,7 +311,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public io.grpc.project.smarthome.speakers.IntResponse buildPartial() {
       io.grpc.project.smarthome.speakers.IntResponse result = new io.grpc.project.smarthome.speakers.IntResponse(this);
-      result.volume_ = volume_;
+      result.num_ = num_;
       onBuilt();
       return result;
     }
@@ -360,8 +360,8 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(io.grpc.project.smarthome.speakers.IntResponse other) {
       if (other == io.grpc.project.smarthome.speakers.IntResponse.getDefaultInstance()) return this;
-      if (other.getVolume() != 0) {
-        setVolume(other.getVolume());
+      if (other.getNum() != 0) {
+        setNum(other.getNum());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -392,28 +392,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int volume_ ;
+    private int num_ ;
     /**
-     * <code>int32 volume = 1;</code>
+     * <code>int32 num = 1;</code>
      */
-    public int getVolume() {
-      return volume_;
+    public int getNum() {
+      return num_;
     }
     /**
-     * <code>int32 volume = 1;</code>
+     * <code>int32 num = 1;</code>
      */
-    public Builder setVolume(int value) {
+    public Builder setNum(int value) {
       
-      volume_ = value;
+      num_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 volume = 1;</code>
+     * <code>int32 num = 1;</code>
      */
-    public Builder clearVolume() {
+    public Builder clearNum() {
       
-      volume_ = 0;
+      num_ = 0;
       onChanged();
       return this;
     }

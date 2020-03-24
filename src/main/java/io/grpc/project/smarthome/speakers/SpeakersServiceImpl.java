@@ -51,16 +51,18 @@ public final class SpeakersServiceImpl {
       "\n\016speakers.proto\022\tsmarthome\"\034\n\rStringReq" +
       "uest\022\013\n\003val\030\001 \001(\t\"\035\n\016StringResponse\022\013\n\003v" +
       "al\030\001 \001(\t\"\035\n\016BooleanRequest\022\013\n\003val\030\001 \001(\010\"" +
-      "\036\n\nIntRequest\022\020\n\010numInput\030\001 \001(\005\"\035\n\013IntRe" +
-      "sponse\022\016\n\006volume\030\001 \001(\0052\357\001\n\017SpeakersServi" +
-      "ce\022H\n\016turnOnSpeakers\022\031.smarthome.Boolean" +
-      "Request\032\031.smarthome.StringResponse\"\000\022I\n\r" +
-      "displayInputs\022\031.smarthome.BooleanRequest" +
-      "\032\031.smarthome.StringResponse\"\0000\001\022G\n\017devic" +
-      "eDetection\022\030.smarthome.StringRequest\032\026.s" +
-      "marthome.IntResponse\"\000(\001B;\n\"io.grpc.proj" +
-      "ect.smarthome.speakersB\023SpeakersServiceI" +
-      "mplP\001b\006proto3"
+      "\036\n\nIntRequest\022\020\n\010numInput\030\001 \001(\005\"\032\n\013IntRe" +
+      "sponse\022\013\n\003num\030\001 \001(\0052\274\002\n\017SpeakersService\022" +
+      "H\n\016turnOnSpeakers\022\031.smarthome.BooleanReq" +
+      "uest\032\031.smarthome.StringResponse\"\000\022I\n\rdis" +
+      "playInputs\022\031.smarthome.BooleanRequest\032\031." +
+      "smarthome.StringResponse\"\0000\001\022G\n\017deviceDe" +
+      "tection\022\030.smarthome.StringRequest\032\026.smar" +
+      "thome.IntResponse\"\000(\001\022K\n\016musicStreaming\022" +
+      "\030.smarthome.StringRequest\032\031.smarthome.St" +
+      "ringResponse\"\000(\0010\001B;\n\"io.grpc.project.sm" +
+      "arthome.speakersB\023SpeakersServiceImplP\001b" +
+      "\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -103,7 +105,7 @@ public final class SpeakersServiceImpl {
     internal_static_smarthome_IntResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_smarthome_IntResponse_descriptor,
-        new java.lang.String[] { "Volume", });
+        new java.lang.String[] { "Num", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
