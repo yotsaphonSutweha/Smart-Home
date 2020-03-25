@@ -16,7 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private IntResponse() {
-    volume_ = 0;
+    numOutput_ = 0;
   }
 
   @java.lang.Override
@@ -45,7 +45,7 @@ private static final long serialVersionUID = 0L;
             break;
           case 8: {
 
-            volume_ = input.readInt32();
+            numOutput_ = input.readInt32();
             break;
           }
           default: {
@@ -80,13 +80,13 @@ private static final long serialVersionUID = 0L;
             io.grpc.project.smarthome.tv.IntResponse.class, io.grpc.project.smarthome.tv.IntResponse.Builder.class);
   }
 
-  public static final int VOLUME_FIELD_NUMBER = 1;
-  private int volume_;
+  public static final int NUMOUTPUT_FIELD_NUMBER = 1;
+  private int numOutput_;
   /**
-   * <code>int32 volume = 1;</code>
+   * <code>int32 numOutput = 1;</code>
    */
-  public int getVolume() {
-    return volume_;
+  public int getNumOutput() {
+    return numOutput_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -103,8 +103,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (volume_ != 0) {
-      output.writeInt32(1, volume_);
+    if (numOutput_ != 0) {
+      output.writeInt32(1, numOutput_);
     }
     unknownFields.writeTo(output);
   }
@@ -115,9 +115,9 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (volume_ != 0) {
+    if (numOutput_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, volume_);
+        .computeInt32Size(1, numOutput_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -135,8 +135,8 @@ private static final long serialVersionUID = 0L;
     io.grpc.project.smarthome.tv.IntResponse other = (io.grpc.project.smarthome.tv.IntResponse) obj;
 
     boolean result = true;
-    result = result && (getVolume()
-        == other.getVolume());
+    result = result && (getNumOutput()
+        == other.getNumOutput());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -148,8 +148,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + VOLUME_FIELD_NUMBER;
-    hash = (53 * hash) + getVolume();
+    hash = (37 * hash) + NUMOUTPUT_FIELD_NUMBER;
+    hash = (53 * hash) + getNumOutput();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -283,7 +283,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      volume_ = 0;
+      numOutput_ = 0;
 
       return this;
     }
@@ -311,7 +311,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public io.grpc.project.smarthome.tv.IntResponse buildPartial() {
       io.grpc.project.smarthome.tv.IntResponse result = new io.grpc.project.smarthome.tv.IntResponse(this);
-      result.volume_ = volume_;
+      result.numOutput_ = numOutput_;
       onBuilt();
       return result;
     }
@@ -360,8 +360,8 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(io.grpc.project.smarthome.tv.IntResponse other) {
       if (other == io.grpc.project.smarthome.tv.IntResponse.getDefaultInstance()) return this;
-      if (other.getVolume() != 0) {
-        setVolume(other.getVolume());
+      if (other.getNumOutput() != 0) {
+        setNumOutput(other.getNumOutput());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -392,28 +392,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int volume_ ;
+    private int numOutput_ ;
     /**
-     * <code>int32 volume = 1;</code>
+     * <code>int32 numOutput = 1;</code>
      */
-    public int getVolume() {
-      return volume_;
+    public int getNumOutput() {
+      return numOutput_;
     }
     /**
-     * <code>int32 volume = 1;</code>
+     * <code>int32 numOutput = 1;</code>
      */
-    public Builder setVolume(int value) {
+    public Builder setNumOutput(int value) {
       
-      volume_ = value;
+      numOutput_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 volume = 1;</code>
+     * <code>int32 numOutput = 1;</code>
      */
-    public Builder clearVolume() {
+    public Builder clearNumOutput() {
       
-      volume_ = 0;
+      numOutput_ = 0;
       onChanged();
       return this;
     }

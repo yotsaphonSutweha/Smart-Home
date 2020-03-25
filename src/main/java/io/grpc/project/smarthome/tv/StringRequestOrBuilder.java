@@ -8,12 +8,12 @@ public interface StringRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string val = 1;</code>
+   * <code>string stringRequestValue = 1;</code>
    */
-  java.lang.String getVal();
+  java.lang.String getStringRequestValue();
   /**
-   * <code>string val = 1;</code>
+   * <code>string stringRequestValue = 1;</code>
    */
   com.google.protobuf.ByteString
-      getValBytes();
+      getStringRequestValueBytes();
 }

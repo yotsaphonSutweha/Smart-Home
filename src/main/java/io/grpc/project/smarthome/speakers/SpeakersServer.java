@@ -40,7 +40,7 @@ public class SpeakersServer extends SpeakersServiceImplBase{
             @Override
             public void onNext(StringRequest value) {
                 System.out.println("Receiving the lyrics");
-                StringResponse res = StringResponse.newBuilder().setVal(value.getVal()).build();
+                StringResponse res = StringResponse.newBuilder().setStringResponseValue(value.getStringRequestValue()).build();
                 responseObserver.onNext(res);
             }
 
@@ -60,11 +60,11 @@ public class SpeakersServer extends SpeakersServiceImplBase{
     public void displayInputs(BooleanRequest request, StreamObserver<StringResponse> responseObserver) {
         System.out.println("Receiving commands from TV....");
 
-        boolean displayInputs = request.getVal();
+        boolean displayInputs = request.getBooleanRequestValue();
         if (displayInputs) {
             ArrayList<String> availableInputs = speakers.availableInputs();
             for (String input : availableInputs) {
-                responseObserver.onNext(StringResponse.newBuilder().setVal(input).build());
+                responseObserver.onNext(StringResponse.newBuilder().setStringResponseValue(input).build());
             }
             responseObserver.onCompleted();
         }
@@ -77,8 +77,8 @@ public class SpeakersServer extends SpeakersServiceImplBase{
         return new StreamObserver<StringRequest>() {
             @Override
             public void onNext(StringRequest value) {
-                System.out.println(value.getVal());
-                arr.add(value.getVal());
+                System.out.println(value.getStringRequestValue());
+                arr.add(value.getStringRequestValue());
             }
 
             @Override
@@ -91,7 +91,7 @@ public class SpeakersServer extends SpeakersServiceImplBase{
                 speakers.setDeviceList(arr);
                 int size = speakers.getDeviceList().size();
                 System.out.println("Size of arr" + size);
-                io.grpc.project.smarthome.speakers.IntResponse res = io.grpc.project.smarthome.speakers.IntResponse.newBuilder().setNum(size).build();
+                io.grpc.project.smarthome.speakers.IntResponse res = io.grpc.project.smarthome.speakers.IntResponse.newBuilder().setNumOutput(size).build();
                 responseStreamObserver.onNext(res);
                 responseStreamObserver.onCompleted();
             }
@@ -104,7 +104,7 @@ public class SpeakersServer extends SpeakersServiceImplBase{
         System.out.println("Receiving message");
 
 
-        boolean turnOn = request.getVal();
+        boolean turnOn = request.getBooleanRequestValue();
 
         String result = "";
 
@@ -112,7 +112,7 @@ public class SpeakersServer extends SpeakersServiceImplBase{
             result = speakers.turnOn();
         }
         speakers.setConnectedToTv(true);
-        StringResponse response = StringResponse.newBuilder().setVal(result).build();
+        StringResponse response = StringResponse.newBuilder().setStringResponseValue(result).build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }

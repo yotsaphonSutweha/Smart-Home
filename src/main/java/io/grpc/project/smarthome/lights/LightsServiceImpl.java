@@ -43,9 +43,10 @@ public final class LightsServiceImpl {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\014lights.proto\022\tsmarthome\"\034\n\rStringReque" +
-      "st\022\013\n\003val\030\001 \001(\t\"\035\n\016StringResponse\022\013\n\003val" +
-      "\030\001 \001(\t\"\035\n\016BooleanRequest\022\013\n\003val\030\001 \001(\010\"V\n" +
+      "\n\014lights.proto\022\tsmarthome\"+\n\rStringReque" +
+      "st\022\032\n\022stringRequestValue\030\001 \001(\t\"-\n\016String" +
+      "Response\022\033\n\023stringResponseValue\030\001 \001(\t\"&\n" +
+      "\016BooleanRequest\022\024\n\014booleanValue\030\001 \001(\010\"V\n" +
       "\005Modes\022%\n\006detail\030\001 \001(\0162\025.smarthome.Modes" +
       ".Mode\"&\n\004Mode\022\t\n\005LIGHT\020\000\022\010\n\004DARK\020\001\022\t\n\005DI" +
       "SCO\020\0022\255\002\n\rLightsService\022E\n\013lightSwitch\022\031" +
@@ -76,19 +77,19 @@ public final class LightsServiceImpl {
     internal_static_smarthome_StringRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_smarthome_StringRequest_descriptor,
-        new java.lang.String[] { "Val", });
+        new java.lang.String[] { "StringRequestValue", });
     internal_static_smarthome_StringResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_smarthome_StringResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_smarthome_StringResponse_descriptor,
-        new java.lang.String[] { "Val", });
+        new java.lang.String[] { "StringResponseValue", });
     internal_static_smarthome_BooleanRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_smarthome_BooleanRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_smarthome_BooleanRequest_descriptor,
-        new java.lang.String[] { "Val", });
+        new java.lang.String[] { "BooleanValue", });
     internal_static_smarthome_Modes_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_smarthome_Modes_fieldAccessorTable = new

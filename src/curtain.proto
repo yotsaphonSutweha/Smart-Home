@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+service CurtainService {
+    rpc open(StringRequest) returns (StringResponse) {}
+}
+
+message StringRequest {
+    string stringRequestValue = 1;
+}
+
+message BooleanRequest {
+    bool booleanRequestValue = 1;
+}
+
+message StringResponse {
+    string stringResponseValue = 1;
+}
+
+message IntRequest {
+    int32 numInput = 1;
+}
+
+message IntResponse {
+    int32 numOutput = 1;
+}

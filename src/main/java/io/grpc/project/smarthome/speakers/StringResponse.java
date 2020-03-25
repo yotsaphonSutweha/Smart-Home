@@ -16,7 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private StringResponse() {
-    val_ = "";
+    stringResponseValue_ = "";
   }
 
   @java.lang.Override
@@ -46,7 +46,7 @@ private static final long serialVersionUID = 0L;
           case 10: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            val_ = s;
+            stringResponseValue_ = s;
             break;
           }
           default: {
@@ -81,34 +81,34 @@ private static final long serialVersionUID = 0L;
             io.grpc.project.smarthome.speakers.StringResponse.class, io.grpc.project.smarthome.speakers.StringResponse.Builder.class);
   }
 
-  public static final int VAL_FIELD_NUMBER = 1;
-  private volatile java.lang.Object val_;
+  public static final int STRINGRESPONSEVALUE_FIELD_NUMBER = 1;
+  private volatile java.lang.Object stringResponseValue_;
   /**
-   * <code>string val = 1;</code>
+   * <code>string stringResponseValue = 1;</code>
    */
-  public java.lang.String getVal() {
-    java.lang.Object ref = val_;
+  public java.lang.String getStringResponseValue() {
+    java.lang.Object ref = stringResponseValue_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      val_ = s;
+      stringResponseValue_ = s;
       return s;
     }
   }
   /**
-   * <code>string val = 1;</code>
+   * <code>string stringResponseValue = 1;</code>
    */
   public com.google.protobuf.ByteString
-      getValBytes() {
-    java.lang.Object ref = val_;
+      getStringResponseValueBytes() {
+    java.lang.Object ref = stringResponseValue_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      val_ = b;
+      stringResponseValue_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -129,8 +129,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getValBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, val_);
+    if (!getStringResponseValueBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, stringResponseValue_);
     }
     unknownFields.writeTo(output);
   }
@@ -141,8 +141,8 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getValBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, val_);
+    if (!getStringResponseValueBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, stringResponseValue_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -160,8 +160,8 @@ private static final long serialVersionUID = 0L;
     io.grpc.project.smarthome.speakers.StringResponse other = (io.grpc.project.smarthome.speakers.StringResponse) obj;
 
     boolean result = true;
-    result = result && getVal()
-        .equals(other.getVal());
+    result = result && getStringResponseValue()
+        .equals(other.getStringResponseValue());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -173,8 +173,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + VAL_FIELD_NUMBER;
-    hash = (53 * hash) + getVal().hashCode();
+    hash = (37 * hash) + STRINGRESPONSEVALUE_FIELD_NUMBER;
+    hash = (53 * hash) + getStringResponseValue().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -308,7 +308,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      val_ = "";
+      stringResponseValue_ = "";
 
       return this;
     }
@@ -336,7 +336,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public io.grpc.project.smarthome.speakers.StringResponse buildPartial() {
       io.grpc.project.smarthome.speakers.StringResponse result = new io.grpc.project.smarthome.speakers.StringResponse(this);
-      result.val_ = val_;
+      result.stringResponseValue_ = stringResponseValue_;
       onBuilt();
       return result;
     }
@@ -385,8 +385,8 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(io.grpc.project.smarthome.speakers.StringResponse other) {
       if (other == io.grpc.project.smarthome.speakers.StringResponse.getDefaultInstance()) return this;
-      if (!other.getVal().isEmpty()) {
-        val_ = other.val_;
+      if (!other.getStringResponseValue().isEmpty()) {
+        stringResponseValue_ = other.stringResponseValue_;
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -418,71 +418,71 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object val_ = "";
+    private java.lang.Object stringResponseValue_ = "";
     /**
-     * <code>string val = 1;</code>
+     * <code>string stringResponseValue = 1;</code>
      */
-    public java.lang.String getVal() {
-      java.lang.Object ref = val_;
+    public java.lang.String getStringResponseValue() {
+      java.lang.Object ref = stringResponseValue_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        val_ = s;
+        stringResponseValue_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string val = 1;</code>
+     * <code>string stringResponseValue = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getValBytes() {
-      java.lang.Object ref = val_;
+        getStringResponseValueBytes() {
+      java.lang.Object ref = stringResponseValue_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        val_ = b;
+        stringResponseValue_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string val = 1;</code>
+     * <code>string stringResponseValue = 1;</code>
      */
-    public Builder setVal(
+    public Builder setStringResponseValue(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      val_ = value;
+      stringResponseValue_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string val = 1;</code>
+     * <code>string stringResponseValue = 1;</code>
      */
-    public Builder clearVal() {
+    public Builder clearStringResponseValue() {
       
-      val_ = getDefaultInstance().getVal();
+      stringResponseValue_ = getDefaultInstance().getStringResponseValue();
       onChanged();
       return this;
     }
     /**
-     * <code>string val = 1;</code>
+     * <code>string stringResponseValue = 1;</code>
      */
-    public Builder setValBytes(
+    public Builder setStringResponseValueBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      val_ = value;
+      stringResponseValue_ = value;
       onChanged();
       return this;
     }

@@ -48,21 +48,22 @@ public final class SpeakersServiceImpl {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016speakers.proto\022\tsmarthome\"\034\n\rStringReq" +
-      "uest\022\013\n\003val\030\001 \001(\t\"\035\n\016StringResponse\022\013\n\003v" +
-      "al\030\001 \001(\t\"\035\n\016BooleanRequest\022\013\n\003val\030\001 \001(\010\"" +
-      "\036\n\nIntRequest\022\020\n\010numInput\030\001 \001(\005\"\032\n\013IntRe" +
-      "sponse\022\013\n\003num\030\001 \001(\0052\274\002\n\017SpeakersService\022" +
-      "H\n\016turnOnSpeakers\022\031.smarthome.BooleanReq" +
-      "uest\032\031.smarthome.StringResponse\"\000\022I\n\rdis" +
-      "playInputs\022\031.smarthome.BooleanRequest\032\031." +
-      "smarthome.StringResponse\"\0000\001\022G\n\017deviceDe" +
-      "tection\022\030.smarthome.StringRequest\032\026.smar" +
-      "thome.IntResponse\"\000(\001\022K\n\016musicStreaming\022" +
-      "\030.smarthome.StringRequest\032\031.smarthome.St" +
-      "ringResponse\"\000(\0010\001B;\n\"io.grpc.project.sm" +
-      "arthome.speakersB\023SpeakersServiceImplP\001b" +
-      "\006proto3"
+      "\n\016speakers.proto\022\tsmarthome\"+\n\rStringReq" +
+      "uest\022\032\n\022stringRequestValue\030\001 \001(\t\"-\n\016Stri" +
+      "ngResponse\022\033\n\023stringResponseValue\030\001 \001(\t\"" +
+      "-\n\016BooleanRequest\022\033\n\023booleanRequestValue" +
+      "\030\001 \001(\010\"\036\n\nIntRequest\022\020\n\010numInput\030\001 \001(\005\" " +
+      "\n\013IntResponse\022\021\n\tnumOutput\030\001 \001(\0052\274\002\n\017Spe" +
+      "akersService\022H\n\016turnOnSpeakers\022\031.smartho" +
+      "me.BooleanRequest\032\031.smarthome.StringResp" +
+      "onse\"\000\022I\n\rdisplayInputs\022\031.smarthome.Bool" +
+      "eanRequest\032\031.smarthome.StringResponse\"\0000" +
+      "\001\022G\n\017deviceDetection\022\030.smarthome.StringR" +
+      "equest\032\026.smarthome.IntResponse\"\000(\001\022K\n\016mu" +
+      "sicStreaming\022\030.smarthome.StringRequest\032\031" +
+      ".smarthome.StringResponse\"\000(\0010\001B;\n\"io.gr" +
+      "pc.project.smarthome.speakersB\023SpeakersS" +
+      "erviceImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -81,19 +82,19 @@ public final class SpeakersServiceImpl {
     internal_static_smarthome_StringRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_smarthome_StringRequest_descriptor,
-        new java.lang.String[] { "Val", });
+        new java.lang.String[] { "StringRequestValue", });
     internal_static_smarthome_StringResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_smarthome_StringResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_smarthome_StringResponse_descriptor,
-        new java.lang.String[] { "Val", });
+        new java.lang.String[] { "StringResponseValue", });
     internal_static_smarthome_BooleanRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_smarthome_BooleanRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_smarthome_BooleanRequest_descriptor,
-        new java.lang.String[] { "Val", });
+        new java.lang.String[] { "BooleanRequestValue", });
     internal_static_smarthome_IntRequest_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_smarthome_IntRequest_fieldAccessorTable = new
@@ -105,7 +106,7 @@ public final class SpeakersServiceImpl {
     internal_static_smarthome_IntResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_smarthome_IntResponse_descriptor,
-        new java.lang.String[] { "Num", });
+        new java.lang.String[] { "NumOutput", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

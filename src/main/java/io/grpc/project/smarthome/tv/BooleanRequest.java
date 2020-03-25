@@ -16,7 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private BooleanRequest() {
-    val_ = false;
+    booleanRequestValue_ = false;
   }
 
   @java.lang.Override
@@ -45,7 +45,7 @@ private static final long serialVersionUID = 0L;
             break;
           case 8: {
 
-            val_ = input.readBool();
+            booleanRequestValue_ = input.readBool();
             break;
           }
           default: {
@@ -80,13 +80,13 @@ private static final long serialVersionUID = 0L;
             io.grpc.project.smarthome.tv.BooleanRequest.class, io.grpc.project.smarthome.tv.BooleanRequest.Builder.class);
   }
 
-  public static final int VAL_FIELD_NUMBER = 1;
-  private boolean val_;
+  public static final int BOOLEANREQUESTVALUE_FIELD_NUMBER = 1;
+  private boolean booleanRequestValue_;
   /**
-   * <code>bool val = 1;</code>
+   * <code>bool booleanRequestValue = 1;</code>
    */
-  public boolean getVal() {
-    return val_;
+  public boolean getBooleanRequestValue() {
+    return booleanRequestValue_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -103,8 +103,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (val_ != false) {
-      output.writeBool(1, val_);
+    if (booleanRequestValue_ != false) {
+      output.writeBool(1, booleanRequestValue_);
     }
     unknownFields.writeTo(output);
   }
@@ -115,9 +115,9 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (val_ != false) {
+    if (booleanRequestValue_ != false) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(1, val_);
+        .computeBoolSize(1, booleanRequestValue_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -135,8 +135,8 @@ private static final long serialVersionUID = 0L;
     io.grpc.project.smarthome.tv.BooleanRequest other = (io.grpc.project.smarthome.tv.BooleanRequest) obj;
 
     boolean result = true;
-    result = result && (getVal()
-        == other.getVal());
+    result = result && (getBooleanRequestValue()
+        == other.getBooleanRequestValue());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -148,9 +148,9 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + VAL_FIELD_NUMBER;
+    hash = (37 * hash) + BOOLEANREQUESTVALUE_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getVal());
+        getBooleanRequestValue());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -284,7 +284,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      val_ = false;
+      booleanRequestValue_ = false;
 
       return this;
     }
@@ -312,7 +312,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public io.grpc.project.smarthome.tv.BooleanRequest buildPartial() {
       io.grpc.project.smarthome.tv.BooleanRequest result = new io.grpc.project.smarthome.tv.BooleanRequest(this);
-      result.val_ = val_;
+      result.booleanRequestValue_ = booleanRequestValue_;
       onBuilt();
       return result;
     }
@@ -361,8 +361,8 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(io.grpc.project.smarthome.tv.BooleanRequest other) {
       if (other == io.grpc.project.smarthome.tv.BooleanRequest.getDefaultInstance()) return this;
-      if (other.getVal() != false) {
-        setVal(other.getVal());
+      if (other.getBooleanRequestValue() != false) {
+        setBooleanRequestValue(other.getBooleanRequestValue());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -393,28 +393,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private boolean val_ ;
+    private boolean booleanRequestValue_ ;
     /**
-     * <code>bool val = 1;</code>
+     * <code>bool booleanRequestValue = 1;</code>
      */
-    public boolean getVal() {
-      return val_;
+    public boolean getBooleanRequestValue() {
+      return booleanRequestValue_;
     }
     /**
-     * <code>bool val = 1;</code>
+     * <code>bool booleanRequestValue = 1;</code>
      */
-    public Builder setVal(boolean value) {
+    public Builder setBooleanRequestValue(boolean value) {
       
-      val_ = value;
+      booleanRequestValue_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>bool val = 1;</code>
+     * <code>bool booleanRequestValue = 1;</code>
      */
-    public Builder clearVal() {
+    public Builder clearBooleanRequestValue() {
       
-      val_ = false;
+      booleanRequestValue_ = false;
       onChanged();
       return this;
     }

@@ -71,8 +71,8 @@ public class TVServer extends TvServiceImplBase {
         return new StreamObserver<io.grpc.project.smarthome.tv.StringRequest>() {
             @Override
             public void onNext(StringRequest value) {
-                StringBuilder sb = new StringBuilder(value.getVal());
-                StringResponse res = StringResponse.newBuilder().setVal(sb.toString()).build();
+                StringBuilder sb = new StringBuilder(value.getStringRequestValue());
+                StringResponse res = StringResponse.newBuilder().setStringResponseValue(sb.toString()).build();
                 responseObserver.onNext(res);
             }
 
@@ -90,12 +90,12 @@ public class TVServer extends TvServiceImplBase {
 
     @Override
     public void displayChannelList(io.grpc.project.smarthome.tv.StringRequest request, StreamObserver<StringResponse> responseObserver) {
-        StringBuilder sb = new StringBuilder(request.getVal());
+        StringBuilder sb = new StringBuilder(request.getStringRequestValue());
 
         if (sb.toString().equalsIgnoreCase("Display channels")) {
             ArrayList<String> channels = tv.channelList();
             for (String c : channels) {
-                responseObserver.onNext(io.grpc.project.smarthome.tv.StringResponse.newBuilder().setVal(c).build());
+                responseObserver.onNext(io.grpc.project.smarthome.tv.StringResponse.newBuilder().setStringResponseValue(c).build());
             }
             responseObserver.onCompleted();
         }
@@ -104,12 +104,12 @@ public class TVServer extends TvServiceImplBase {
     @Override
     public void turnOn(io.grpc.project.smarthome.tv.BooleanRequest request, StreamObserver<StringResponse> responseObserver) {
         System.out.println("Receiving message");
-        boolean turnOn = request.getVal();
+        boolean turnOn = request.getBooleanRequestValue();
         String result = "";
         if (turnOn) {
             result = tv.turnOn();
         }
-        StringResponse response = io.grpc.project.smarthome.tv.StringResponse.newBuilder().setVal(result).build();
+        StringResponse response = io.grpc.project.smarthome.tv.StringResponse.newBuilder().setStringResponseValue(result).build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
 
@@ -138,7 +138,7 @@ public class TVServer extends TvServiceImplBase {
 
             @Override
             public void onCompleted() {
-                io.grpc.project.smarthome.tv.IntResponse res = IntResponse.newBuilder().setVolume(currentVolume).build();
+                io.grpc.project.smarthome.tv.IntResponse res = IntResponse.newBuilder().setNumOutput(currentVolume).build();
                 responseObserver.onNext(res);
                 responseObserver.onCompleted();
             }
@@ -146,17 +146,17 @@ public class TVServer extends TvServiceImplBase {
     }
 
     public void turnOnSpeakers() {
-        io.grpc.project.smarthome.speakers.BooleanRequest request = io.grpc.project.smarthome.speakers.BooleanRequest.newBuilder().setVal(true).build();
+        io.grpc.project.smarthome.speakers.BooleanRequest request = io.grpc.project.smarthome.speakers.BooleanRequest.newBuilder().setBooleanRequestValue(true).build();
         io.grpc.project.smarthome.speakers.StringResponse response = speakersServiceBlockingStub.turnOnSpeakers(request);
-        System.out.println("Speaker is " + response.getVal());
+        System.out.println("Speaker is " + response.getStringResponseValue());
     }
 
     public void displayAvailableSpeakersInputs() {
-        io.grpc.project.smarthome.speakers.BooleanRequest request = io.grpc.project.smarthome.speakers.BooleanRequest.newBuilder().setVal(true).build();
+        io.grpc.project.smarthome.speakers.BooleanRequest request = io.grpc.project.smarthome.speakers.BooleanRequest.newBuilder().setBooleanRequestValue(true).build();
         StreamObserver<io.grpc.project.smarthome.speakers.StringResponse> responseStreamObserver = new StreamObserver<io.grpc.project.smarthome.speakers.StringResponse>() {
             @Override
             public void onNext(io.grpc.project.smarthome.speakers.StringResponse value) {
-                System.out.println("Speaker's" + value.getVal() + " is ready");
+                System.out.println("Speaker's" + value.getStringResponseValue() + " is ready");
             }
 
             @Override
@@ -192,7 +192,7 @@ public class TVServer extends TvServiceImplBase {
         StreamObserver<io.grpc.project.smarthome.speakers.StringRequest> request = speakersServiceAsyncStub.deviceDetection(new StreamObserver<io.grpc.project.smarthome.speakers.IntResponse>() {
             @Override
             public void onNext(io.grpc.project.smarthome.speakers.IntResponse value) {
-                System.out.println("The amount of available connected devices are " + value.getNum());
+                System.out.println("The amount of available connected devices are " + value.getNumOutput());
             }
 
             @Override
@@ -207,9 +207,9 @@ public class TVServer extends TvServiceImplBase {
         });
 
         try {
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal(deviceList.get(0)).build());
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal(deviceList.get(1)).build());
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal(deviceList.get(2)).build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue(deviceList.get(0)).build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue(deviceList.get(1)).build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue(deviceList.get(2)).build());
             threadSleep();
             request.onCompleted();
 
@@ -225,7 +225,7 @@ public class TVServer extends TvServiceImplBase {
         StreamObserver<io.grpc.project.smarthome.speakers.StringRequest> request = speakersServiceAsyncStub.musicStreaming(new StreamObserver<io.grpc.project.smarthome.speakers.StringResponse>() {
             @Override
             public void onNext(io.grpc.project.smarthome.speakers.StringResponse value) {
-                System.out.println(value.getVal());
+                System.out.println(value.getStringResponseValue());
             }
 
             @Override
@@ -241,14 +241,14 @@ public class TVServer extends TvServiceImplBase {
 
         try {
             System.out.println("Playing Get Down Saturday night song...");
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("Saturday morning,").build());
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("Friday's enemy").build());
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("Housework is calling,").build());
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("But where to begin").build());
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("Kids are out of school,").build());
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("Trying to find a friend").build());
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("Everybody's busy,").build());
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setVal("Can't wait for the night to begin").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Saturday morning,").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Friday's enemy").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Housework is calling,").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("But where to begin").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Kids are out of school,").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Trying to find a friend").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Everybody's busy,").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Can't wait for the night to begin").build());
             threadSleep();
             request.onCompleted();
         } catch (RuntimeException e) {

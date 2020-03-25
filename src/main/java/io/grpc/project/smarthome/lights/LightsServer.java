@@ -36,11 +36,11 @@ public class LightsServer extends LightsServiceImplBase {
 
     @Override
     public void lightSwitch(BooleanRequest request, StreamObserver<StringResponse> responseObserver) {
-        boolean req = request.getVal();
+        boolean req = request.getBooleanValue();
         if (req) {
             lights.setSwitch(req);
             String isOn = "Light is on";
-            StringResponse res = StringResponse.newBuilder().setVal(isOn).build();
+            StringResponse res = StringResponse.newBuilder().setStringResponseValue(isOn).build();
             responseObserver.onNext(res);
             responseObserver.onCompleted();
         }
@@ -48,10 +48,10 @@ public class LightsServer extends LightsServiceImplBase {
 
     @Override
     public void displayLightModes(StringRequest request, StreamObserver<StringResponse> responseObserver) {
-        if(request.getVal().equals("Display lights modes")) {
+        if(request.getStringRequestValue().equals("Display lights modes")) {
             ArrayList<String> lightsModes = lights.getLightModes();
             for (String mode : lightsModes) {
-                responseObserver.onNext(StringResponse.newBuilder().setVal(mode).build());
+                responseObserver.onNext(StringResponse.newBuilder().setStringResponseValue(mode).build());
             }
             responseObserver.onCompleted();
         }
@@ -63,7 +63,7 @@ public class LightsServer extends LightsServiceImplBase {
             String lightCombination = "";
             @Override
             public void onNext(StringRequest value) {
-                lightCombination = lightCombination + " " + value.getVal();
+                lightCombination = lightCombination + " " + value.getStringRequestValue();
             }
 
             @Override
@@ -74,7 +74,7 @@ public class LightsServer extends LightsServiceImplBase {
             @Override
             public void onCompleted() {
                 lights.setLightColor(lightCombination);
-                StringResponse response = StringResponse.newBuilder().setVal(lights.getLightColor()).build();
+                StringResponse response = StringResponse.newBuilder().setStringResponseValue(lights.getLightColor()).build();
                 responseObserver.onNext(response);
                 responseObserver.onCompleted();
             }
@@ -85,7 +85,7 @@ public class LightsServer extends LightsServiceImplBase {
     public void setLightMode(Modes request, StreamObserver<StringResponse> responseObserver) {
         System.out.println(request.getDetail());
         lights.setLightMode(request.getDetail().toString());
-        StringResponse response = StringResponse.newBuilder().setVal(lights.getLightMode()).build();
+        StringResponse response = StringResponse.newBuilder().setStringResponseValue(lights.getLightMode()).build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }

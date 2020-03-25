@@ -8,7 +8,7 @@ public interface BooleanRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>bool val = 1;</code>
+   * <code>bool booleanValue = 1;</code>
    */
-  boolean getVal();
+  boolean getBooleanValue();
 }

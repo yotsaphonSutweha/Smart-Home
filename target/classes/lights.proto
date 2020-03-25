@@ -14,15 +14,15 @@ service LightsService {
 }
 
 message StringRequest {
-    string val = 1;
+    string stringRequestValue = 1;
 }
 
 message StringResponse {
-    string val = 1;
+    string stringResponseValue = 1;
 }
 
 message BooleanRequest {
-    bool val = 1;
+    bool booleanValue = 1;
 }
 
 message Modes {

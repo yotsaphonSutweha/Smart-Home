@@ -16,7 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private BooleanRequest() {
-    val_ = false;
+    booleanValue_ = false;
   }
 
   @java.lang.Override
@@ -45,7 +45,7 @@ private static final long serialVersionUID = 0L;
             break;
           case 8: {
 
-            val_ = input.readBool();
+            booleanValue_ = input.readBool();
             break;
           }
           default: {
@@ -80,13 +80,13 @@ private static final long serialVersionUID = 0L;
             io.grpc.project.smarthome.lights.BooleanRequest.class, io.grpc.project.smarthome.lights.BooleanRequest.Builder.class);
   }
 
-  public static final int VAL_FIELD_NUMBER = 1;
-  private boolean val_;
+  public static final int BOOLEANVALUE_FIELD_NUMBER = 1;
+  private boolean booleanValue_;
   /**
-   * <code>bool val = 1;</code>
+   * <code>bool booleanValue = 1;</code>
    */
-  public boolean getVal() {
-    return val_;
+  public boolean getBooleanValue() {
+    return booleanValue_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -103,8 +103,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (val_ != false) {
-      output.writeBool(1, val_);
+    if (booleanValue_ != false) {
+      output.writeBool(1, booleanValue_);
     }
     unknownFields.writeTo(output);
   }
@@ -115,9 +115,9 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (val_ != false) {
+    if (booleanValue_ != false) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(1, val_);
+        .computeBoolSize(1, booleanValue_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -135,8 +135,8 @@ private static final long serialVersionUID = 0L;
     io.grpc.project.smarthome.lights.BooleanRequest other = (io.grpc.project.smarthome.lights.BooleanRequest) obj;
 
     boolean result = true;
-    result = result && (getVal()
-        == other.getVal());
+    result = result && (getBooleanValue()
+        == other.getBooleanValue());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -148,9 +148,9 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + VAL_FIELD_NUMBER;
+    hash = (37 * hash) + BOOLEANVALUE_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getVal());
+        getBooleanValue());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -284,7 +284,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      val_ = false;
+      booleanValue_ = false;
 
       return this;
     }
@@ -312,7 +312,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public io.grpc.project.smarthome.lights.BooleanRequest buildPartial() {
       io.grpc.project.smarthome.lights.BooleanRequest result = new io.grpc.project.smarthome.lights.BooleanRequest(this);
-      result.val_ = val_;
+      result.booleanValue_ = booleanValue_;
       onBuilt();
       return result;
     }
@@ -361,8 +361,8 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(io.grpc.project.smarthome.lights.BooleanRequest other) {
       if (other == io.grpc.project.smarthome.lights.BooleanRequest.getDefaultInstance()) return this;
-      if (other.getVal() != false) {
-        setVal(other.getVal());
+      if (other.getBooleanValue() != false) {
+        setBooleanValue(other.getBooleanValue());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -393,28 +393,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private boolean val_ ;
+    private boolean booleanValue_ ;
     /**
-     * <code>bool val = 1;</code>
+     * <code>bool booleanValue = 1;</code>
      */
-    public boolean getVal() {
-      return val_;
+    public boolean getBooleanValue() {
+      return booleanValue_;
     }
     /**
-     * <code>bool val = 1;</code>
+     * <code>bool booleanValue = 1;</code>
      */
-    public Builder setVal(boolean value) {
+    public Builder setBooleanValue(boolean value) {
       
-      val_ = value;
+      booleanValue_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>bool val = 1;</code>
+     * <code>bool booleanValue = 1;</code>
      */
-    public Builder clearVal() {
+    public Builder clearBooleanValue() {
       
-      val_ = false;
+      booleanValue_ = false;
       onChanged();
       return this;
     }
