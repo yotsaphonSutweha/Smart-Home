@@ -155,6 +155,70 @@ public final class TvServiceGrpc {
      return getLiveContentMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.StringRequest,
+      io.grpc.project.smarthome.tv.StringResponse> getDisplayInputsSpeakersCommandMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "displayInputsSpeakersCommand",
+      requestType = io.grpc.project.smarthome.tv.StringRequest.class,
+      responseType = io.grpc.project.smarthome.tv.StringResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.StringRequest,
+      io.grpc.project.smarthome.tv.StringResponse> getDisplayInputsSpeakersCommandMethod() {
+    io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.StringRequest, io.grpc.project.smarthome.tv.StringResponse> getDisplayInputsSpeakersCommandMethod;
+    if ((getDisplayInputsSpeakersCommandMethod = TvServiceGrpc.getDisplayInputsSpeakersCommandMethod) == null) {
+      synchronized (TvServiceGrpc.class) {
+        if ((getDisplayInputsSpeakersCommandMethod = TvServiceGrpc.getDisplayInputsSpeakersCommandMethod) == null) {
+          TvServiceGrpc.getDisplayInputsSpeakersCommandMethod = getDisplayInputsSpeakersCommandMethod = 
+              io.grpc.MethodDescriptor.<io.grpc.project.smarthome.tv.StringRequest, io.grpc.project.smarthome.tv.StringResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "smarthome.TvService", "displayInputsSpeakersCommand"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.grpc.project.smarthome.tv.StringRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.grpc.project.smarthome.tv.StringResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new TvServiceMethodDescriptorSupplier("displayInputsSpeakersCommand"))
+                  .build();
+          }
+        }
+     }
+     return getDisplayInputsSpeakersCommandMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.StringRequest,
+      io.grpc.project.smarthome.tv.StringResponse> getMusicStreamingSpeakersCommandMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "musicStreamingSpeakersCommand",
+      requestType = io.grpc.project.smarthome.tv.StringRequest.class,
+      responseType = io.grpc.project.smarthome.tv.StringResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.StringRequest,
+      io.grpc.project.smarthome.tv.StringResponse> getMusicStreamingSpeakersCommandMethod() {
+    io.grpc.MethodDescriptor<io.grpc.project.smarthome.tv.StringRequest, io.grpc.project.smarthome.tv.StringResponse> getMusicStreamingSpeakersCommandMethod;
+    if ((getMusicStreamingSpeakersCommandMethod = TvServiceGrpc.getMusicStreamingSpeakersCommandMethod) == null) {
+      synchronized (TvServiceGrpc.class) {
+        if ((getMusicStreamingSpeakersCommandMethod = TvServiceGrpc.getMusicStreamingSpeakersCommandMethod) == null) {
+          TvServiceGrpc.getMusicStreamingSpeakersCommandMethod = getMusicStreamingSpeakersCommandMethod = 
+              io.grpc.MethodDescriptor.<io.grpc.project.smarthome.tv.StringRequest, io.grpc.project.smarthome.tv.StringResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "smarthome.TvService", "musicStreamingSpeakersCommand"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.grpc.project.smarthome.tv.StringRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.grpc.project.smarthome.tv.StringResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new TvServiceMethodDescriptorSupplier("musicStreamingSpeakersCommand"))
+                  .build();
+          }
+        }
+     }
+     return getMusicStreamingSpeakersCommandMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -210,6 +274,20 @@ public final class TvServiceGrpc {
       return asyncUnimplementedStreamingCall(getLiveContentMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void displayInputsSpeakersCommand(io.grpc.project.smarthome.tv.StringRequest request,
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getDisplayInputsSpeakersCommandMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void musicStreamingSpeakersCommand(io.grpc.project.smarthome.tv.StringRequest request,
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getMusicStreamingSpeakersCommandMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -240,6 +318,20 @@ public final class TvServiceGrpc {
                 io.grpc.project.smarthome.tv.StringRequest,
                 io.grpc.project.smarthome.tv.StringResponse>(
                   this, METHODID_LIVE_CONTENT)))
+          .addMethod(
+            getDisplayInputsSpeakersCommandMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                io.grpc.project.smarthome.tv.StringRequest,
+                io.grpc.project.smarthome.tv.StringResponse>(
+                  this, METHODID_DISPLAY_INPUTS_SPEAKERS_COMMAND)))
+          .addMethod(
+            getMusicStreamingSpeakersCommandMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                io.grpc.project.smarthome.tv.StringRequest,
+                io.grpc.project.smarthome.tv.StringResponse>(
+                  this, METHODID_MUSIC_STREAMING_SPEAKERS_COMMAND)))
           .build();
     }
   }
@@ -293,6 +385,22 @@ public final class TvServiceGrpc {
       return asyncBidiStreamingCall(
           getChannel().newCall(getLiveContentMethod(), getCallOptions()), responseObserver);
     }
+
+    /**
+     */
+    public void displayInputsSpeakersCommand(io.grpc.project.smarthome.tv.StringRequest request,
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getDisplayInputsSpeakersCommandMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void musicStreamingSpeakersCommand(io.grpc.project.smarthome.tv.StringRequest request,
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getMusicStreamingSpeakersCommandMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -327,6 +435,20 @@ public final class TvServiceGrpc {
       return blockingServerStreamingCall(
           getChannel(), getDisplayChannelListMethod(), getCallOptions(), request);
     }
+
+    /**
+     */
+    public io.grpc.project.smarthome.tv.StringResponse displayInputsSpeakersCommand(io.grpc.project.smarthome.tv.StringRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getDisplayInputsSpeakersCommandMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public io.grpc.project.smarthome.tv.StringResponse musicStreamingSpeakersCommand(io.grpc.project.smarthome.tv.StringRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getMusicStreamingSpeakersCommandMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -354,12 +476,30 @@ public final class TvServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getTurnOnMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<io.grpc.project.smarthome.tv.StringResponse> displayInputsSpeakersCommand(
+        io.grpc.project.smarthome.tv.StringRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getDisplayInputsSpeakersCommandMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<io.grpc.project.smarthome.tv.StringResponse> musicStreamingSpeakersCommand(
+        io.grpc.project.smarthome.tv.StringRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getMusicStreamingSpeakersCommandMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_TURN_ON = 0;
   private static final int METHODID_DISPLAY_CHANNEL_LIST = 1;
-  private static final int METHODID_INCREASE_VOLUME = 2;
-  private static final int METHODID_LIVE_CONTENT = 3;
+  private static final int METHODID_DISPLAY_INPUTS_SPEAKERS_COMMAND = 2;
+  private static final int METHODID_MUSIC_STREAMING_SPEAKERS_COMMAND = 3;
+  private static final int METHODID_INCREASE_VOLUME = 4;
+  private static final int METHODID_LIVE_CONTENT = 5;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -384,6 +524,14 @@ public final class TvServiceGrpc {
           break;
         case METHODID_DISPLAY_CHANNEL_LIST:
           serviceImpl.displayChannelList((io.grpc.project.smarthome.tv.StringRequest) request,
+              (io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringResponse>) responseObserver);
+          break;
+        case METHODID_DISPLAY_INPUTS_SPEAKERS_COMMAND:
+          serviceImpl.displayInputsSpeakersCommand((io.grpc.project.smarthome.tv.StringRequest) request,
+              (io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringResponse>) responseObserver);
+          break;
+        case METHODID_MUSIC_STREAMING_SPEAKERS_COMMAND:
+          serviceImpl.musicStreamingSpeakersCommand((io.grpc.project.smarthome.tv.StringRequest) request,
               (io.grpc.stub.StreamObserver<io.grpc.project.smarthome.tv.StringResponse>) responseObserver);
           break;
         default:
@@ -457,6 +605,8 @@ public final class TvServiceGrpc {
               .addMethod(getDisplayChannelListMethod())
               .addMethod(getIncreaseVolumeMethod())
               .addMethod(getLiveContentMethod())
+              .addMethod(getDisplayInputsSpeakersCommandMethod())
+              .addMethod(getMusicStreamingSpeakersCommandMethod())
               .build();
         }
       }

@@ -11,7 +11,10 @@ service TvService {
     rpc displayChannelList(StringRequest) returns (stream StringResponse) {}
     rpc increaseVolume(stream IntRequest) returns (IntResponse) {}
     rpc liveContent(stream StringRequest) returns (stream StringResponse) {}
+    rpc displayInputsSpeakersCommand(StringRequest) returns (StringResponse) {}
+    rpc musicStreamingSpeakersCommand(StringRequest) returns (StringResponse) {}
 }
+
 
 message StringRequest {
     string stringRequestValue = 1;

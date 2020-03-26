@@ -14,6 +14,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Iterator;
 import java.util.Random;
 
 public class GUIClient extends JFrame {
@@ -81,13 +82,14 @@ public class GUIClient extends JFrame {
         setTitle("Control");
         setSize(500, 500);
 
-//        ManagedChannel tvChannel = manageChannel(tvServerName, tvPort);
-//        blockingStub = TvServiceGrpc.newBlockingStub(tvChannel);
-//        asyncStub = TvServiceGrpc.newStub(tvChannel);
+        ManagedChannel tvChannel = manageChannel(tvServerName, tvPort);
+        blockingStub = TvServiceGrpc.newBlockingStub(tvChannel);
+        asyncStub = TvServiceGrpc.newStub(tvChannel);
 
         ManagedChannel lightsChannel = manageChannel(lightsServerName, lightsPort);
         lightsServiceBlockingStub = LightsServiceGrpc.newBlockingStub(lightsChannel);
         lightsServiceAsyncStub = LightsServiceGrpc.newStub(lightsChannel);
+
 
 //        turnOnBtn();
 //        displayChannelList();
@@ -97,7 +99,7 @@ public class GUIClient extends JFrame {
 //        turnOnLights();
 //        displayLightsMode();
 //        lightCombiner();
-        setLightsMode();
+//        setLightsMode();
     }
 
     public void turnOnBtn() {
@@ -113,7 +115,7 @@ public class GUIClient extends JFrame {
        StreamObserver<StringResponse> responseObserver = new StreamObserver<StringResponse>() {
            @Override
            public void onNext(StringResponse value) {
-               System.out.println(value.getVal());
+               System.out.println(value.getStringResponseValue());
            }
 
            @Override
@@ -130,10 +132,10 @@ public class GUIClient extends JFrame {
        StreamObserver<StringRequest> request = asyncStub.liveContent(responseObserver);
         try {
 
-            request.onNext(StringRequest.newBuilder().setVal("Bil is 19").build());
-            request.onNext(StringRequest.newBuilder().setVal("Bil is a good student").build());
-            request.onNext(StringRequest.newBuilder().setVal("Bil becomes the greatest engineer").build());
-            request.onNext(StringRequest.newBuilder().setVal("Bil marries with a girl named Sandra").build());
+            request.onNext(StringRequest.newBuilder().setStringRequestValue("Bil is 19").build());
+            request.onNext(StringRequest.newBuilder().setStringRequestValue("Bil is a good student").build());
+            request.onNext(StringRequest.newBuilder().setStringRequestValue("Bil becomes the greatest engineer").build());
+            request.onNext(StringRequest.newBuilder().setStringRequestValue("Bil marries with a girl named Sandra").build());
             request.onCompleted();
         } catch (RuntimeException e) {
             // Cancel RPC
@@ -146,7 +148,7 @@ public class GUIClient extends JFrame {
         StreamObserver<IntResponse> responseObserver = new StreamObserver<IntResponse>() {
             @Override
             public void onNext(IntResponse value) {
-                System.out.println("The current volume is " + value.getVolume());
+                System.out.println("The current volume is " + value.getNumOutput());
             }
 
             @Override
@@ -178,21 +180,22 @@ public class GUIClient extends JFrame {
 
 
     public void turnOn() {
-        BooleanRequest request = BooleanRequest.newBuilder().setVal(true).build();
+        BooleanRequest request = BooleanRequest.newBuilder().setBooleanRequestValue(true).build();
         StringResponse response = blockingStub.turnOn(request);
-        System.out.println(response.getVal());
-        onText.setText("TV: " + response.getVal());
+        System.out.println(response.getStringResponseValue());
+        onText.setText("TV: " + response.getStringResponseValue());
+//        displayAvailableSpeakersInputs();
+        musicStreaming();
         turnOnButton.setVisible(false);
-
     }
 
     public void displayChannelList() {
-        StringRequest request = StringRequest.newBuilder().setVal("Display channels").build();
+        StringRequest request = StringRequest.newBuilder().setStringRequestValue("Display channels").build();
 
         StreamObserver<StringResponse> responseObserver = new StreamObserver<StringResponse>() {
             @Override
             public void onNext(StringResponse value) {
-                System.out.println(value.getVal());
+                System.out.println(value.getStringResponseValue());
             }
 
             @Override
@@ -242,17 +245,17 @@ public class GUIClient extends JFrame {
     // Lights server functions
 
     public void turnOnLights() {
-        io.grpc.project.smarthome.lights.BooleanRequest request = io.grpc.project.smarthome.lights.BooleanRequest.newBuilder().setVal(true).build();
+        io.grpc.project.smarthome.lights.BooleanRequest request = io.grpc.project.smarthome.lights.BooleanRequest.newBuilder().setBooleanValue(true).build();
         io.grpc.project.smarthome.lights.StringResponse response = lightsServiceBlockingStub.lightSwitch(request);
-        System.out.println(response.getVal());
+        System.out.println(response.getStringResponseValue());
     }
 
     public void displayLightsMode() {
-        io.grpc.project.smarthome.lights.StringRequest request = io.grpc.project.smarthome.lights.StringRequest.newBuilder().setVal("Display lights modes").build();
+        io.grpc.project.smarthome.lights.StringRequest request = io.grpc.project.smarthome.lights.StringRequest.newBuilder().setStringRequestValue("Display lights modes").build();
         StreamObserver<io.grpc.project.smarthome.lights.StringResponse> responseStreamObserver = new StreamObserver<io.grpc.project.smarthome.lights.StringResponse>() {
             @Override
             public void onNext(io.grpc.project.smarthome.lights.StringResponse value) {
-                System.out.println(value.getVal());
+                System.out.println(value.getStringResponseValue());
             }
 
             @Override
@@ -273,7 +276,7 @@ public class GUIClient extends JFrame {
         StreamObserver<io.grpc.project.smarthome.lights.StringRequest> requestStreamObserver = lightsServiceAsyncStub.lightCombiner(new StreamObserver<io.grpc.project.smarthome.lights.StringResponse>() {
             @Override
             public void onNext(io.grpc.project.smarthome.lights.StringResponse value) {
-                System.out.println("Light is now set to" + value.getVal());
+                System.out.println("Light is now set to" + value.getStringResponseValue());
             }
 
             @Override
@@ -287,8 +290,8 @@ public class GUIClient extends JFrame {
             }
         });
 
-        requestStreamObserver.onNext(io.grpc.project.smarthome.lights.StringRequest.newBuilder().setVal("Green").build());
-        requestStreamObserver.onNext(io.grpc.project.smarthome.lights.StringRequest.newBuilder().setVal("Red").build());
+        requestStreamObserver.onNext(io.grpc.project.smarthome.lights.StringRequest.newBuilder().setStringRequestValue("Green").build());
+        requestStreamObserver.onNext(io.grpc.project.smarthome.lights.StringRequest.newBuilder().setStringRequestValue("Red").build());
         threadSleep();
         requestStreamObserver.onCompleted();
     }
@@ -297,10 +300,22 @@ public class GUIClient extends JFrame {
         io.grpc.project.smarthome.lights.Modes request =  io.grpc.project.smarthome.lights.Modes.newBuilder().setDetail(Modes.Mode.LIGHT).build();
         try {
             io.grpc.project.smarthome.lights.StringResponse response = lightsServiceBlockingStub.setLightMode(request);
-            System.out.println("Light mode " + response.getVal());
+            System.out.println("Light mode " + response.getStringResponseValue());
         } catch (StatusRuntimeException e) {
             System.out.println(e.getMessage());
         }
     }
 
+    public void displayAvailableSpeakersInputs() {
+        StringRequest request = StringRequest.newBuilder().setStringRequestValue("Display available inputs for speakers").build();
+        StringResponse responses = blockingStub.displayInputsSpeakersCommand(request);
+        System.out.println("Available speakers inputs " + responses.getStringResponseValue());
+    }
+
+    public void musicStreaming() {
+        StringRequest request = StringRequest.newBuilder().setStringRequestValue("Play Get Down on Saturday night").build();
+        StringResponse response = blockingStub.musicStreamingSpeakersCommand(request);
+        System.out.println(response);
+
+    }
 }

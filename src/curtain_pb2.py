@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\rcurtain.proto\"+\n\rStringRequest\x12\x1a\n\x12stringRequestValue\x18\x01 \x01(\t\"-\n\x0e\x42ooleanRequest\x12\x1b\n\x13\x62ooleanRequestValue\x18\x01 \x01(\x08\"-\n\x0eStringResponse\x12\x1b\n\x13stringResponseValue\x18\x01 \x01(\t\"\x1e\n\nIntRequest\x12\x10\n\x08numInput\x18\x01 \x01(\x05\" \n\x0bIntResponse\x12\x11\n\tnumOutput\x18\x01 \x01(\x05\x32;\n\x0e\x43urtainService\x12)\n\x04open\x12\x0e.StringRequest\x1a\x0f.StringResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\rcurtain.proto\"+\n\rStringRequest\x12\x1a\n\x12stringRequestValue\x18\x01 \x01(\t\"-\n\x0e\x42ooleanRequest\x12\x1b\n\x13\x62ooleanRequestValue\x18\x01 \x01(\x08\"-\n\x0eStringResponse\x12\x1b\n\x13stringResponseValue\x18\x01 \x01(\t\"/\n\x0eHeightAndWidth\x12\x0e\n\x06height\x18\x01 \x01(\x02\x12\r\n\x05width\x18\x02 \x01(\x02\x32\xa3\x01\n\x0e\x43urtainService\x12)\n\x04open\x12\x0e.StringRequest\x1a\x0f.StringResponse\"\x00\x12*\n\x05\x63lose\x12\x0e.StringRequest\x1a\x0f.StringResponse\"\x00\x12:\n\x14\x61\x64justHeightAndWidth\x12\x0f.HeightAndWidth\x1a\x0f.StringResponse\"\x00\x62\x06proto3'
 )
 
 
@@ -117,17 +117,24 @@ _STRINGRESPONSE = _descriptor.Descriptor(
 )
 
 
-_INTREQUEST = _descriptor.Descriptor(
-  name='IntRequest',
-  full_name='IntRequest',
+_HEIGHTANDWIDTH = _descriptor.Descriptor(
+  name='HeightAndWidth',
+  full_name='HeightAndWidth',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='numInput', full_name='IntRequest.numInput', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
+      name='height', full_name='HeightAndWidth.height', index=0,
+      number=1, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='width', full_name='HeightAndWidth.width', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -144,45 +151,13 @@ _INTREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=156,
-  serialized_end=186,
-)
-
-
-_INTRESPONSE = _descriptor.Descriptor(
-  name='IntResponse',
-  full_name='IntResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='numOutput', full_name='IntResponse.numOutput', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=188,
-  serialized_end=220,
+  serialized_end=203,
 )
 
 DESCRIPTOR.message_types_by_name['StringRequest'] = _STRINGREQUEST
 DESCRIPTOR.message_types_by_name['BooleanRequest'] = _BOOLEANREQUEST
 DESCRIPTOR.message_types_by_name['StringResponse'] = _STRINGRESPONSE
-DESCRIPTOR.message_types_by_name['IntRequest'] = _INTREQUEST
-DESCRIPTOR.message_types_by_name['IntResponse'] = _INTRESPONSE
+DESCRIPTOR.message_types_by_name['HeightAndWidth'] = _HEIGHTANDWIDTH
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 StringRequest = _reflection.GeneratedProtocolMessageType('StringRequest', (_message.Message,), {
@@ -206,19 +181,12 @@ StringResponse = _reflection.GeneratedProtocolMessageType('StringResponse', (_me
   })
 _sym_db.RegisterMessage(StringResponse)
 
-IntRequest = _reflection.GeneratedProtocolMessageType('IntRequest', (_message.Message,), {
-  'DESCRIPTOR' : _INTREQUEST,
+HeightAndWidth = _reflection.GeneratedProtocolMessageType('HeightAndWidth', (_message.Message,), {
+  'DESCRIPTOR' : _HEIGHTANDWIDTH,
   '__module__' : 'curtain_pb2'
-  # @@protoc_insertion_point(class_scope:IntRequest)
+  # @@protoc_insertion_point(class_scope:HeightAndWidth)
   })
-_sym_db.RegisterMessage(IntRequest)
-
-IntResponse = _reflection.GeneratedProtocolMessageType('IntResponse', (_message.Message,), {
-  'DESCRIPTOR' : _INTRESPONSE,
-  '__module__' : 'curtain_pb2'
-  # @@protoc_insertion_point(class_scope:IntResponse)
-  })
-_sym_db.RegisterMessage(IntResponse)
+_sym_db.RegisterMessage(HeightAndWidth)
 
 
 
@@ -228,8 +196,8 @@ _CURTAINSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=222,
-  serialized_end=281,
+  serialized_start=206,
+  serialized_end=369,
   methods=[
   _descriptor.MethodDescriptor(
     name='open',
@@ -237,6 +205,24 @@ _CURTAINSERVICE = _descriptor.ServiceDescriptor(
     index=0,
     containing_service=None,
     input_type=_STRINGREQUEST,
+    output_type=_STRINGRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='close',
+    full_name='CurtainService.close',
+    index=1,
+    containing_service=None,
+    input_type=_STRINGREQUEST,
+    output_type=_STRINGRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='adjustHeightAndWidth',
+    full_name='CurtainService.adjustHeightAndWidth',
+    index=2,
+    containing_service=None,
+    input_type=_HEIGHTANDWIDTH,
     output_type=_STRINGRESPONSE,
     serialized_options=None,
   ),

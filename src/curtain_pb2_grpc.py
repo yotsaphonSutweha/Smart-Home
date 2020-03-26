@@ -19,6 +19,16 @@ class CurtainServiceStub(object):
         request_serializer=curtain__pb2.StringRequest.SerializeToString,
         response_deserializer=curtain__pb2.StringResponse.FromString,
         )
+    self.close = channel.unary_unary(
+        '/CurtainService/close',
+        request_serializer=curtain__pb2.StringRequest.SerializeToString,
+        response_deserializer=curtain__pb2.StringResponse.FromString,
+        )
+    self.adjustHeightAndWidth = channel.unary_unary(
+        '/CurtainService/adjustHeightAndWidth',
+        request_serializer=curtain__pb2.HeightAndWidth.SerializeToString,
+        response_deserializer=curtain__pb2.StringResponse.FromString,
+        )
 
 
 class CurtainServiceServicer(object):
@@ -32,12 +42,36 @@ class CurtainServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def close(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def adjustHeightAndWidth(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_CurtainServiceServicer_to_server(servicer, server):
   rpc_method_handlers = {
       'open': grpc.unary_unary_rpc_method_handler(
           servicer.open,
           request_deserializer=curtain__pb2.StringRequest.FromString,
+          response_serializer=curtain__pb2.StringResponse.SerializeToString,
+      ),
+      'close': grpc.unary_unary_rpc_method_handler(
+          servicer.close,
+          request_deserializer=curtain__pb2.StringRequest.FromString,
+          response_serializer=curtain__pb2.StringResponse.SerializeToString,
+      ),
+      'adjustHeightAndWidth': grpc.unary_unary_rpc_method_handler(
+          servicer.adjustHeightAndWidth,
+          request_deserializer=curtain__pb2.HeightAndWidth.FromString,
           response_serializer=curtain__pb2.StringResponse.SerializeToString,
       ),
   }

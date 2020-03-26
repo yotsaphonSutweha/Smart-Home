@@ -5,9 +5,10 @@ import interfaces.TVInterface;
 import java.util.ArrayList;
 
 public class TV implements TVInterface {
-
+    private ArrayList<String> speakersInputs;
+    private ArrayList<String> musicLyrics;
     public TV() {
-
+        speakersInputs = new ArrayList<>();
     }
 
     @Override
@@ -16,31 +17,8 @@ public class TV implements TVInterface {
     }
 
     @Override
-    public void turnOff() {
-        System.out.println("Turning off tv...");
-    }
-
-    @Override
     public void mode() {
 
-    }
-
-    @Override
-    public boolean connnected(boolean turnOn) {
-        if (turnOn) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public int brightness() {
-        return 0;
-    }
-
-    @Override
-    public boolean musicMode() {
-        return false;
     }
 
     @Override
@@ -51,4 +29,26 @@ public class TV implements TVInterface {
         channelList.add("Music");
         return channelList;
     }
+
+    @Override
+    public void setSpeakersAvailableInputs(String input) {
+        this.speakersInputs.add(input);
+    }
+
+    @Override
+    public ArrayList<String> getSpeakersAvailableInputs() {
+        return this.speakersInputs;
+    }
+
+    @Override
+    public void setMusicLyrics(String lyric) {
+        this.musicLyrics.add(lyric);
+    }
+
+    @Override
+    public ArrayList<String> getMusicLyrics() {
+        return this.musicLyrics;
+    }
+
+
 }
