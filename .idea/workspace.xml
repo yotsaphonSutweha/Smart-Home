@@ -3,89 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="03ce0f9a-aeb1-4fb3-a18a-69062c298042" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/curtain.proto" afterPath="$PROJECT_DIR$/src/curtain.proto" />
       <change beforePath="$PROJECT_DIR$/src/curtain_client.py" afterPath="$PROJECT_DIR$/src/curtain_client.py" />
-      <change beforePath="$PROJECT_DIR$/src/curtain_pb2.py" afterPath="$PROJECT_DIR$/src/curtain_pb2.py" />
-      <change beforePath="$PROJECT_DIR$/src/curtain_pb2_grpc.py" afterPath="$PROJECT_DIR$/src/curtain_pb2_grpc.py" />
       <change beforePath="$PROJECT_DIR$/src/curtain_server.py" afterPath="$PROJECT_DIR$/src/curtain_server.py" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUIClient.java" afterPath="$PROJECT_DIR$/src/main/java/GUIClient.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/TVInterface.java" afterPath="$PROJECT_DIR$/src/main/java/interfaces/TVInterface.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/speakers/SpeakersServer.java" afterPath="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/speakers/SpeakersServer.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/speakers/SpeakersServiceGrpc.java" afterPath="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/speakers/SpeakersServiceGrpc.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/speakers/SpeakersServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/speakers/SpeakersServiceImpl.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TVServer.java" afterPath="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TVServer.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TvServiceGrpc.java" afterPath="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TvServiceGrpc.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TvServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TvServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/objects/TV.java" afterPath="$PROJECT_DIR$/src/main/java/objects/TV.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/tv.proto" afterPath="$PROJECT_DIR$/src/main/resources/tv.proto" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$1.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$1.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$2.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$2.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$3.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$3.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$4.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$4.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$5.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$5.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$6.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$6.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$Listener.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$Listener.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interfaces/TVInterface.class" afterPath="$PROJECT_DIR$/target/classes/interfaces/TVInterface.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/BooleanRequest$Builder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/BooleanRequest$Builder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/BooleanRequest.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/BooleanRequest.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/BooleanRequestOrBuilder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/BooleanRequestOrBuilder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/LightsServer$1.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/LightsServer$1.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/LightsServer.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/LightsServer.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/LightsServiceImpl$1.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/LightsServiceImpl$1.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/LightsServiceImpl.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/LightsServiceImpl.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/StringRequest$Builder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/StringRequest$Builder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/StringRequest.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/StringRequest.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/StringRequestOrBuilder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/StringRequestOrBuilder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/StringResponse$Builder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/StringResponse$Builder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/StringResponse.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/StringResponse.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/StringResponseOrBuilder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/lights/StringResponseOrBuilder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/BooleanRequest$Builder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/BooleanRequest$Builder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/BooleanRequest.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/BooleanRequest.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/BooleanRequestOrBuilder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/BooleanRequestOrBuilder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/IntResponse$Builder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/IntResponse$Builder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/IntResponse.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/IntResponse.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/IntResponseOrBuilder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/IntResponseOrBuilder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/SpeakersServer$1.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/SpeakersServer$1.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/SpeakersServer$2.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/SpeakersServer$2.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/SpeakersServer.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/SpeakersServer.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/SpeakersServiceImpl$1.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/SpeakersServiceImpl$1.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/SpeakersServiceImpl.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/SpeakersServiceImpl.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/StringRequest$Builder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/StringRequest$Builder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/StringRequest.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/StringRequest.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/StringRequestOrBuilder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/StringRequestOrBuilder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/StringResponse$Builder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/StringResponse$Builder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/StringResponse.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/StringResponse.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/StringResponseOrBuilder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/speakers/StringResponseOrBuilder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/BooleanRequest$Builder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/BooleanRequest$Builder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/BooleanRequest.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/BooleanRequest.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/BooleanRequestOrBuilder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/BooleanRequestOrBuilder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/IntResponse$Builder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/IntResponse$Builder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/IntResponse.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/IntResponse.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/IntResponseOrBuilder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/IntResponseOrBuilder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/StringRequest$Builder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/StringRequest$Builder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/StringRequest.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/StringRequest.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/StringRequestOrBuilder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/StringRequestOrBuilder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/StringResponse$Builder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/StringResponse$Builder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/StringResponse.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/StringResponse.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/StringResponseOrBuilder.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/StringResponseOrBuilder.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TVServer$1.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TVServer$1.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TVServer$2.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TVServer$2.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TVServer$3.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TVServer$3.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TVServer$4.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TVServer$4.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TVServer$5.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TVServer$5.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TVServer$Listener.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TVServer$Listener.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TVServer.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TVServer.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc$MethodHandlers.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc$MethodHandlers.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc$TvServiceBaseDescriptorSupplier.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc$TvServiceBaseDescriptorSupplier.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc$TvServiceBlockingStub.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc$TvServiceBlockingStub.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc$TvServiceFileDescriptorSupplier.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc$TvServiceFileDescriptorSupplier.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc$TvServiceFutureStub.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc$TvServiceFutureStub.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc$TvServiceImplBase.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc$TvServiceImplBase.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc$TvServiceMethodDescriptorSupplier.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc$TvServiceMethodDescriptorSupplier.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc$TvServiceStub.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc$TvServiceStub.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceGrpc.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceImpl$1.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceImpl$1.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceImpl.class" afterPath="$PROJECT_DIR$/target/classes/io/grpc/project/smarthome/tv/TvServiceImpl.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/objects/TV.class" afterPath="$PROJECT_DIR$/target/classes/objects/TV.class" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tv.proto" afterPath="$PROJECT_DIR$/target/classes/tv.proto" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/speakers.proto" afterPath="$PROJECT_DIR$/src/main/resources/speakers.proto" />
+      <change beforePath="$PROJECT_DIR$/target/classes/speakers.proto" afterPath="$PROJECT_DIR$/target/classes/speakers.proto" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -97,18 +23,22 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="GUIClient.java" pinned="false" current-in-tab="false">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="GUIClient.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/GUIClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-342">
-              <caret line="2" column="38" lean-forward="false" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
-              <folding />
+            <state relative-caret-position="147">
+              <caret line="159" column="34" lean-forward="false" selection-start-line="159" selection-start-column="34" selection-end-line="159" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#6753#6754#0" expanded="true" />
+                <element signature="e#6793#6794#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GUI.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GUI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/GUI.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
@@ -118,12 +48,44 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="speakers.proto" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/speakers.proto">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="34" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="32" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SpeakersServer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/speakers/SpeakersServer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-225">
+              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TVServer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TVServer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="curtain_server.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/curtain_server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="22" column="15" lean-forward="false" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
-              <folding />
+            <state relative-caret-position="225">
+              <caret line="23" column="15" lean-forward="false" selection-start-line="23" selection-start-column="15" selection-end-line="23" selection-end-column="15" />
+              <folding>
+                <marker date="1585331124337" expanded="true" signature="364:498" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -131,8 +93,8 @@
       <file leaf-file-name="curtain_client.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/curtain_client.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="65" lean-forward="false" selection-start-line="9" selection-start-column="61" selection-end-line="9" selection-end-column="65" />
+            <state relative-caret-position="405">
+              <caret line="38" column="44" lean-forward="false" selection-start-line="38" selection-start-column="44" selection-end-line="38" selection-end-column="44" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -208,24 +170,25 @@
         <option value="$PROJECT_DIR$/src/main/java/objects/Lights.java" />
         <option value="$PROJECT_DIR$/src/main/resources/lights.proto" />
         <option value="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/lights/LightsServer.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/speakers.proto" />
-        <option value="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/speakers/SpeakersServer.java" />
         <option value="$PROJECT_DIR$/src/curtain.py" />
         <option value="$PROJECT_DIR$/src/proto/curtain.proto" />
         <option value="$PROJECT_DIR$/src/curtain_server.py" />
         <option value="$PROJECT_DIR$/src/main/java/interfaces/TVInterface.java" />
         <option value="$PROJECT_DIR$/src/main/java/objects/TV.java" />
         <option value="$PROJECT_DIR$/src/main/resources/tv.proto" />
-        <option value="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TVServer.java" />
         <option value="$PROJECT_DIR$/src/curtain.proto" />
         <option value="$PROJECT_DIR$/src/main/resources/curtain.proto" />
+        <option value="$PROJECT_DIR$/src/main/resources/speakers.proto" />
+        <option value="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/speakers/SpeakersServer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TVServer.java" />
         <option value="$PROJECT_DIR$/src/main/java/GUIClient.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="y" value="27" />
     <option name="width" value="1440" />
-    <option name="height" value="900" />
+    <option name="height" value="825" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -243,9 +206,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -294,7 +256,8 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="objects" type="462c0819:PsiDirectoryNode" />
+              <item name="smarthome" type="462c0819:PsiDirectoryNode" />
+              <item name="speakers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SmartHome" type="b2602c69:ProjectViewProjectNode" />
@@ -302,7 +265,16 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="GUIClient" type="e9f4de52:FormNode" />
+              <item name="smarthome" type="462c0819:PsiDirectoryNode" />
+              <item name="tv" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SmartHome" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SmartHome" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="objects" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SmartHome" type="b2602c69:ProjectViewProjectNode" />
@@ -315,6 +287,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -343,7 +316,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.GUI">
+  <component name="RunManager" selected="Application.TVServer (1)">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
@@ -539,8 +512,8 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Application.GUI" />
-        <item index="1" class="java.lang.String" itemvalue="Application.LightsServer" />
-        <item index="2" class="java.lang.String" itemvalue="Application.TVServer (1)" />
+        <item index="1" class="java.lang.String" itemvalue="Application.TVServer (1)" />
+        <item index="2" class="java.lang.String" itemvalue="Application.LightsServer" />
         <item index="3" class="java.lang.String" itemvalue="Application.SpeakersServer" />
         <item index="4" class="java.lang.String" itemvalue="Application.UserInterface (1)" />
       </list>
@@ -585,10 +558,9 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31176472" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27411765" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.225" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -596,6 +568,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -639,12 +612,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="14" />
+      <option name="time" value="15" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/smarthome.proto" />
     <entry file="file://$PROJECT_DIR$/src/main/java/interfaces/CurtainInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -750,32 +722,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/objects/Speakers.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="32" column="32" lean-forward="false" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#812#813#0" expanded="false" />
-            <element signature="e#862#863#0" expanded="false" />
-            <element signature="e#914#915#0" expanded="false" />
-            <element signature="e#955#956#0" expanded="false" />
-            <element signature="e#1075#1076#0" expanded="false" />
-            <element signature="e#1112#1113#0" expanded="false" />
-            <element signature="e#1174#1175#0" expanded="false" />
-            <element signature="e#1212#1213#0" expanded="false" />
-            <element signature="e#1267#1268#0" expanded="false" />
-            <element signature="e#1303#1304#0" expanded="false" />
-            <element signature="e#1347#1348#0" expanded="false" />
-            <element signature="e#1381#1382#0" expanded="false" />
-            <element signature="e#1443#1444#0" expanded="false" />
-            <element signature="e#1481#1482#0" expanded="false" />
-            <element signature="e#1530#1531#0" expanded="false" />
-            <element signature="e#1565#1566#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interfaces/SpeakerInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -830,7 +776,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="34" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -838,7 +783,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -846,7 +790,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-196">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -854,14 +797,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="20" lean-forward="false" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/speakers.proto">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="23" lean-forward="false" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -874,14 +809,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/MultiStringResponse.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/speakers/SpeakersServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-85">
-          <caret line="44" column="13" lean-forward="true" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TvServiceGrpc.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="173">
@@ -898,24 +825,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TVServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="285" column="75" lean-forward="false" selection-start-line="285" selection-start-column="62" selection-end-line="285" selection-end-column="75" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3806#3807#0" expanded="false" />
-            <element signature="e#3868#3869#0" expanded="false" />
-            <element signature="e#9265#9266#0" expanded="false" />
-            <element signature="e#9331#9332#0" expanded="false" />
-            <element signature="e#10178#10179#0" expanded="false" />
-            <element signature="e#10261#10262#0" expanded="false" />
-            <element signature="e#11552#11553#0" expanded="false" />
-            <element signature="e#11623#11624#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interfaces/TVInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -928,7 +837,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1140">
           <caret line="87" column="85" lean-forward="false" selection-start-line="87" selection-start-column="85" selection-end-line="87" selection-end-column="85" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -951,60 +859,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/tv.proto">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/curtain_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="22" column="15" lean-forward="false" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/curtain_client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="65" lean-forward="false" selection-start-line="9" selection-start-column="61" selection-end-line="9" selection-end-column="65" />
+        <state relative-caret-position="405">
+          <caret line="38" column="44" lean-forward="false" selection-start-line="38" selection-start-column="44" selection-end-line="38" selection-end-column="44" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/curtain/CurtainServiceGrpc.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="264" column="0" lean-forward="false" selection-start-line="264" selection-start-column="0" selection-end-line="264" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/curtain.proto">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/curtain/CurtainServiceGrpc.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/curtain.proto" />
     <entry file="file://$PROJECT_DIR$/src/curtain.proto">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/curtain_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="23" column="15" lean-forward="false" selection-start-line="23" selection-start-column="15" selection-end-line="23" selection-end-column="15" />
+          <folding>
+            <marker date="1585331124337" expanded="true" signature="364:498" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/objects/Speakers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="32" column="32" lean-forward="false" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/GUIClient.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/tv.proto">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-342">
-          <caret line="2" column="38" lean-forward="false" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
+        <state relative-caret-position="30">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1014,6 +909,50 @@
         <state relative-caret-position="30">
           <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home/src.zip!/java/net/Socket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="942" column="0" lean-forward="false" selection-start-line="942" selection-start-column="0" selection-end-line="942" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/speakers.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="34" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="32" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/speakers/SpeakersServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-225">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TVServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/GUIClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="159" column="34" lean-forward="false" selection-start-line="159" selection-start-column="34" selection-end-line="159" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6753#6754#0" expanded="true" />
+            <element signature="e#6793#6794#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

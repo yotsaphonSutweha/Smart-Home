@@ -13,6 +13,7 @@ class CurtainService(curtain_pb2_grpc.CurtainServiceServicer):
         if request.stringRequestValue == "Open":
             response = curtain_pb2.StringResponse()
             response.stringResponseValue = "Curtain is fully opened"
+            print("Curtain is opened")
             return response
         else:
             response = curtain_pb2.StringResponse()
@@ -23,6 +24,7 @@ class CurtainService(curtain_pb2_grpc.CurtainServiceServicer):
         if request.stringRequestValue == "Close":
             response = curtain_pb2.StringResponse()
             response.stringResponseValue = "Curtain is fully closed"
+            print("Curtain is closed")
             return response
         else:
             response = curtain_pb2.StringResponse()
@@ -32,8 +34,8 @@ class CurtainService(curtain_pb2_grpc.CurtainServiceServicer):
     def adjustHeightAndWidth(self, request, context):
         width = request.width
         height = request.height
-        print(width)
-        print(height)
+        print("Width {0}".format(width))
+        print("Height {0}".format(height))
         response = curtain_pb2.StringResponse()
         response.stringResponseValue = "Width and height have been adjusted"
         return response
@@ -41,17 +43,16 @@ class CurtainService(curtain_pb2_grpc.CurtainServiceServicer):
 class ServiceRegistration:
     PORT = 8080
     def dns_service_registration(self):
-        info = ServiceInfo("_http._tcp.local.", 
-                        "curtain._http._tcp.local.",
+        info = ServiceInfo("_curtainserver._tcp.local.", 
+                        "localhost._curtainserver._tcp.local.",
                             socket.inet_aton("127.0.0.1"), self.PORT, 0, 0,)
         zeroconf = Zeroconf()
-        print("Multicasting the service from PORT 8080")
+        print("Curtain server is at PORT 8080")
         zeroconf.register_service(info)
     
     def serve(self):
         # Registering service
         self.dns_service_registration()
-
         server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
         curtain_pb2_grpc.add_CurtainServiceServicer_to_server(CurtainService(), server)
         print("gRPC services are listening on PORT 8080")

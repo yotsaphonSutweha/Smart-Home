@@ -6,10 +6,12 @@ import socket
 from time import sleep
 import sys
 import logging
-from zeroconf import ServiceBrowser, ServiceStateChange, Zeroconf
+from zeroconf import ServiceBrowser, ServiceStateChange, Zeroconf, ServiceInfo
 import concurrent
-PORT = 0 
+from concurrent import futures
+import socket
 
+CLIENT_PORT = 8081
 
 def zeroconf_info():
 
@@ -23,7 +25,7 @@ def zeroconf_info():
     def on_service_state_change(zeroconf, service_type, name, state_change):
         if state_change is ServiceStateChange.Added:
             info = zeroconf.get_service_info(service_type, name)
-            if info:
+            if info and info.server == "localhost._curtainserver._tcp.local.":
                 print("Address: %s:%d" % (socket.inet_ntoa(info.address), info.port))
                 print("Weight: %d, priority: %d" % (info.weight, info.priority))
                 print("Server: %s" % (info.server,))
@@ -39,14 +41,20 @@ def zeroconf_info():
                         print("%s: %s" % (key, value))
                 else:
                     print("No properties")
-            else:
-                print("No info")
             print('\n')
 
     zeroconf = Zeroconf()
-    browser = ServiceBrowser(zeroconf, "_http._tcp.local.", handlers=[on_service_state_change])
+    browser = ServiceBrowser(zeroconf, "_curtainserver._tcp.local.", handlers=[on_service_state_change])
     sleep(1)
     return service_info
+
+def dns_service_registration():
+    print("Registering python client....")
+    info = ServiceInfo("_curtain._tcp.local.", 
+        "localhost._curtain._tcp.local.",
+        socket.inet_aton("127.0.0.1"), CLIENT_PORT, 0, 0,)
+    zeroconf = Zeroconf()
+    zeroconf.register_service(info)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
@@ -54,37 +62,51 @@ if __name__ == "__main__":
         assert sys.argv[1:] == ['--debug']
         logging.getLogger('zeroconf').setLevel(logging.DEBUG)
 
-
     print("\nBrowsing services, press Ctrl-C to exit...\n")
     discovered_service_info = zeroconf_info()
-
-    print("PORT {0}".format(discovered_service_info["PORT"]))
-            
     # open grpc channel 
     channel = grpc.insecure_channel('localhost:{0}'.format(discovered_service_info ["PORT"]))
-
-    # create the request 
-    request_open = curtain_pb2.StringRequest(stringRequestValue="Open")
 
     # create the stub with inserted channel
     stub = curtain_pb2_grpc.CurtainServiceStub(channel)
 
-    # make the call
-    response_open = stub.open(request_open)
+    # Registering client service using DNS
+    dns_service_registration()
 
-    # print out the value 
-    print(response_open.stringResponseValue)
+    # Open socket connection to communicate with Java client
+    s = socket.socket()
+    s.bind(('', CLIENT_PORT))
+    print("Socket connection has opened...")
+    s.listen(5)
+   
+    try:
+        while True: 
+            clientsocket, address = s.accept()
+            print("Connection from {0} has been established!".format(address))
+            message = clientsocket.recv(1024).decode()
+            if message == "Open":
+                # create the request 
+                request_open = curtain_pb2.StringRequest(stringRequestValue=message)
 
-    request_close = curtain_pb2.StringRequest(stringRequestValue="Close")
+                # make the call
+                response_open = stub.open(request_open)
+                print(response_open.stringResponseValue)
+                # clientsocket.send(bytes("Open", "utf-8"))
 
-    response_close = stub.close(request_close)
+            elif message == "Close":
+                # create the request 
+                request_close = curtain_pb2.StringRequest(stringRequestValue=message)
+                response_close = stub.close(request_close)
+                print(response_close.stringResponseValue)
+            else:
+                arr = []
+                arr = message.split(",")
+                if float(arr[0]) and float(arr[1]):
+                    width_height_adjustment = curtain_pb2.HeightAndWidth(width=float(arr[0]), height=float(arr[1]))
+                width_height_response = stub.adjustHeightAndWidth(width_height_adjustment)
+                print(width_height_response.stringResponseValue)
 
-    print(response_close.stringResponseValue)
-
-    width_height_adjustment = curtain_pb2.HeightAndWidth(width=1, height=2)
-
-    width_height_response = stub.adjustHeightAndWidth(width_height_adjustment)
-
-    print(width_height_response.stringResponseValue)
-
+    except KeyboardInterrupt:
+        s.close()
+        print("Socket connection terminated")
 

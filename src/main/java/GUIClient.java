@@ -11,8 +11,12 @@ import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceListener;
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Iterator;
 import java.util.Random;
@@ -45,6 +49,9 @@ public class GUIClient extends JFrame {
     private static LightsServiceGrpc.LightsServiceBlockingStub lightsServiceBlockingStub;
     private static LightsServiceGrpc.LightsServiceStub lightsServiceAsyncStub;
     private static LightsServiceGrpc.LightsServiceFutureStub lightsServiceFutureStub;
+    private static int pythonClientPort = 0;
+    private static String pythonClientAddress = "";
+
 
 
     public static class Listener implements ServiceListener {
@@ -68,12 +75,15 @@ public class GUIClient extends JFrame {
         @Override
         public void serviceResolved(ServiceEvent serviceEvent) {
             System.out.println("Service resolved: " + serviceEvent.getInfo());
+            if (serviceEvent.getType().equals("_curtain._tcp.local.")){
+                pythonClientPort = serviceEvent.getInfo().getPort();
+                pythonClientAddress = serviceEvent.getInfo().getHostAddresses()[0];
+            }
         }
     }
 
     public GUIClient () {
         registerJmdns();
-
         threadSleep();
 
         System.out.println("TV Port " + tvPort);
@@ -82,13 +92,13 @@ public class GUIClient extends JFrame {
         setTitle("Control");
         setSize(500, 500);
 
-        ManagedChannel tvChannel = manageChannel(tvServerName, tvPort);
-        blockingStub = TvServiceGrpc.newBlockingStub(tvChannel);
-        asyncStub = TvServiceGrpc.newStub(tvChannel);
-
-        ManagedChannel lightsChannel = manageChannel(lightsServerName, lightsPort);
-        lightsServiceBlockingStub = LightsServiceGrpc.newBlockingStub(lightsChannel);
-        lightsServiceAsyncStub = LightsServiceGrpc.newStub(lightsChannel);
+//        ManagedChannel tvChannel = manageChannel(tvServerName, tvPort);
+//        blockingStub = TvServiceGrpc.newBlockingStub(tvChannel);
+//        asyncStub = TvServiceGrpc.newStub(tvChannel);
+//
+//        ManagedChannel lightsChannel = manageChannel(lightsServerName, lightsPort);
+//        lightsServiceBlockingStub = LightsServiceGrpc.newBlockingStub(lightsChannel);
+//        lightsServiceAsyncStub = LightsServiceGrpc.newStub(lightsChannel);
 
 
 //        turnOnBtn();
@@ -100,6 +110,64 @@ public class GUIClient extends JFrame {
 //        displayLightsMode();
 //        lightCombiner();
 //        setLightsMode();
+
+        System.out.println("Python client is running at " + pythonClientPort + " with address " + pythonClientAddress);
+
+        openCurtainCommand(pythonClientAddress, pythonClientPort);
+        closeCurtainCommand(pythonClientAddress, pythonClientPort);
+        adjustCurtainWidthAndHeight(pythonClientAddress, pythonClientPort);
+    }
+
+
+    public void openCurtainCommand(String pythonClientAddress, int pythonClientPort) {
+        try {
+            Socket clientSocket = new Socket(pythonClientAddress, pythonClientPort);
+            PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream());
+            printWriter.write("Open");
+            printWriter.flush();
+            printWriter.close();
+            clientSocket.close();
+        } catch (UnknownHostException e) {
+            System.out.println("Failed to establish connection");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Failed IO");
+            e.printStackTrace();
+        }
+    }
+
+    public void closeCurtainCommand(String pythonClientAddress, int pythonClientPort) {
+        try {
+            Socket clientSocket = new Socket(pythonClientAddress, pythonClientPort);
+            PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream());
+            printWriter.write("Close");
+            printWriter.flush();
+            printWriter.close();
+            clientSocket.close();
+        } catch (UnknownHostException e) {
+            System.out.println("Failed to establish connection");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Failed IO");
+            e.printStackTrace();
+        }
+    }
+
+    public void adjustCurtainWidthAndHeight(String pythonClientAddress, int pythonClientPort) {
+        try {
+            Socket clientSocket = new Socket(pythonClientAddress, pythonClientPort);
+            PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream());
+            printWriter.write("4,7");
+            printWriter.flush();
+            printWriter.close();
+            clientSocket.close();
+        } catch (UnknownHostException e) {
+            System.out.println("Failed to establish connection");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Failed IO");
+            e.printStackTrace();
+        }
     }
 
     public void turnOnBtn() {
@@ -221,6 +289,7 @@ public class GUIClient extends JFrame {
             // add service listener
             jmdns.addServiceListener("_http._tcp.local.", new GUIClient.Listener());
             jmdns.addServiceListener("_lights._tcp.local.", new GUIClient.Listener());
+            jmdns.addServiceListener("_curtain._tcp.local.", new GUIClient.Listener());
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {

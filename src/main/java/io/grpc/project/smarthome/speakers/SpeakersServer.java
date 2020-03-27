@@ -16,6 +16,7 @@ import javax.jmdns.ServiceInfo;
 public class SpeakersServer extends SpeakersServiceImplBase{
     private Speakers speakers = new Speakers();
     private static final Logger logger = Logger.getLogger(SpeakersServer.class.getName());
+
     public static void main(String[] args) throws IOException, InterruptedException {
         try {
             int PORT = 8001;
@@ -68,34 +69,6 @@ public class SpeakersServer extends SpeakersServiceImplBase{
             }
             responseObserver.onCompleted();
         }
-    }
-
-    @Override
-    public StreamObserver<StringRequest> deviceDetection(StreamObserver<io.grpc.project.smarthome.speakers.IntResponse> responseStreamObserver) {
-        System.out.println("This is device display");
-        ArrayList<String> arr = new ArrayList<>();
-        return new StreamObserver<StringRequest>() {
-            @Override
-            public void onNext(StringRequest value) {
-                System.out.println(value.getStringRequestValue());
-                arr.add(value.getStringRequestValue());
-            }
-
-            @Override
-            public void onError(Throwable t) {
-
-            }
-
-            @Override
-            public void onCompleted() {
-                speakers.setDeviceList(arr);
-                int size = speakers.getDeviceList().size();
-                System.out.println("Size of arr" + size);
-                io.grpc.project.smarthome.speakers.IntResponse res = io.grpc.project.smarthome.speakers.IntResponse.newBuilder().setNumOutput(size).build();
-                responseStreamObserver.onNext(res);
-                responseStreamObserver.onCompleted();
-            }
-        };
     }
 
 

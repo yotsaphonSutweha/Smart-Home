@@ -9,7 +9,6 @@ package smarthome;
 service SpeakersService {
     rpc turnOnSpeakers(BooleanRequest) returns (StringResponse) {}
     rpc displayInputs(BooleanRequest) returns (stream StringResponse) {}
-    rpc deviceDetection(stream StringRequest) returns (IntResponse) {}
     rpc musicStreaming(stream StringRequest) returns (stream StringResponse) {}
 }
 

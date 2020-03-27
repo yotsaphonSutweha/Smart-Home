@@ -127,7 +127,6 @@ public class TVServer extends TvServiceImplBase {
         // Speakers features
         turnOnSpeakers();
 //        displayAvailableSpeakersInputs();
-        speakersDeviceDetecting();
 //        musicStreaming();
     }
 
@@ -224,42 +223,6 @@ public class TVServer extends TvServiceImplBase {
         threadSleep(3000);
     }
 
-    public void speakersDeviceDetecting() {
-
-        deviceList.add("TV");
-        deviceList.add("Curtains");
-        deviceList.add("Lights");
-
-        StreamObserver<io.grpc.project.smarthome.speakers.StringRequest> request = speakersServiceAsyncStub.deviceDetection(new StreamObserver<io.grpc.project.smarthome.speakers.IntResponse>() {
-            @Override
-            public void onNext(io.grpc.project.smarthome.speakers.IntResponse value) {
-                System.out.println("The amount of available connected devices are " + value.getNumOutput());
-            }
-
-            @Override
-            public void onError(Throwable t) {
-
-            }
-
-            @Override
-            public void onCompleted() {
-                System.out.println("Device detection on completed");
-            }
-        });
-
-        try {
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue(deviceList.get(0)).build());
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue(deviceList.get(1)).build());
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue(deviceList.get(2)).build());
-            threadSleep(3000);
-            request.onCompleted();
-
-        } catch (RuntimeException e) {
-            // Cancel RPC
-            request.onError(e);
-            throw e;
-        }
-    }
 
     public void musicStreaming() {
 

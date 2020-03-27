@@ -92,38 +92,6 @@ public final class SpeakersServiceGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.StringRequest,
-      io.grpc.project.smarthome.speakers.IntResponse> getDeviceDetectionMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "deviceDetection",
-      requestType = io.grpc.project.smarthome.speakers.StringRequest.class,
-      responseType = io.grpc.project.smarthome.speakers.IntResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
-  public static io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.StringRequest,
-      io.grpc.project.smarthome.speakers.IntResponse> getDeviceDetectionMethod() {
-    io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.StringRequest, io.grpc.project.smarthome.speakers.IntResponse> getDeviceDetectionMethod;
-    if ((getDeviceDetectionMethod = SpeakersServiceGrpc.getDeviceDetectionMethod) == null) {
-      synchronized (SpeakersServiceGrpc.class) {
-        if ((getDeviceDetectionMethod = SpeakersServiceGrpc.getDeviceDetectionMethod) == null) {
-          SpeakersServiceGrpc.getDeviceDetectionMethod = getDeviceDetectionMethod = 
-              io.grpc.MethodDescriptor.<io.grpc.project.smarthome.speakers.StringRequest, io.grpc.project.smarthome.speakers.IntResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
-              .setFullMethodName(generateFullMethodName(
-                  "smarthome.SpeakersService", "deviceDetection"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  io.grpc.project.smarthome.speakers.StringRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  io.grpc.project.smarthome.speakers.IntResponse.getDefaultInstance()))
-                  .setSchemaDescriptor(new SpeakersServiceMethodDescriptorSupplier("deviceDetection"))
-                  .build();
-          }
-        }
-     }
-     return getDeviceDetectionMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.StringRequest,
       io.grpc.project.smarthome.speakers.StringResponse> getMusicStreamingMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
@@ -198,13 +166,6 @@ public final class SpeakersServiceGrpc {
 
     /**
      */
-    public io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringRequest> deviceDetection(
-        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.IntResponse> responseObserver) {
-      return asyncUnimplementedStreamingCall(getDeviceDetectionMethod(), responseObserver);
-    }
-
-    /**
-     */
     public io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringRequest> musicStreaming(
         io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringResponse> responseObserver) {
       return asyncUnimplementedStreamingCall(getMusicStreamingMethod(), responseObserver);
@@ -226,13 +187,6 @@ public final class SpeakersServiceGrpc {
                 io.grpc.project.smarthome.speakers.BooleanRequest,
                 io.grpc.project.smarthome.speakers.StringResponse>(
                   this, METHODID_DISPLAY_INPUTS)))
-          .addMethod(
-            getDeviceDetectionMethod(),
-            asyncClientStreamingCall(
-              new MethodHandlers<
-                io.grpc.project.smarthome.speakers.StringRequest,
-                io.grpc.project.smarthome.speakers.IntResponse>(
-                  this, METHODID_DEVICE_DETECTION)))
           .addMethod(
             getMusicStreamingMethod(),
             asyncBidiStreamingCall(
@@ -276,14 +230,6 @@ public final class SpeakersServiceGrpc {
         io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringResponse> responseObserver) {
       asyncServerStreamingCall(
           getChannel().newCall(getDisplayInputsMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     */
-    public io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringRequest> deviceDetection(
-        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.IntResponse> responseObserver) {
-      return asyncClientStreamingCall(
-          getChannel().newCall(getDeviceDetectionMethod(), getCallOptions()), responseObserver);
     }
 
     /**
@@ -358,8 +304,7 @@ public final class SpeakersServiceGrpc {
 
   private static final int METHODID_TURN_ON_SPEAKERS = 0;
   private static final int METHODID_DISPLAY_INPUTS = 1;
-  private static final int METHODID_DEVICE_DETECTION = 2;
-  private static final int METHODID_MUSIC_STREAMING = 3;
+  private static final int METHODID_MUSIC_STREAMING = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -396,9 +341,6 @@ public final class SpeakersServiceGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_DEVICE_DETECTION:
-          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.deviceDetection(
-              (io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.IntResponse>) responseObserver);
         case METHODID_MUSIC_STREAMING:
           return (io.grpc.stub.StreamObserver<Req>) serviceImpl.musicStreaming(
               (io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringResponse>) responseObserver);
@@ -455,7 +397,6 @@ public final class SpeakersServiceGrpc {
               .setSchemaDescriptor(new SpeakersServiceFileDescriptorSupplier())
               .addMethod(getTurnOnSpeakersMethod())
               .addMethod(getDisplayInputsMethod())
-              .addMethod(getDeviceDetectionMethod())
               .addMethod(getMusicStreamingMethod())
               .build();
         }
