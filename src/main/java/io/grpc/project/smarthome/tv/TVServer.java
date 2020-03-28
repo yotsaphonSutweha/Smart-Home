@@ -119,15 +119,13 @@ public class TVServer extends TvServiceImplBase {
         String result = "";
         if (turnOn) {
             result = tv.turnOn();
+            turnOnSpeakers();
+        } else {
+            result = tv.turnOff();
         }
         StringResponse response = io.grpc.project.smarthome.tv.StringResponse.newBuilder().setStringResponseValue(result).build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
-
-        // Speakers features
-        turnOnSpeakers();
-//        displayAvailableSpeakersInputs();
-//        musicStreaming();
     }
 
     @Override

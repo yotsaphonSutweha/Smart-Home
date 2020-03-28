@@ -18,6 +18,7 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -28,17 +29,15 @@ public class GUIClient extends JFrame {
     private JPanel buttons;
     private JButton turnOffButton;
     private JPanel channel;
-    private JTextField channelTextField;
     private JPanel tvStatus;
     private JLabel statusLabel;
-    private JLabel channelLabel;
-    private JLabel volumnLabel;
-    private JLabel Mode;
-    private JButton changeChannelBtn;
-    private JTextField volumnTextField;
-    private JButton changeVolumnButton;
     private JPanel status;
     private JTextPane onText;
+    private JButton displayChannelList;
+    private JTextPane channelsTextPane;
+    private JButton liveShowBtn;
+    private JTextField volumeTextField;
+    private JButton changeVolumeBtn;
     private static int tvPort  = 0;
     private static String tvServerName = "";
     private static int lightsPort  = 0;
@@ -91,16 +90,25 @@ public class GUIClient extends JFrame {
         add(rootPanel);
         setTitle("Control");
         setSize(500, 500);
+        turnOffButton.setVisible(false);
+        displayChannelList.setVisible(false);
+        liveShowBtn.setVisible(false);
+        volumeTextField.setVisible(false);
+        changeVolumeBtn.setVisible(false);
 
-//        ManagedChannel tvChannel = manageChannel(tvServerName, tvPort);
-//        blockingStub = TvServiceGrpc.newBlockingStub(tvChannel);
-//        asyncStub = TvServiceGrpc.newStub(tvChannel);
+        ManagedChannel tvChannel = manageChannel(tvServerName, tvPort);
+        blockingStub = TvServiceGrpc.newBlockingStub(tvChannel);
+        asyncStub = TvServiceGrpc.newStub(tvChannel);
 //
 //        ManagedChannel lightsChannel = manageChannel(lightsServerName, lightsPort);
 //        lightsServiceBlockingStub = LightsServiceGrpc.newBlockingStub(lightsChannel);
 //        lightsServiceAsyncStub = LightsServiceGrpc.newStub(lightsChannel);
 
-
+        turnOnBtn();
+        turnOffBtn();
+        displayChannels();
+        liveShowContentBtn();
+        changeVolume();
 //        turnOnBtn();
 //        displayChannelList();
 //        increaseVolume();
@@ -111,13 +119,76 @@ public class GUIClient extends JFrame {
 //        lightCombiner();
 //        setLightsMode();
 
-        System.out.println("Python client is running at " + pythonClientPort + " with address " + pythonClientAddress);
+//        System.out.println("Python client is running at " + pythonClientPort + " with address " + pythonClientAddress);
+//
+//        openCurtainCommand(pythonClientAddress, pythonClientPort);
+//        closeCurtainCommand(pythonClientAddress, pythonClientPort);
+//        adjustCurtainWidthAndHeight(pythonClientAddress, pythonClientPort);
 
-        openCurtainCommand(pythonClientAddress, pythonClientPort);
-        closeCurtainCommand(pythonClientAddress, pythonClientPort);
-        adjustCurtainWidthAndHeight(pythonClientAddress, pythonClientPort);
     }
 
+    public void turnOnBtn() {
+        turnOnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                turnOn();
+                displayChannelList.setVisible(true);
+                liveShowBtn.setVisible(true);
+                volumeTextField.setVisible(true);
+                changeVolumeBtn.setVisible(true);
+            }
+        });
+    }
+
+    public void turnOffBtn() {
+        turnOffButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                turnOff();
+                displayChannelList.setVisible(false);
+                liveShowBtn.setVisible(false);
+                volumeTextField.setVisible(false);
+                changeVolumeBtn.setVisible(false);
+            }
+        });
+    }
+
+    public void displayChannels() {
+        displayChannelList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayChannelList();
+            }
+        });
+    }
+
+    public void liveShowContentBtn() {
+        liveShowBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showLiveContent();
+            }
+        });
+    }
+
+    public void changeVolume() {
+        changeVolumeBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String volume = volumeTextField.getText();
+                if (volume == null) {
+                    JOptionPane.showMessageDialog(null, "Please provide the volume properly");
+                } else {
+                    increaseVolume(Integer.parseInt(volume));
+                }
+            }
+        });
+    }
+
+
+
+
+    //---------------------- Curtain commands ------------------------------
 
     public void openCurtainCommand(String pythonClientAddress, int pythonClientPort) {
         try {
@@ -170,20 +241,17 @@ public class GUIClient extends JFrame {
         }
     }
 
-    public void turnOnBtn() {
-        turnOnButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                turnOn();
-            }
-        });
-    }
+    //---------------------- End of Curtain commands ------------------------------
 
+
+    //------------------------ TV Commands -------------------------
     public void showLiveContent() {
+        ArrayList<String> liveContents = new ArrayList<>();
        StreamObserver<StringResponse> responseObserver = new StreamObserver<StringResponse>() {
            @Override
            public void onNext(StringResponse value) {
                System.out.println(value.getStringResponseValue());
+               liveContents.add(value.getStringResponseValue());
            }
 
            @Override
@@ -199,24 +267,32 @@ public class GUIClient extends JFrame {
 
        StreamObserver<StringRequest> request = asyncStub.liveContent(responseObserver);
         try {
-
             request.onNext(StringRequest.newBuilder().setStringRequestValue("Bil is 19").build());
             request.onNext(StringRequest.newBuilder().setStringRequestValue("Bil is a good student").build());
             request.onNext(StringRequest.newBuilder().setStringRequestValue("Bil becomes the greatest engineer").build());
             request.onNext(StringRequest.newBuilder().setStringRequestValue("Bil marries with a girl named Sandra").build());
+            threadSleep();
             request.onCompleted();
         } catch (RuntimeException e) {
             // Cancel RPC
             request.onError(e);
             throw e;
         }
+
+        System.out.println("Live contents " + liveContents.size());
+
+        for(String content : liveContents) {
+            JOptionPane.showMessageDialog(null, content);
+        }
+
     }
 
-    public void increaseVolume() {
+    public void increaseVolume(int volume) {
         StreamObserver<IntResponse> responseObserver = new StreamObserver<IntResponse>() {
             @Override
             public void onNext(IntResponse value) {
                 System.out.println("The current volume is " + value.getNumOutput());
+                JOptionPane.showMessageDialog(null, "Current TV volume is " + value.getNumOutput());
             }
 
             @Override
@@ -229,15 +305,10 @@ public class GUIClient extends JFrame {
 
             }
         };
-
         StreamObserver<IntRequest> request = asyncStub.increaseVolume(responseObserver);
-
         try {
-
-            request.onNext(IntRequest.newBuilder().setNumInput(1).build());
-            request.onNext(IntRequest.newBuilder().setNumInput(3).build());
-            request.onNext(IntRequest.newBuilder().setNumInput(5).build());
-            request.onNext(IntRequest.newBuilder().setNumInput(2).build());
+            request.onNext(IntRequest.newBuilder().setNumInput(volume).build());
+            threadSleep();
             request.onCompleted();
         } catch (RuntimeException e) {
             // Cancel RPC
@@ -252,18 +323,30 @@ public class GUIClient extends JFrame {
         StringResponse response = blockingStub.turnOn(request);
         System.out.println(response.getStringResponseValue());
         onText.setText("TV: " + response.getStringResponseValue());
-//        displayAvailableSpeakersInputs();
-        musicStreaming();
         turnOnButton.setVisible(false);
+        turnOffButton.setVisible(true);
+    }
+
+    public void turnOff() {
+        BooleanRequest request = BooleanRequest.newBuilder().setBooleanRequestValue(false).build();
+        StringResponse response = blockingStub.turnOn(request);
+        System.out.println(response.getStringResponseValue());
+        onText.setText("TV: " + response.getStringResponseValue());
+        turnOnButton.setVisible(true);
+        turnOffButton.setVisible(false);
     }
 
     public void displayChannelList() {
+
+        ArrayList<String> ch = new ArrayList<>();
+
         StringRequest request = StringRequest.newBuilder().setStringRequestValue("Display channels").build();
 
         StreamObserver<StringResponse> responseObserver = new StreamObserver<StringResponse>() {
             @Override
             public void onNext(StringResponse value) {
                 System.out.println(value.getStringResponseValue());
+                ch.add(value.getStringResponseValue());
             }
 
             @Override
@@ -280,7 +363,12 @@ public class GUIClient extends JFrame {
         asyncStub.displayChannelList(request, responseObserver);
 
         threadSleep();
+        String channelDisplay = "Available channels include: " + ch.get(0) + ", " + ch.get(1) + ", and " + ch.get(2);
+        channelsTextPane.setText(channelDisplay);
     }
+    //----------------End of TV commands-----------------------------------
+
+    //----------jmdns and grpc registration-------------
 
     public void registerJmdns(){
         try {
@@ -310,6 +398,8 @@ public class GUIClient extends JFrame {
         ManagedChannel channel = ManagedChannelBuilder.forAddress(name, port).usePlaintext().build();
         return channel;
     }
+
+    //---------------------------------------------------------
 
     // Lights server functions
 

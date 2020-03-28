@@ -17,6 +17,11 @@ public class TV implements TVInterface {
     }
 
     @Override
+    public String turnOff() {
+        return "is Off";
+    }
+
+    @Override
     public void mode() {
 
     }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public interface TVInterface {
     public String turnOn();
+    public String turnOff();
     public void mode();
     public ArrayList<String> channelList();
     public void setSpeakersAvailableInputs(String input);
