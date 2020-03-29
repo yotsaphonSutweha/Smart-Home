@@ -132,6 +132,11 @@ public class GUIClient extends JFrame {
         changeVolume();
         displaySpeakersInputs();
         playMusicBtn();
+        lightSwitch();
+        displayLightsModeBtn();
+        lightsCombinerBtn();
+        lightsModeBtn();
+
 //        turnOnBtn();
 //        displayChannelList();
 //        increaseVolume();
@@ -230,8 +235,53 @@ public class GUIClient extends JFrame {
         });
     }
 
+    public void lightSwitch() {
+        lightsGUI.getSwitchBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (lightsGUI.getLightsSwitchTextPane().getText().equalsIgnoreCase("Lights are off")) {
+                    turnOnLights();
+                    setLightsMode("LIGHT");
+                } else if (lightsGUI.getLightsSwitchTextPane().getText().equalsIgnoreCase("Lights are on")) {
+                    turnOffLights();
+                }
+            }
+        });
+    }
 
+    public void displayLightsModeBtn() {
+        lightsGUI.getDisplayLightsModesBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayLightsMode();
+            }
+        });
+    }
 
+    public void lightsCombinerBtn() {
+        lightsGUI.getCombineLightBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String color1 = lightsGUI.getLightColorTextField1().getText();
+                String color2 = lightsGUI.getLightColorTextField2().getText();
+                if (color1.isEmpty() || color2.isEmpty()) {
+                    lightsGUI.getLightsColorTextPane().setText("Color: White (Please provide two colors to use this functionality)");
+                } else {
+                    lightCombiner(color1, color2);
+                }
+            }
+        });
+    }
+
+    public void lightsModeBtn() {
+        lightsGUI.getSetLightsModeBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String value = lightsGUI.getLightsModeComboBox().getSelectedItem().toString();
+                setLightsMode(value);
+            }
+        });
+    }
 
     //---------------------- Curtain commands ------------------------------
 
@@ -455,14 +505,24 @@ public class GUIClient extends JFrame {
         io.grpc.project.smarthome.lights.BooleanRequest request = io.grpc.project.smarthome.lights.BooleanRequest.newBuilder().setBooleanValue(true).build();
         io.grpc.project.smarthome.lights.StringResponse response = lightsServiceBlockingStub.lightSwitch(request);
         System.out.println(response.getStringResponseValue());
+        lightsGUI.getLightsSwitchTextPane().setText(response.getStringResponseValue());
+    }
+
+    public void turnOffLights() {
+        io.grpc.project.smarthome.lights.BooleanRequest request = io.grpc.project.smarthome.lights.BooleanRequest.newBuilder().setBooleanValue(false).build();
+        io.grpc.project.smarthome.lights.StringResponse response = lightsServiceBlockingStub.lightSwitch(request);
+        System.out.println(response.getStringResponseValue());
+        lightsGUI.getLightsSwitchTextPane().setText(response.getStringResponseValue());
     }
 
     public void displayLightsMode() {
+        ArrayList<String> arr = new ArrayList<>();
         io.grpc.project.smarthome.lights.StringRequest request = io.grpc.project.smarthome.lights.StringRequest.newBuilder().setStringRequestValue("Display lights modes").build();
         StreamObserver<io.grpc.project.smarthome.lights.StringResponse> responseStreamObserver = new StreamObserver<io.grpc.project.smarthome.lights.StringResponse>() {
             @Override
             public void onNext(io.grpc.project.smarthome.lights.StringResponse value) {
                 System.out.println(value.getStringResponseValue());
+                arr.add(value.getStringResponseValue());
             }
 
             @Override
@@ -477,13 +537,21 @@ public class GUIClient extends JFrame {
         };
         lightsServiceAsyncStub.displayLightModes(request, responseStreamObserver);
         threadSleep();
+        if (arr.size() > 0) {
+            String tmp = "Available lights modes: " + arr.get(0) + ", "+ arr.get(1) + ", " + arr.get(2);
+            lightsGUI.getAvailableLightsMode().setText(tmp);
+        } else {
+            String tmp = "No available lights mode";
+            lightsGUI.getAvailableLightsMode().setText(tmp);
+        }
     }
 
-    public void lightCombiner() {
+    public void lightCombiner(String color1, String color2) {
         StreamObserver<io.grpc.project.smarthome.lights.StringRequest> requestStreamObserver = lightsServiceAsyncStub.lightCombiner(new StreamObserver<io.grpc.project.smarthome.lights.StringResponse>() {
             @Override
             public void onNext(io.grpc.project.smarthome.lights.StringResponse value) {
                 System.out.println("Light is now set to" + value.getStringResponseValue());
+                lightsGUI.getLightsColorTextPane().setText("Colors: " + value.getStringResponseValue());
             }
 
             @Override
@@ -497,17 +565,25 @@ public class GUIClient extends JFrame {
             }
         });
 
-        requestStreamObserver.onNext(io.grpc.project.smarthome.lights.StringRequest.newBuilder().setStringRequestValue("Green").build());
-        requestStreamObserver.onNext(io.grpc.project.smarthome.lights.StringRequest.newBuilder().setStringRequestValue("Red").build());
+        requestStreamObserver.onNext(io.grpc.project.smarthome.lights.StringRequest.newBuilder().setStringRequestValue(color1).build());
+        requestStreamObserver.onNext(io.grpc.project.smarthome.lights.StringRequest.newBuilder().setStringRequestValue(color2).build());
         threadSleep();
         requestStreamObserver.onCompleted();
     }
 
-    public void setLightsMode() {
-        io.grpc.project.smarthome.lights.Modes request =  io.grpc.project.smarthome.lights.Modes.newBuilder().setDetail(Modes.Mode.LIGHT).build();
+    public void setLightsMode(String value) {
+        io.grpc.project.smarthome.lights.Modes request = io.grpc.project.smarthome.lights.Modes.newBuilder().setDetail(Mode.LIGHT).build();
+        if (value.equalsIgnoreCase("DISCO")) {
+            request =  io.grpc.project.smarthome.lights.Modes.newBuilder().setDetail(Mode.DISCO).build();
+        } else if (value.equalsIgnoreCase("DARK")) {
+            request =  io.grpc.project.smarthome.lights.Modes.newBuilder().setDetail(Mode.DARK).build();
+        } else {
+            request =  io.grpc.project.smarthome.lights.Modes.newBuilder().setDetail(Mode.LIGHT).build();
+        }
         try {
             io.grpc.project.smarthome.lights.StringResponse response = lightsServiceBlockingStub.setLightMode(request);
             System.out.println("Light mode " + response.getStringResponseValue());
+            lightsGUI.getLightsModeTextPane().setText("Mode: " + response.getStringResponseValue());
         } catch (StatusRuntimeException e) {
             System.out.println(e.getMessage());
         }

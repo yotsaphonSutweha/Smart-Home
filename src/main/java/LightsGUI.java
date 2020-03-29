@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LightsGUI extends JFrame{
     private JPanel rootPane;
@@ -20,11 +22,20 @@ public class LightsGUI extends JFrame{
     private JTextPane lightsModeTextPane;
     private JTextPane lightsColorTextPane;
     private JTextPane availableLightsMode;
+    private JComboBox lightsModeComboBox;
 
     public LightsGUI () {
         add(rootPane);
         setTitle("Lights Panel");
         setSize(500, 500);
+        lightsModeComboBox.addItem("LIGHT");
+        lightsModeComboBox.addItem("DARK");
+        lightsModeComboBox.addItem("DISCO");
+        lightsModeComboBox.setSelectedIndex(0);
+    }
+
+    public JComboBox getLightsModeComboBox() {
+        return lightsModeComboBox;
     }
 
     public JButton getDisplayLightsModesBtn() {

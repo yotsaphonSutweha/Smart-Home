@@ -39,8 +39,14 @@ public class LightsServer extends LightsServiceImplBase {
         boolean req = request.getBooleanValue();
         if (req) {
             lights.setSwitch(req);
-            String isOn = "Light is on";
+            String isOn = "Lights are on";
             StringResponse res = StringResponse.newBuilder().setStringResponseValue(isOn).build();
+            responseObserver.onNext(res);
+            responseObserver.onCompleted();
+        } else {
+            lights.setSwitch(req);
+            String isOff = "Lights are off";
+            StringResponse res = StringResponse.newBuilder().setStringResponseValue(isOff).build();
             responseObserver.onNext(res);
             responseObserver.onCompleted();
         }
