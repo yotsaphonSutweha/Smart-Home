@@ -75,17 +75,16 @@ public class SpeakersServer extends SpeakersServiceImplBase{
 
     public void turnOnSpeakers(BooleanRequest request, StreamObserver<StringResponse> responseObserver) {
         System.out.println("Receiving message");
-
-
         boolean turnOn = request.getBooleanRequestValue();
-
-        String result = "";
+        String speakersStatus = "";
 
         if (turnOn) {
-            result = speakers.turnOn();
+            speakersStatus = speakers.turnOn();
+        } else {
+            speakersStatus = speakers.turnOff();
         }
         speakers.setConnectedToTv(true);
-        StringResponse response = StringResponse.newBuilder().setStringResponseValue(result).build();
+        StringResponse response = StringResponse.newBuilder().setStringResponseValue(speakersStatus).build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }

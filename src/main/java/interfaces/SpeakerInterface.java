@@ -7,7 +7,7 @@ public interface SpeakerInterface {
     public ArrayList<String> availableInputs();
     public void setConnectedToTv(boolean connectedToTv);
     public boolean connectedToTV();
-    public void turnOff();
+    public String turnOff();
     public void setDeviceList(ArrayList<String> arr);
     public ArrayList<String> getDeviceList();
     public void setVolume(int volume);

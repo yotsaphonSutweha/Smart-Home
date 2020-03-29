@@ -26,6 +26,7 @@ message BooleanRequest {
 
 message StringResponse {
     string stringResponseValue = 1;
+    string stringResponseValue2 = 2;
 }
 
 message IntRequest {

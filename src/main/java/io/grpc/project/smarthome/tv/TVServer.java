@@ -117,13 +117,15 @@ public class TVServer extends TvServiceImplBase {
         System.out.println("Receiving message");
         boolean turnOn = request.getBooleanRequestValue();
         String result = "";
+        String speakersStatus = "";
         if (turnOn) {
             result = tv.turnOn();
-            turnOnSpeakers();
+            speakersStatus = turnOnSpeakers();
         } else {
             result = tv.turnOff();
+            speakersStatus = turnOffSpeakers();
         }
-        StringResponse response = io.grpc.project.smarthome.tv.StringResponse.newBuilder().setStringResponseValue(result).build();
+        StringResponse response = io.grpc.project.smarthome.tv.StringResponse.newBuilder().setStringResponseValue(result).setStringResponseValue2(speakersStatus).build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
@@ -161,7 +163,6 @@ public class TVServer extends TvServiceImplBase {
         ArrayList<String> speakersInputs = new ArrayList<>();
         if (command.equalsIgnoreCase("Display available inputs for speakers")) {
             displayAvailableSpeakersInputs();
-            threadSleep(5000);
             speakersInputs = tv.getSpeakersAvailableInputs();
             response = StringResponse.newBuilder().setStringResponseValue(speakersInputs.get(0) + " " + speakersInputs.get(1) + " " + speakersInputs.get(2)).build();
             responseObserver.onNext(response);
@@ -179,11 +180,9 @@ public class TVServer extends TvServiceImplBase {
         String command = request.getStringRequestValue();
         StringResponse response;
         if (command.equalsIgnoreCase("Play Get Down on Saturday night")) {
-            musicStreaming();
-            threadSleep(3000);
-//            ArrayList<String> outputs = tv.getMusicLyrics();
-//            response = StringResponse.newBuilder().setStringResponseValue(outputs.get(0) + " \n" + outputs.get(1)).build();
-            response = StringResponse.newBuilder().setStringResponseValue("Please provide correct response").build();
+            ArrayList<String> lyrics = musicStreaming();
+            String strLyrics = lyrics.get(0) + "," + lyrics.get(1) + "," + lyrics.get(2) + "," + lyrics.get(3) + "," + lyrics.get(4) + "," + lyrics.get(5) + "," + lyrics.get(6) + "," + lyrics.get(7);
+            response = StringResponse.newBuilder().setStringResponseValue(strLyrics).build();
             responseObserver.onNext(response);
         } else {
             response = StringResponse.newBuilder().setStringResponseValue("Please provide correct response").build();
@@ -192,10 +191,18 @@ public class TVServer extends TvServiceImplBase {
         responseObserver.onCompleted();
     }
 
-    public void turnOnSpeakers() {
+    public String turnOnSpeakers() {
         io.grpc.project.smarthome.speakers.BooleanRequest request = io.grpc.project.smarthome.speakers.BooleanRequest.newBuilder().setBooleanRequestValue(true).build();
         io.grpc.project.smarthome.speakers.StringResponse response = speakersServiceBlockingStub.turnOnSpeakers(request);
-        System.out.println("Speaker is " + response.getStringResponseValue());
+        System.out.println("Speaker " + response.getStringResponseValue());
+        return response.getStringResponseValue();
+    }
+
+    public String turnOffSpeakers() {
+        io.grpc.project.smarthome.speakers.BooleanRequest request = io.grpc.project.smarthome.speakers.BooleanRequest.newBuilder().setBooleanRequestValue(false).build();
+        io.grpc.project.smarthome.speakers.StringResponse response = speakersServiceBlockingStub.turnOnSpeakers(request);
+        System.out.println("Speaker " + response.getStringResponseValue());
+        return response.getStringResponseValue();
     }
 
     public void displayAvailableSpeakersInputs() {
@@ -222,13 +229,13 @@ public class TVServer extends TvServiceImplBase {
     }
 
 
-    public void musicStreaming() {
-
+    public ArrayList<String> musicStreaming() {
+        ArrayList<String> musicLyrics = new ArrayList<>();
         StreamObserver<io.grpc.project.smarthome.speakers.StringRequest> request = speakersServiceAsyncStub.musicStreaming(new StreamObserver<io.grpc.project.smarthome.speakers.StringResponse>() {
             @Override
             public void onNext(io.grpc.project.smarthome.speakers.StringResponse value) {
                 System.out.println(value.getStringResponseValue());
-                tv.setMusicLyrics(value.getStringResponseValue());
+                musicLyrics.add(value.getStringResponseValue());
             }
 
             @Override
@@ -244,18 +251,19 @@ public class TVServer extends TvServiceImplBase {
 
         try {
             System.out.println("Playing Get Down Saturday night song...");
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Saturday morning,").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Saturday morning").build());
             request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Friday's enemy").build());
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Housework is calling,").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Housework is calling").build());
             request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("But where to begin").build());
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Kids are out of school,").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Kids are out of school").build());
             request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Trying to find a friend").build());
-            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Everybody's busy,").build());
+            request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Everybody's busy").build());
             request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Can't wait for the night to begin").build());
-            threadSleep(10000);
+            threadSleep(3000);
             request.onCompleted();
         } catch (RuntimeException e) {
             request.onError(e);
         }
+        return  musicLyrics;
     }
 }

@@ -21,6 +21,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 public class GUIClient extends JFrame {
 
@@ -34,10 +35,12 @@ public class GUIClient extends JFrame {
     private JPanel status;
     private JTextPane onText;
     private JButton displayChannelList;
-    private JTextPane channelsTextPane;
     private JButton liveShowBtn;
     private JTextField volumeTextField;
     private JButton changeVolumeBtn;
+    private JTextPane channelListTextPane;
+    private JButton displaySpeakersInputsBtn;
+    private JButton playMusicBtn;
     private static int tvPort  = 0;
     private static String tvServerName = "";
     private static int lightsPort  = 0;
@@ -50,6 +53,8 @@ public class GUIClient extends JFrame {
     private static LightsServiceGrpc.LightsServiceFutureStub lightsServiceFutureStub;
     private static int pythonClientPort = 0;
     private static String pythonClientAddress = "";
+    private SpeakersGUI speakersGUI;
+    private LightsGUI lightsGUI;
 
 
 
@@ -88,27 +93,45 @@ public class GUIClient extends JFrame {
         System.out.println("TV Port " + tvPort);
         System.out.println("Lights Port " + lightsPort);
         add(rootPanel);
-        setTitle("Control");
+        setTitle("TV Panel");
         setSize(500, 500);
+
+        // Display speakers GUI
+        speakersGUI = new SpeakersGUI();
+        lightsGUI = new LightsGUI();
+        lightsGUI.setVisible(true);
         turnOffButton.setVisible(false);
         displayChannelList.setVisible(false);
         liveShowBtn.setVisible(false);
         volumeTextField.setVisible(false);
         changeVolumeBtn.setVisible(false);
+        displaySpeakersInputsBtn.setVisible(false);
+        playMusicBtn.setVisible(false);
 
-        ManagedChannel tvChannel = manageChannel(tvServerName, tvPort);
-        blockingStub = TvServiceGrpc.newBlockingStub(tvChannel);
-        asyncStub = TvServiceGrpc.newStub(tvChannel);
-//
-//        ManagedChannel lightsChannel = manageChannel(lightsServerName, lightsPort);
-//        lightsServiceBlockingStub = LightsServiceGrpc.newBlockingStub(lightsChannel);
-//        lightsServiceAsyncStub = LightsServiceGrpc.newStub(lightsChannel);
+        try {
+            ManagedChannel tvChannel = manageChannel(tvServerName, tvPort);
+            blockingStub = TvServiceGrpc.newBlockingStub(tvChannel);
+            asyncStub = TvServiceGrpc.newStub(tvChannel);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Incorrect PORT for tv server");
+        }
+
+        try {
+            ManagedChannel lightsChannel = manageChannel(lightsServerName, lightsPort);
+            lightsServiceBlockingStub = LightsServiceGrpc.newBlockingStub(lightsChannel);
+            lightsServiceAsyncStub = LightsServiceGrpc.newStub(lightsChannel);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Incorrect PORT for lights server");
+            e.printStackTrace();
+        }
 
         turnOnBtn();
         turnOffBtn();
         displayChannels();
         liveShowContentBtn();
         changeVolume();
+        displaySpeakersInputs();
+        playMusicBtn();
 //        turnOnBtn();
 //        displayChannelList();
 //        increaseVolume();
@@ -124,7 +147,6 @@ public class GUIClient extends JFrame {
 //        openCurtainCommand(pythonClientAddress, pythonClientPort);
 //        closeCurtainCommand(pythonClientAddress, pythonClientPort);
 //        adjustCurtainWidthAndHeight(pythonClientAddress, pythonClientPort);
-
     }
 
     public void turnOnBtn() {
@@ -136,6 +158,9 @@ public class GUIClient extends JFrame {
                 liveShowBtn.setVisible(true);
                 volumeTextField.setVisible(true);
                 changeVolumeBtn.setVisible(true);
+                speakersGUI.setVisible(true);
+                displaySpeakersInputsBtn.setVisible(true);
+                playMusicBtn.setVisible(true);
             }
         });
     }
@@ -149,6 +174,8 @@ public class GUIClient extends JFrame {
                 liveShowBtn.setVisible(false);
                 volumeTextField.setVisible(false);
                 changeVolumeBtn.setVisible(false);
+                displaySpeakersInputsBtn.setVisible(false);
+                playMusicBtn.setVisible(false);
             }
         });
     }
@@ -181,6 +208,24 @@ public class GUIClient extends JFrame {
                 } else {
                     increaseVolume(Integer.parseInt(volume));
                 }
+            }
+        });
+    }
+
+    public void displaySpeakersInputs() {
+        displaySpeakersInputsBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayAvailableSpeakersInputs();
+            }
+        });
+    }
+
+    public void playMusicBtn() {
+        playMusicBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                musicStreaming();
             }
         });
     }
@@ -321,8 +366,9 @@ public class GUIClient extends JFrame {
     public void turnOn() {
         BooleanRequest request = BooleanRequest.newBuilder().setBooleanRequestValue(true).build();
         StringResponse response = blockingStub.turnOn(request);
-        System.out.println(response.getStringResponseValue());
+        System.out.println("TV" + response.getStringResponseValue());
         onText.setText("TV: " + response.getStringResponseValue());
+        speakersGUI.getSpeakOn().setText("Speakers " + response.getStringResponseValue2());
         turnOnButton.setVisible(false);
         turnOffButton.setVisible(true);
     }
@@ -332,6 +378,7 @@ public class GUIClient extends JFrame {
         StringResponse response = blockingStub.turnOn(request);
         System.out.println(response.getStringResponseValue());
         onText.setText("TV: " + response.getStringResponseValue());
+        speakersGUI.getSpeakOn().setText("Speakers " + response.getStringResponseValue2());
         turnOnButton.setVisible(true);
         turnOffButton.setVisible(false);
     }
@@ -364,7 +411,8 @@ public class GUIClient extends JFrame {
 
         threadSleep();
         String channelDisplay = "Available channels include: " + ch.get(0) + ", " + ch.get(1) + ", and " + ch.get(2);
-        channelsTextPane.setText(channelDisplay);
+        System.out.println(channelDisplay);
+        channelListTextPane.setText(channelDisplay);
     }
     //----------------End of TV commands-----------------------------------
 
@@ -465,16 +513,36 @@ public class GUIClient extends JFrame {
         }
     }
 
+    //---------------Speakers server functions------------------
+
     public void displayAvailableSpeakersInputs() {
         StringRequest request = StringRequest.newBuilder().setStringRequestValue("Display available inputs for speakers").build();
         StringResponse responses = blockingStub.displayInputsSpeakersCommand(request);
         System.out.println("Available speakers inputs " + responses.getStringResponseValue());
+        speakersGUI.getAvailableInputs().setText("Available speakers inputs " + responses.getStringResponseValue());
     }
 
     public void musicStreaming() {
+        StringTokenizer st;
+        ArrayList<String> arr = new ArrayList<>();
         StringRequest request = StringRequest.newBuilder().setStringRequestValue("Play Get Down on Saturday night").build();
         StringResponse response = blockingStub.musicStreamingSpeakersCommand(request);
-        System.out.println(response);
+        st = new StringTokenizer(response.getStringResponseValue(),  ",");
+        while (st.hasMoreElements()) {
+            arr.add(st.nextToken());
+        }
+
+        speakersGUI.getMusicStreamingTextPane().setText("Playing Get Down on Saturday night...");
+        speakersGUI.getMusicStreamingTextPane2().setText(arr.get(0));
+        speakersGUI.getMusicStreamingTextPane3().setText(arr.get(1));
+        speakersGUI.getMusicStreamingTextPane4().setText(arr.get(2));
+        speakersGUI.getMusicStreamingTextPane5().setText(arr.get(3));
+        speakersGUI.getMusicStreamingTextPane6().setText(arr.get(4));
+        speakersGUI.getMusicStreamingTextPane7().setText(arr.get(5));
+        speakersGUI.getMusicStreamingTextPane8().setText(arr.get(6));
+        speakersGUI.getMusicStreamingTextPane9().setText(arr.get(7));
 
     }
+
+    //---------------End of Speakers server functions------------------
 }

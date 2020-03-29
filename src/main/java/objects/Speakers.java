@@ -17,7 +17,7 @@ public class Speakers implements SpeakerInterface {
     }
     @Override
     public String turnOn() {
-        return "is On";
+        return "are On";
     }
 
     @Override
@@ -40,8 +40,8 @@ public class Speakers implements SpeakerInterface {
     }
 
     @Override
-    public void turnOff() {
-
+    public String turnOff() {
+        return "are Off";
     }
 
     @Override

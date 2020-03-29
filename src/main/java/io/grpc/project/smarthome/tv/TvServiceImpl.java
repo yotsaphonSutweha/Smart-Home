@@ -50,23 +50,24 @@ public final class TvServiceImpl {
     java.lang.String[] descriptorData = {
       "\n\010tv.proto\022\tsmarthome\"+\n\rStringRequest\022\032" +
       "\n\022stringRequestValue\030\001 \001(\t\"-\n\016BooleanReq" +
-      "uest\022\033\n\023booleanRequestValue\030\001 \001(\010\"-\n\016Str" +
+      "uest\022\033\n\023booleanRequestValue\030\001 \001(\010\"K\n\016Str" +
       "ingResponse\022\033\n\023stringResponseValue\030\001 \001(\t" +
-      "\"\036\n\nIntRequest\022\020\n\010numInput\030\001 \001(\005\" \n\013IntR" +
-      "esponse\022\021\n\tnumOutput\030\001 \001(\0052\332\003\n\tTvService" +
-      "\022@\n\006turnOn\022\031.smarthome.BooleanRequest\032\031." +
-      "smarthome.StringResponse\"\000\022M\n\022displayCha" +
-      "nnelList\022\030.smarthome.StringRequest\032\031.sma" +
-      "rthome.StringResponse\"\0000\001\022C\n\016increaseVol" +
-      "ume\022\025.smarthome.IntRequest\032\026.smarthome.I" +
-      "ntResponse\"\000(\001\022H\n\013liveContent\022\030.smarthom" +
-      "e.StringRequest\032\031.smarthome.StringRespon" +
-      "se\"\000(\0010\001\022U\n\034displayInputsSpeakersCommand" +
-      "\022\030.smarthome.StringRequest\032\031.smarthome.S" +
-      "tringResponse\"\000\022V\n\035musicStreamingSpeaker" +
-      "sCommand\022\030.smarthome.StringRequest\032\031.sma" +
-      "rthome.StringResponse\"\000B/\n\034io.grpc.proje" +
-      "ct.smarthome.tvB\rTvServiceImplP\001b\006proto3"
+      "\022\034\n\024stringResponseValue2\030\002 \001(\t\"\036\n\nIntReq" +
+      "uest\022\020\n\010numInput\030\001 \001(\005\" \n\013IntResponse\022\021\n" +
+      "\tnumOutput\030\001 \001(\0052\332\003\n\tTvService\022@\n\006turnOn" +
+      "\022\031.smarthome.BooleanRequest\032\031.smarthome." +
+      "StringResponse\"\000\022M\n\022displayChannelList\022\030" +
+      ".smarthome.StringRequest\032\031.smarthome.Str" +
+      "ingResponse\"\0000\001\022C\n\016increaseVolume\022\025.smar" +
+      "thome.IntRequest\032\026.smarthome.IntResponse" +
+      "\"\000(\001\022H\n\013liveContent\022\030.smarthome.StringRe" +
+      "quest\032\031.smarthome.StringResponse\"\000(\0010\001\022U" +
+      "\n\034displayInputsSpeakersCommand\022\030.smartho" +
+      "me.StringRequest\032\031.smarthome.StringRespo" +
+      "nse\"\000\022V\n\035musicStreamingSpeakersCommand\022\030" +
+      ".smarthome.StringRequest\032\031.smarthome.Str" +
+      "ingResponse\"\000B/\n\034io.grpc.project.smartho" +
+      "me.tvB\rTvServiceImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -97,7 +98,7 @@ public final class TvServiceImpl {
     internal_static_smarthome_StringResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_smarthome_StringResponse_descriptor,
-        new java.lang.String[] { "StringResponseValue", });
+        new java.lang.String[] { "StringResponseValue", "StringResponseValue2", });
     internal_static_smarthome_IntRequest_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_smarthome_IntRequest_fieldAccessorTable = new

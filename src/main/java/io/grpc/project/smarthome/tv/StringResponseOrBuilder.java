@@ -16,4 +16,14 @@ public interface StringResponseOrBuilder extends
    */
   com.google.protobuf.ByteString
       getStringResponseValueBytes();
+
+  /**
+   * <code>string stringResponseValue2 = 2;</code>
+   */
+  java.lang.String getStringResponseValue2();
+  /**
+   * <code>string stringResponseValue2 = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getStringResponseValue2Bytes();
 }
