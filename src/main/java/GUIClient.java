@@ -11,10 +11,7 @@ import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceListener;
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -55,6 +52,7 @@ public class GUIClient extends JFrame {
     private static String pythonClientAddress = "";
     private SpeakersGUI speakersGUI;
     private LightsGUI lightsGUI;
+    private CurtainGUI curtainGUI;
 
 
 
@@ -99,7 +97,9 @@ public class GUIClient extends JFrame {
         // Display speakers GUI
         speakersGUI = new SpeakersGUI();
         lightsGUI = new LightsGUI();
+        curtainGUI = new CurtainGUI();
         lightsGUI.setVisible(true);
+
         turnOffButton.setVisible(false);
         displayChannelList.setVisible(false);
         liveShowBtn.setVisible(false);
@@ -137,22 +137,66 @@ public class GUIClient extends JFrame {
         lightsCombinerBtn();
         lightsModeBtn();
 
+        displayCurtainPanelWhenConnectionEstablished(pythonClientAddress, pythonClientPort);
+
 //        turnOnBtn();
-//        displayChannelList();
-//        increaseVolume();
-//        showLiveContent();
 
 //        turnOnLights();
 //        displayLightsMode();
 //        lightCombiner();
 //        setLightsMode();
 
-//        System.out.println("Python client is running at " + pythonClientPort + " with address " + pythonClientAddress);
 //
 //        openCurtainCommand(pythonClientAddress, pythonClientPort);
 //        closeCurtainCommand(pythonClientAddress, pythonClientPort);
 //        adjustCurtainWidthAndHeight(pythonClientAddress, pythonClientPort);
     }
+
+    //----------jmdns and grpc registration-------------
+
+    public void registerJmdns(){
+        try {
+            // create a JmDNS instance
+            JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
+            // add service listener
+            jmdns.addServiceListener("_http._tcp.local.", new GUIClient.Listener());
+            jmdns.addServiceListener("_lights._tcp.local.", new GUIClient.Listener());
+            jmdns.addServiceListener("_curtain._tcp.local.", new GUIClient.Listener());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void threadSleep() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public ManagedChannel manageChannel(String name, int port) {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(name, port).usePlaintext().build();
+        return channel;
+    }
+
+    public void displayCurtainPanelWhenConnectionEstablished(String pythonClientAddress, int pythonClientPort) {
+        if (pythonClientPort == 0) {
+            System.out.println("Python client is not detected. Please restart the servers...");
+        } else {
+            curtainGUI.setVisible(true);
+            System.out.println("Python client is running at " + pythonClientPort + " with address " + pythonClientAddress);
+            openCurtainBtn(pythonClientAddress, pythonClientPort);
+            closeCurtainBtn(pythonClientAddress, pythonClientPort);
+            adjustCurtainWidthHeightBtn(pythonClientAddress, pythonClientPort);
+        }
+    }
+
+    //---------------------------------------------------------
+
 
     public void turnOnBtn() {
         turnOnButton.addActionListener(new ActionListener() {
@@ -283,15 +327,54 @@ public class GUIClient extends JFrame {
         });
     }
 
+    public void openCurtainBtn(String pythonClientAddress, int pythonClientPort) {
+        curtainGUI.getOpenCurtainBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openCurtainCommand(pythonClientAddress, pythonClientPort);
+            }
+        });
+    }
+
+    public void closeCurtainBtn(String pythonClientAddress, int pythonClientPort) {
+        curtainGUI.getCloseCurtainBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closeCurtainCommand(pythonClientAddress, pythonClientPort);
+            }
+        });
+    }
+
+    public void adjustCurtainWidthHeightBtn(String pythonClientAddress, int pythonClientPort) {
+        curtainGUI.getAdjustWidthHeightBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                float width = Float.parseFloat(curtainGUI.getWidthTextField().getText());
+                float height = Float.parseFloat(curtainGUI.getHeightTextField().getText());
+                adjustCurtainWidthAndHeight(pythonClientAddress, pythonClientPort, width, height);
+                curtainGUI.getWidthTextPane().setText("Width: " + width + " cm.");
+                curtainGUI.getHeightTextPane().setText("Height: " + height + " cm.");
+            }
+        });
+    }
+
     //---------------------- Curtain commands ------------------------------
 
     public void openCurtainCommand(String pythonClientAddress, int pythonClientPort) {
         try {
             Socket clientSocket = new Socket(pythonClientAddress, pythonClientPort);
-            PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream());
-            printWriter.write("Open");
-            printWriter.flush();
-            printWriter.close();
+            DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
+            DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
+            outputStream.writeUTF("Open");
+            outputStream.flush();
+            System.out.println("Message send to open curtain");
+            String messageFromServer = inputStream.readUTF();
+            System.out.println("Message receives from Python socket server " + messageFromServer);
+            curtainGUI.getCurtainStatusTextPane().setText(messageFromServer);
+            curtainGUI.getWidthTextPane().setText("Width: 100.00 cm.");
+            curtainGUI.getHeightTextPane().setText("Height: 100.00 cm.");
+            inputStream.close();
+            outputStream.close();
             clientSocket.close();
         } catch (UnknownHostException e) {
             System.out.println("Failed to establish connection");
@@ -305,10 +388,18 @@ public class GUIClient extends JFrame {
     public void closeCurtainCommand(String pythonClientAddress, int pythonClientPort) {
         try {
             Socket clientSocket = new Socket(pythonClientAddress, pythonClientPort);
-            PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream());
-            printWriter.write("Close");
-            printWriter.flush();
-            printWriter.close();
+            DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
+            DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
+            outputStream.writeUTF("Close");
+            outputStream.flush();
+            System.out.println("Message send to open curtain");
+            String messageFromServer = inputStream.readUTF();
+            System.out.println("Message receives from Python socket server " + messageFromServer);
+            curtainGUI.getCurtainStatusTextPane().setText(messageFromServer);
+            curtainGUI.getWidthTextPane().setText("Width: 0.00 cm.");
+            curtainGUI.getHeightTextPane().setText("Height: 0.00 cm.");
+            inputStream.close();
+            outputStream.close();
             clientSocket.close();
         } catch (UnknownHostException e) {
             System.out.println("Failed to establish connection");
@@ -319,11 +410,12 @@ public class GUIClient extends JFrame {
         }
     }
 
-    public void adjustCurtainWidthAndHeight(String pythonClientAddress, int pythonClientPort) {
+    public void adjustCurtainWidthAndHeight(String pythonClientAddress, int pythonClientPort, float width, float height) {
         try {
             Socket clientSocket = new Socket(pythonClientAddress, pythonClientPort);
             PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream());
-            printWriter.write("4,7");
+            String payload = width + "," + height;
+            printWriter.write(payload);
             printWriter.flush();
             printWriter.close();
             clientSocket.close();
@@ -466,38 +558,6 @@ public class GUIClient extends JFrame {
     }
     //----------------End of TV commands-----------------------------------
 
-    //----------jmdns and grpc registration-------------
-
-    public void registerJmdns(){
-        try {
-            // create a JmDNS instance
-            JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
-            // add service listener
-            jmdns.addServiceListener("_http._tcp.local.", new GUIClient.Listener());
-            jmdns.addServiceListener("_lights._tcp.local.", new GUIClient.Listener());
-            jmdns.addServiceListener("_curtain._tcp.local.", new GUIClient.Listener());
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void threadSleep() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    public ManagedChannel manageChannel(String name, int port) {
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(name, port).usePlaintext().build();
-        return channel;
-    }
-
-    //---------------------------------------------------------
 
     // Lights server functions
 

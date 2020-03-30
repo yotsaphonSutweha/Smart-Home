@@ -83,21 +83,27 @@ if __name__ == "__main__":
         while True: 
             clientsocket, address = s.accept()
             print("Connection from {0} has been established!".format(address))
-            message = clientsocket.recv(1024).decode()
+            length_of_message = int.from_bytes(clientsocket.recv(2), byteorder="big")
+            message = clientsocket.recv(length_of_message).decode("UTF-8")
+            message = message.strip()
             if message == "Open":
                 # create the request 
                 request_open = curtain_pb2.StringRequest(stringRequestValue=message)
-
                 # make the call
                 response_open = stub.open(request_open)
                 print(response_open.stringResponseValue)
-                # clientsocket.send(bytes("Open", "utf-8"))
+                message_to_send = response_open.stringResponseValue.encode("UTF-8")
+                clientsocket.send(len(message_to_send).to_bytes(2, byteorder="big"))
+                clientsocket.send(message_to_send)
 
             elif message == "Close":
                 # create the request 
                 request_close = curtain_pb2.StringRequest(stringRequestValue=message)
                 response_close = stub.close(request_close)
                 print(response_close.stringResponseValue)
+                message_to_send = response_close.stringResponseValue.encode("UTF-8")
+                clientsocket.send(len(message_to_send).to_bytes(2, byteorder="big"))
+                clientsocket.send(message_to_send)
             else:
                 arr = []
                 arr = message.split(",")

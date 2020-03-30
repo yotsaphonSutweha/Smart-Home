@@ -12,8 +12,8 @@ class CurtainService(curtain_pb2_grpc.CurtainServiceServicer):
     def open(self, request, context):
         if request.stringRequestValue == "Open":
             response = curtain_pb2.StringResponse()
-            response.stringResponseValue = "Curtain is fully opened"
-            print("Curtain is opened")
+            response.stringResponseValue = "Curtain: Open"
+            print(response.stringResponseValue)
             return response
         else:
             response = curtain_pb2.StringResponse()
@@ -23,8 +23,8 @@ class CurtainService(curtain_pb2_grpc.CurtainServiceServicer):
     def close(self, request, context):
         if request.stringRequestValue == "Close":
             response = curtain_pb2.StringResponse()
-            response.stringResponseValue = "Curtain is fully closed"
-            print("Curtain is closed")
+            response.stringResponseValue = "Curtain: Close"
+            print(response.stringResponseValue)
             return response
         else:
             response = curtain_pb2.StringResponse()

@@ -2,11 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="03ce0f9a-aeb1-4fb3-a18a-69062c298042" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/CurtainGUI.form" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/CurtainGUI.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/src/curtain_client.py" afterPath="$PROJECT_DIR$/src/curtain_client.py" />
+      <change beforePath="$PROJECT_DIR$/src/curtain_server.py" afterPath="$PROJECT_DIR$/src/curtain_server.py" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI.java" afterPath="$PROJECT_DIR$/src/main/java/GUI.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUIClient.java" afterPath="$PROJECT_DIR$/src/main/java/GUIClient.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/LightsGUI.form" afterPath="$PROJECT_DIR$/src/main/java/LightsGUI.form" />
       <change beforePath="$PROJECT_DIR$/src/main/java/LightsGUI.java" afterPath="$PROJECT_DIR$/src/main/java/LightsGUI.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/lights/LightsServer.java" afterPath="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/lights/LightsServer.java" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI.class" afterPath="$PROJECT_DIR$/target/classes/GUI.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$1.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$1.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$10.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$10.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$11.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$11.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$12.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$12.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$13.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$13.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$14.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$14.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$15.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$15.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$16.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$16.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$2.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$2.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$3.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$3.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$4.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$4.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$5.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$5.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$6.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$6.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$7.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$7.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$8.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$8.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$9.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$9.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient$Listener.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient$Listener.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUIClient.class" afterPath="$PROJECT_DIR$/target/classes/GUIClient.class" />
+      <change beforePath="$PROJECT_DIR$/target/classes/LightsGUI.class" afterPath="$PROJECT_DIR$/target/classes/LightsGUI.class" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -29,17 +52,51 @@
       <file leaf-file-name="GUI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/GUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
+            <state relative-caret-position="105">
+              <caret line="7" column="32" lean-forward="false" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
               <folding />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CurtainGUI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/CurtainGUI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+              <folding>
+                <element signature="e#664#665#0" expanded="true" />
+                <element signature="e#701#702#0" expanded="true" />
+                <element signature="e#744#745#0" expanded="true" />
+                <element signature="e#782#783#0" expanded="true" />
+                <element signature="e#827#828#0" expanded="true" />
+                <element signature="e#864#865#0" expanded="true" />
+                <element signature="e#910#911#0" expanded="true" />
+                <element signature="e#948#949#0" expanded="true" />
+                <element signature="e#996#997#0" expanded="true" />
+                <element signature="e#1039#1040#0" expanded="true" />
+                <element signature="e#1090#1091#0" expanded="true" />
+                <element signature="e#1134#1135#0" expanded="true" />
+                <element signature="e#1177#1178#0" expanded="true" />
+                <element signature="e#1213#1214#0" expanded="true" />
+                <element signature="e#1257#1258#0" expanded="true" />
+                <element signature="e#1294#1295#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CurtainGUI.form" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/CurtainGUI.form">
+          <provider selected="true" editor-type-id="ui-designer">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="TVClient.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TVClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
+            <state relative-caret-position="698">
               <caret line="74" column="35" lean-forward="false" selection-start-line="74" selection-start-column="35" selection-end-line="74" selection-end-column="35" />
               <folding />
             </state>
@@ -49,8 +106,8 @@
       <file leaf-file-name="TVServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TVServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3510">
-              <caret line="259" column="128" lean-forward="true" selection-start-line="259" selection-start-column="128" selection-end-line="259" selection-end-column="128" />
+            <state relative-caret-position="418">
+              <caret line="259" column="128" lean-forward="false" selection-start-line="259" selection-start-column="128" selection-end-line="259" selection-end-column="128" />
               <folding />
             </state>
           </provider>
@@ -59,21 +116,25 @@
       <file leaf-file-name="GUIClient.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/GUIClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="276" column="39" lean-forward="false" selection-start-line="276" selection-start-column="39" selection-end-line="276" selection-end-column="39" />
+            <state relative-caret-position="-377">
+              <caret line="372" column="58" lean-forward="false" selection-start-line="372" selection-start-column="58" selection-end-line="372" selection-end-column="58" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7055#7056#0" expanded="true" />
-                <element signature="e#7107#7108#0" expanded="true" />
-                <element signature="e#7305#7306#0" expanded="true" />
-                <element signature="e#7354#7355#0" expanded="true" />
-                <element signature="e#8075#8076#0" expanded="true" />
-                <element signature="e#8139#8140#0" expanded="true" />
-                <element signature="e#8332#8333#0" expanded="true" />
-                <element signature="e#8380#8381#0" expanded="true" />
-                <element signature="e#9172#9173#0" expanded="true" />
-                <element signature="e#9223#9224#0" expanded="true" />
-                <marker date="1585512930720" expanded="false" signature="5175:5197" ph="..." />
+                <element signature="e#8720#8721#0" expanded="true" />
+                <element signature="e#8772#8773#0" expanded="true" />
+                <element signature="e#8970#8971#0" expanded="true" />
+                <element signature="e#9019#9020#0" expanded="true" />
+                <element signature="e#9740#9741#0" expanded="true" />
+                <element signature="e#9804#9805#0" expanded="true" />
+                <element signature="e#9997#9998#0" expanded="true" />
+                <element signature="e#10045#10046#0" expanded="true" />
+                <element signature="e#10837#10838#0" expanded="true" />
+                <element signature="e#10888#10889#0" expanded="true" />
+                <element signature="e#12185#12186#0" expanded="true" />
+                <element signature="e#12274#12275#0" expanded="true" />
+                <element signature="e#12537#12538#0" expanded="true" />
+                <element signature="e#12627#12628#0" expanded="true" />
+                <marker date="1585569715658" expanded="false" signature="5241:5263" ph="..." />
               </folding>
             </state>
           </provider>
@@ -82,8 +143,8 @@
       <file leaf-file-name="LightsGUI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/LightsGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="33" column="45" lean-forward="false" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
+            <state relative-caret-position="214">
+              <caret line="32" column="44" lean-forward="false" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
               <folding>
                 <element signature="e#1255#1256#0" expanded="true" />
                 <element signature="e#1296#1297#0" expanded="true" />
@@ -118,37 +179,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/lights/LightsServer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="394">
-              <caret line="63" column="5" lean-forward="true" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LightsGUI.form" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/LightsGUI.form">
-          <provider selected="true" editor-type-id="ui-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Lights.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/objects/Lights.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="22" column="28" lean-forward="false" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
-              <folding>
-                <element signature="e#551#552#0" expanded="true" />
-                <element signature="e#588#589#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="lights.proto" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/lights.proto">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="34" column="1" lean-forward="false" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
+              <caret line="63" column="5" lean-forward="false" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -203,7 +234,6 @@
         <option value="$PROJECT_DIR$/src/main/java/Ui.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/stylesheets/styles.css" />
         <option value="$PROJECT_DIR$/src/main/java/UserInterface.java" />
-        <option value="$PROJECT_DIR$/src/main/java/GUI.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TVClient.java" />
         <option value="$PROJECT_DIR$/src/main/java/interfaces/LightsInterface.java" />
         <option value="$PROJECT_DIR$/src/main/java/objects/Lights.java" />
@@ -226,14 +256,17 @@
         <option value="$PROJECT_DIR$/src/main/java/SpeakersGUI.form" />
         <option value="$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/lights/LightsServer.java" />
         <option value="$PROJECT_DIR$/src/main/java/LightsGUI.form" />
+        <option value="$PROJECT_DIR$/src/main/java/GUI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/CurtainGUI.java" />
         <option value="$PROJECT_DIR$/src/main/java/LightsGUI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/CurtainGUI.form" />
         <option value="$PROJECT_DIR$/src/main/java/GUIClient.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="-146" />
-    <option name="y" value="-909" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="42" />
+    <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="825" />
   </component>
@@ -254,6 +287,8 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -296,70 +331,11 @@
               <item name="smarthome" type="462c0819:PsiDirectoryNode" />
               <item name="lights" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="SmartHome" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SmartHome" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="smarthome" type="462c0819:PsiDirectoryNode" />
-              <item name="speakers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SmartHome" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SmartHome" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="smarthome" type="462c0819:PsiDirectoryNode" />
-              <item name="tv" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SmartHome" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SmartHome" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="objects" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SmartHome" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SmartHome" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="GUIClient" type="e9f4de52:FormNode" />
-            </path>
-            <path>
-              <item name="SmartHome" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SmartHome" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="LightsGUI" type="e9f4de52:FormNode" />
-            </path>
-            <path>
-              <item name="SmartHome" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SmartHome" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="SpeakersGUI" type="e9f4de52:FormNode" />
-            </path>
-            <path>
-              <item name="SmartHome" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SmartHome" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -388,7 +364,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.TVServer (1)">
+  <component name="RunManager" selected="Application.GUI">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
@@ -613,7 +589,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-254" y="-1080" width="1920" height="1080" extended-state="0" />
+    <frame x="42" y="23" width="1440" height="825" extended-state="0" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -634,10 +610,10 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.40194175" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45285526" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30277777" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -694,14 +670,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SmartHome.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/SmartHomeServiceImpl.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/ui/Controller.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/ui/ui.fxml" />
     <entry file="file://$PROJECT_DIR$/src/main/java/ui/Main.java" />
@@ -712,7 +680,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="30" lean-forward="false" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
@@ -883,30 +850,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="21" column="26" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="21" selection-end-column="26" />
-          <folding>
-            <element signature="e#820#821#0" expanded="false" />
-            <element signature="e#858#859#0" expanded="false" />
-            <element signature="e#895#896#0" expanded="false" />
-            <element signature="e#925#926#0" expanded="false" />
-            <element signature="e#977#978#0" expanded="false" />
-            <element signature="e#1022#1023#0" expanded="false" />
-            <element signature="e#1075#1076#0" expanded="false" />
-            <element signature="e#1121#1122#0" expanded="false" />
-            <element signature="e#1174#1175#0" expanded="false" />
-            <element signature="e#1220#1221#0" expanded="false" />
-            <element signature="e#1273#1274#0" expanded="false" />
-            <element signature="e#1319#1320#0" expanded="false" />
-            <element signature="e#1372#1373#0" expanded="false" />
-            <element signature="e#1418#1419#0" expanded="false" />
-            <element signature="e#1471#1472#0" expanded="false" />
-            <element signature="e#1517#1518#0" expanded="false" />
-            <element signature="e#1570#1571#0" expanded="false" />
-            <element signature="e#1616#1617#0" expanded="false" />
-            <element signature="e#1669#1670#0" expanded="false" />
-            <element signature="e#1715#1716#0" expanded="false" />
-            <element signature="e#1768#1769#0" expanded="false" />
-            <element signature="e#1814#1815#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -935,7 +878,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -947,21 +889,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/GUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/objects/Lights.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
+        <state relative-caret-position="285">
           <caret line="22" column="28" lean-forward="false" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
           <folding>
-            <element signature="e#551#552#0" expanded="true" />
-            <element signature="e#588#589#0" expanded="true" />
+            <element signature="e#551#552#0" expanded="false" />
+            <element signature="e#588#589#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -974,44 +908,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/lights/LightsServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="63" column="5" lean-forward="true" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TVClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="74" column="35" lean-forward="false" selection-start-line="74" selection-start-column="35" selection-end-line="74" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TVServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3510">
-          <caret line="259" column="128" lean-forward="true" selection-start-line="259" selection-start-column="128" selection-end-line="259" selection-end-column="128" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/GUIClient.form">
-      <provider selected="true" editor-type-id="ui-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/LightsGUI.form">
-      <provider selected="true" editor-type-id="ui-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/LightsGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="33" column="45" lean-forward="false" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
+        <state relative-caret-position="214">
+          <caret line="32" column="44" lean-forward="false" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
           <folding>
             <element signature="e#1255#1256#0" expanded="true" />
             <element signature="e#1296#1297#0" expanded="true" />
@@ -1041,23 +941,99 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/lights/LightsServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="394">
+          <caret line="63" column="5" lean-forward="false" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TVClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="698">
+          <caret line="74" column="35" lean-forward="false" selection-start-line="74" selection-start-column="35" selection-end-line="74" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/GUIClient.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/grpc/project/smarthome/tv/TVServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="259" column="128" lean-forward="false" selection-start-line="259" selection-start-column="128" selection-end-line="259" selection-end-column="128" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/GUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="32" lean-forward="false" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/LightsGUI.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/CurtainGUI.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/CurtainGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+          <folding>
+            <element signature="e#664#665#0" expanded="true" />
+            <element signature="e#701#702#0" expanded="true" />
+            <element signature="e#744#745#0" expanded="true" />
+            <element signature="e#782#783#0" expanded="true" />
+            <element signature="e#827#828#0" expanded="true" />
+            <element signature="e#864#865#0" expanded="true" />
+            <element signature="e#910#911#0" expanded="true" />
+            <element signature="e#948#949#0" expanded="true" />
+            <element signature="e#996#997#0" expanded="true" />
+            <element signature="e#1039#1040#0" expanded="true" />
+            <element signature="e#1090#1091#0" expanded="true" />
+            <element signature="e#1134#1135#0" expanded="true" />
+            <element signature="e#1177#1178#0" expanded="true" />
+            <element signature="e#1213#1214#0" expanded="true" />
+            <element signature="e#1257#1258#0" expanded="true" />
+            <element signature="e#1294#1295#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/GUIClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="276" column="39" lean-forward="false" selection-start-line="276" selection-start-column="39" selection-end-line="276" selection-end-column="39" />
+        <state relative-caret-position="-377">
+          <caret line="372" column="58" lean-forward="false" selection-start-line="372" selection-start-column="58" selection-end-line="372" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7055#7056#0" expanded="true" />
-            <element signature="e#7107#7108#0" expanded="true" />
-            <element signature="e#7305#7306#0" expanded="true" />
-            <element signature="e#7354#7355#0" expanded="true" />
-            <element signature="e#8075#8076#0" expanded="true" />
-            <element signature="e#8139#8140#0" expanded="true" />
-            <element signature="e#8332#8333#0" expanded="true" />
-            <element signature="e#8380#8381#0" expanded="true" />
-            <element signature="e#9172#9173#0" expanded="true" />
-            <element signature="e#9223#9224#0" expanded="true" />
-            <marker date="1585512930720" expanded="false" signature="5175:5197" ph="..." />
+            <element signature="e#8720#8721#0" expanded="true" />
+            <element signature="e#8772#8773#0" expanded="true" />
+            <element signature="e#8970#8971#0" expanded="true" />
+            <element signature="e#9019#9020#0" expanded="true" />
+            <element signature="e#9740#9741#0" expanded="true" />
+            <element signature="e#9804#9805#0" expanded="true" />
+            <element signature="e#9997#9998#0" expanded="true" />
+            <element signature="e#10045#10046#0" expanded="true" />
+            <element signature="e#10837#10838#0" expanded="true" />
+            <element signature="e#10888#10889#0" expanded="true" />
+            <element signature="e#12185#12186#0" expanded="true" />
+            <element signature="e#12274#12275#0" expanded="true" />
+            <element signature="e#12537#12538#0" expanded="true" />
+            <element signature="e#12627#12628#0" expanded="true" />
+            <marker date="1585569715658" expanded="false" signature="5241:5263" ph="..." />
           </folding>
         </state>
       </provider>
