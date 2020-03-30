@@ -13,6 +13,8 @@ public class CurtainGUI extends JFrame{
     private JTextPane curtainStatusTextPane;
     private JTextPane widthTextPane;
     private JTextPane heightTextPane;
+    private JLabel widthLabel;
+    private JLabel heightLabel;
 
     public CurtainGUI() {
         add(rootPane);

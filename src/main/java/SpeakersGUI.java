@@ -15,10 +15,11 @@ public class SpeakersGUI extends JFrame{
     private JTextPane musicStreamingTextPane7;
     private JTextPane musicStreamingTextPane8;
     private JTextPane musicStreamingTextPane9;
+    private JTextPane volumeTextPane;
 
     public SpeakersGUI() {
         add(rootPane);
-        setTitle("Speakers Panel");
+        setTitle("Speakers GUI");
         setSize(500, 500);
     }
 
@@ -64,5 +65,9 @@ public class SpeakersGUI extends JFrame{
 
     public JTextPane getMusicStreamingTextPane9() {
         return musicStreamingTextPane9;
+    }
+
+    public JTextPane getVolumeTextPane() {
+        return volumeTextPane;
     }
 }

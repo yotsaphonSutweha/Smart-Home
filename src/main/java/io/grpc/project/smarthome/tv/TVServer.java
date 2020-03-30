@@ -1,9 +1,6 @@
 package io.grpc.project.smarthome.tv;
 
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-import io.grpc.Server;
-import io.grpc.ServerBuilder;
+import io.grpc.*;
 import io.grpc.project.smarthome.speakers.SpeakersServiceGrpc;
 import io.grpc.project.smarthome.tv.TvServiceGrpc.TvServiceImplBase;
 import io.grpc.stub.StreamObserver;
@@ -42,9 +39,13 @@ public class TVServer extends TvServiceImplBase {
         @Override
         public void serviceResolved(ServiceEvent serviceEvent) {
             System.out.println("Service resolved: " + serviceEvent.getInfo());
-            ManagedChannel speakerChannel = ManagedChannelBuilder.forAddress(serviceEvent.getName(), serviceEvent.getInfo().getPort()).usePlaintext().build();
-            speakersServiceBlockingStub = SpeakersServiceGrpc.newBlockingStub(speakerChannel);
-            speakersServiceAsyncStub = SpeakersServiceGrpc.newStub(speakerChannel);
+            try {
+                ManagedChannel speakerChannel = ManagedChannelBuilder.forAddress(serviceEvent.getName(), serviceEvent.getInfo().getPort()).usePlaintext().build();
+                speakersServiceBlockingStub = SpeakersServiceGrpc.newBlockingStub(speakerChannel);
+                speakersServiceAsyncStub = SpeakersServiceGrpc.newStub(speakerChannel);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Incorrect PORT for Tv server");
+            }
         }
     }
 
@@ -60,9 +61,13 @@ public class TVServer extends TvServiceImplBase {
                     .addService(smServer)
                     .build()
                     .start();
-            logger.info("Server started, listening on " + PORT);
+            System.out.println("TV server started, listening on " + PORT);
             server.awaitTermination();
+        } catch (UnknownHostException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         } catch (IOException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
 
@@ -73,6 +78,7 @@ public class TVServer extends TvServiceImplBase {
             Thread.sleep(time);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }
@@ -89,7 +95,8 @@ public class TVServer extends TvServiceImplBase {
 
             @Override
             public void onError(Throwable t) {
-
+                System.out.println("Error: " + t.getMessage());
+                t.printStackTrace();
             }
 
             @Override
@@ -102,7 +109,6 @@ public class TVServer extends TvServiceImplBase {
     @Override
     public void displayChannelList(io.grpc.project.smarthome.tv.StringRequest request, StreamObserver<StringResponse> responseObserver) {
         StringBuilder sb = new StringBuilder(request.getStringRequestValue());
-
         if (sb.toString().equalsIgnoreCase("Display channels")) {
             ArrayList<String> channels = tv.channelList();
             for (String c : channels) {
@@ -138,17 +144,18 @@ public class TVServer extends TvServiceImplBase {
             public void onNext(IntRequest value) {
                 System.out.println("Receiving volumn -> " + value.getNumInput());
                 currentVolume += value.getNumInput();
-
             }
 
             @Override
             public void onError(Throwable t) {
-
+                System.out.println("Error: " + t.getMessage());
+                t.printStackTrace();
             }
 
             @Override
             public void onCompleted() {
-                io.grpc.project.smarthome.tv.IntResponse res = IntResponse.newBuilder().setNumOutput(currentVolume).build();
+                int speakersVolume = setSpeakersVolume(currentVolume);
+                io.grpc.project.smarthome.tv.IntResponse res = IntResponse.newBuilder().setNumOutput(speakersVolume).build();
                 responseObserver.onNext(res);
                 responseObserver.onCompleted();
             }
@@ -193,16 +200,28 @@ public class TVServer extends TvServiceImplBase {
 
     public String turnOnSpeakers() {
         io.grpc.project.smarthome.speakers.BooleanRequest request = io.grpc.project.smarthome.speakers.BooleanRequest.newBuilder().setBooleanRequestValue(true).build();
-        io.grpc.project.smarthome.speakers.StringResponse response = speakersServiceBlockingStub.turnOnSpeakers(request);
-        System.out.println("Speaker " + response.getStringResponseValue());
-        return response.getStringResponseValue();
+        try {
+            io.grpc.project.smarthome.speakers.StringResponse response = speakersServiceBlockingStub.turnOnSpeakers(request);
+            System.out.println("Speaker " + response.getStringResponseValue());
+            return response.getStringResponseValue();
+        } catch (StatusRuntimeException e) {
+            System.out.println("RPC failed: " + e.getStatus());
+            e.printStackTrace();
+        }
+        return "RPC failed";
     }
 
     public String turnOffSpeakers() {
         io.grpc.project.smarthome.speakers.BooleanRequest request = io.grpc.project.smarthome.speakers.BooleanRequest.newBuilder().setBooleanRequestValue(false).build();
-        io.grpc.project.smarthome.speakers.StringResponse response = speakersServiceBlockingStub.turnOnSpeakers(request);
-        System.out.println("Speaker " + response.getStringResponseValue());
-        return response.getStringResponseValue();
+        try {
+            io.grpc.project.smarthome.speakers.StringResponse response = speakersServiceBlockingStub.turnOnSpeakers(request);
+            System.out.println("Speaker " + response.getStringResponseValue());
+            return response.getStringResponseValue();
+        } catch (StatusRuntimeException e) {
+            System.out.println("RPC failed: " + e.getStatus());
+            e.printStackTrace();
+        }
+        return "RPC failed";
     }
 
     public void displayAvailableSpeakersInputs() {
@@ -216,7 +235,8 @@ public class TVServer extends TvServiceImplBase {
 
             @Override
             public void onError(Throwable t) {
-
+                System.out.println("Error: " + t.getMessage());
+                t.printStackTrace();
             }
 
             @Override
@@ -224,10 +244,26 @@ public class TVServer extends TvServiceImplBase {
                 System.out.println("On completed");
             }
         };
-        speakersServiceAsyncStub.displayInputs(request, responseStreamObserver);
-        threadSleep(3000);
+        try {
+            speakersServiceAsyncStub.displayInputs(request, responseStreamObserver);
+            threadSleep(3000);
+        } catch (StatusRuntimeException e) {
+            System.out.println("RPC failed: " + e.getStatus());
+            e.printStackTrace();
+        }
     }
 
+    public int setSpeakersVolume(int volume) {
+        try {
+            io.grpc.project.smarthome.speakers.IntRequest request = io.grpc.project.smarthome.speakers.IntRequest.newBuilder().setNumInput(volume).build();
+            io.grpc.project.smarthome.speakers.IntResponse response = speakersServiceBlockingStub.setVolume(request);
+            return response.getNumOutput();
+        } catch (StatusRuntimeException e) {
+            System.out.println("RPC failed: " + e.getStatus());
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
     public ArrayList<String> musicStreaming() {
         ArrayList<String> musicLyrics = new ArrayList<>();
@@ -240,7 +276,8 @@ public class TVServer extends TvServiceImplBase {
 
             @Override
             public void onError(Throwable t) {
-
+                System.out.println("Error: " + t.getMessage());
+                t.printStackTrace();
             }
 
             @Override
@@ -260,10 +297,11 @@ public class TVServer extends TvServiceImplBase {
             request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Everybody's busy").build());
             request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Can't wait for the night to begin").build());
             threadSleep(3000);
-            request.onCompleted();
         } catch (RuntimeException e) {
             request.onError(e);
+            throw e;
         }
+        request.onCompleted();
         return  musicLyrics;
     }
 }

@@ -26,7 +26,7 @@ public class LightsGUI extends JFrame{
 
     public LightsGUI () {
         add(rootPane);
-        setTitle("Lights Panel");
+        setTitle("Lights GUI");
         setSize(500, 300);
         lightsModeComboBox.addItem("LIGHT");
         lightsModeComboBox.addItem("DARK");

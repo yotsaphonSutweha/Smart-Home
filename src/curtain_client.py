@@ -111,7 +111,9 @@ if __name__ == "__main__":
                     width_height_adjustment = curtain_pb2.HeightAndWidth(width=float(arr[0]), height=float(arr[1]))
                 width_height_response = stub.adjustHeightAndWidth(width_height_adjustment)
                 print(width_height_response.stringResponseValue)
-
+                message_to_send = width_height_response.stringResponseValue.encode("UTF-8")
+                clientsocket.send(len(message_to_send).to_bytes(2, byteorder="big"))
+                clientsocket.send(message_to_send)
     except KeyboardInterrupt:
         s.close()
         print("Socket connection terminated")

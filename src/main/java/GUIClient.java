@@ -38,6 +38,7 @@ public class GUIClient extends JFrame {
     private JTextPane channelListTextPane;
     private JButton displaySpeakersInputsBtn;
     private JButton playMusicBtn;
+    private JLabel volumeLabel;
     private static int tvPort  = 0;
     private static String tvServerName = "";
     private static int lightsPort  = 0;
@@ -60,13 +61,6 @@ public class GUIClient extends JFrame {
         @Override
         public void serviceAdded(ServiceEvent serviceEvent) {
             System.out.println("Service added: " + serviceEvent.getInfo());
-            if (serviceEvent.getType().equals("_http._tcp.local.")) {
-                tvPort = serviceEvent.getInfo().getPort();
-                tvServerName = serviceEvent.getName();
-            } else if (serviceEvent.getType().equals("_lights._tcp.local.")) {
-                lightsPort = serviceEvent.getInfo().getPort();
-                lightsServerName = serviceEvent.getName();
-            }
         }
 
         @Override
@@ -77,7 +71,13 @@ public class GUIClient extends JFrame {
         @Override
         public void serviceResolved(ServiceEvent serviceEvent) {
             System.out.println("Service resolved: " + serviceEvent.getInfo());
-            if (serviceEvent.getType().equals("_curtain._tcp.local.")){
+            if (serviceEvent.getType().equals("_http._tcp.local.")) {
+                tvPort = serviceEvent.getInfo().getPort();
+                tvServerName = serviceEvent.getName();
+            } else if (serviceEvent.getType().equals("_lights._tcp.local.")) {
+                lightsPort = serviceEvent.getInfo().getPort();
+                lightsServerName = serviceEvent.getName();
+            } else if (serviceEvent.getType().equals("_curtain._tcp.local.")){
                 pythonClientPort = serviceEvent.getInfo().getPort();
                 pythonClientAddress = serviceEvent.getInfo().getHostAddresses()[0];
             }
@@ -88,10 +88,11 @@ public class GUIClient extends JFrame {
         registerJmdns();
         threadSleep();
 
-        System.out.println("TV Port " + tvPort);
-        System.out.println("Lights Port " + lightsPort);
+        System.out.println("TV Port: " + tvPort);
+        System.out.println("Lights Port: " + lightsPort);
+
         add(rootPanel);
-        setTitle("TV Panel");
+        setTitle("TV GUI");
         setSize(500, 500);
 
         // Display speakers GUI
@@ -99,6 +100,7 @@ public class GUIClient extends JFrame {
         lightsGUI = new LightsGUI();
         curtainGUI = new CurtainGUI();
         lightsGUI.setVisible(true);
+        curtainGUI.setVisible(true);
 
         turnOffButton.setVisible(false);
         displayChannelList.setVisible(false);
@@ -113,7 +115,7 @@ public class GUIClient extends JFrame {
             blockingStub = TvServiceGrpc.newBlockingStub(tvChannel);
             asyncStub = TvServiceGrpc.newStub(tvChannel);
         } catch (IllegalArgumentException e) {
-            System.out.println("Incorrect PORT for tv server");
+            System.out.println("Incorrect PORT for Tv server");
         }
 
         try {
@@ -121,7 +123,7 @@ public class GUIClient extends JFrame {
             lightsServiceBlockingStub = LightsServiceGrpc.newBlockingStub(lightsChannel);
             lightsServiceAsyncStub = LightsServiceGrpc.newStub(lightsChannel);
         } catch (IllegalArgumentException e) {
-            System.out.println("Incorrect PORT for lights server");
+            System.out.println("Incorrect PORT for Lights server");
             e.printStackTrace();
         }
 
@@ -139,17 +141,7 @@ public class GUIClient extends JFrame {
 
         displayCurtainPanelWhenConnectionEstablished(pythonClientAddress, pythonClientPort);
 
-//        turnOnBtn();
-
-//        turnOnLights();
-//        displayLightsMode();
-//        lightCombiner();
-//        setLightsMode();
-
-//
-//        openCurtainCommand(pythonClientAddress, pythonClientPort);
-//        closeCurtainCommand(pythonClientAddress, pythonClientPort);
-//        adjustCurtainWidthAndHeight(pythonClientAddress, pythonClientPort);
+//        turnOnBtn()
     }
 
     //----------jmdns and grpc registration-------------
@@ -163,6 +155,7 @@ public class GUIClient extends JFrame {
             jmdns.addServiceListener("_lights._tcp.local.", new GUIClient.Listener());
             jmdns.addServiceListener("_curtain._tcp.local.", new GUIClient.Listener());
         } catch (UnknownHostException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -185,9 +178,8 @@ public class GUIClient extends JFrame {
 
     public void displayCurtainPanelWhenConnectionEstablished(String pythonClientAddress, int pythonClientPort) {
         if (pythonClientPort == 0) {
-            System.out.println("Python client is not detected. Please restart the servers...");
+            System.out.println("Python client is not detected. Please start the Python gRPC server and gRPC client...");
         } else {
-            curtainGUI.setVisible(true);
             System.out.println("Python client is running at " + pythonClientPort + " with address " + pythonClientAddress);
             openCurtainBtn(pythonClientAddress, pythonClientPort);
             closeCurtainBtn(pythonClientAddress, pythonClientPort);
@@ -349,11 +341,22 @@ public class GUIClient extends JFrame {
         curtainGUI.getAdjustWidthHeightBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                float width = Float.parseFloat(curtainGUI.getWidthTextField().getText());
-                float height = Float.parseFloat(curtainGUI.getHeightTextField().getText());
-                adjustCurtainWidthAndHeight(pythonClientAddress, pythonClientPort, width, height);
-                curtainGUI.getWidthTextPane().setText("Width: " + width + " cm.");
-                curtainGUI.getHeightTextPane().setText("Height: " + height + " cm.");
+                try {
+                    if (!curtainGUI.getWidthTextField().getText().isEmpty() && !curtainGUI.getHeightTextField().getText().isEmpty()) {
+                        float width = Float.parseFloat(curtainGUI.getWidthTextField().getText());
+                        float height = Float.parseFloat(curtainGUI.getHeightTextField().getText());
+                        if ((width > 100.00) || (height > 100.00)) {
+                            JOptionPane.showMessageDialog(null, "The width and height of the curtain should be below 100.00 cm.");
+                        } else {
+                            adjustCurtainWidthAndHeight(pythonClientAddress, pythonClientPort, width, height);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Width and height must be provided!");
+                    }
+                } catch (NumberFormatException ex) {
+                    System.out.println(ex.getMessage());
+                    ex.printStackTrace();
+                }
             }
         });
     }
@@ -377,10 +380,10 @@ public class GUIClient extends JFrame {
             outputStream.close();
             clientSocket.close();
         } catch (UnknownHostException e) {
-            System.out.println("Failed to establish connection");
+            System.out.println("Failed to establish connection with Python socket server");
             e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("Failed IO");
+            System.out.println("Failed IO for Python socket server connection");
             e.printStackTrace();
         }
     }
@@ -392,7 +395,7 @@ public class GUIClient extends JFrame {
             DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
             outputStream.writeUTF("Close");
             outputStream.flush();
-            System.out.println("Message send to open curtain");
+            System.out.println("Message send to close curtain");
             String messageFromServer = inputStream.readUTF();
             System.out.println("Message receives from Python socket server " + messageFromServer);
             curtainGUI.getCurtainStatusTextPane().setText(messageFromServer);
@@ -402,10 +405,10 @@ public class GUIClient extends JFrame {
             outputStream.close();
             clientSocket.close();
         } catch (UnknownHostException e) {
-            System.out.println("Failed to establish connection");
+            System.out.println("Failed to establish connection with Python socket server");
             e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("Failed IO");
+            System.out.println("Failed IO for Python socket server connection");
             e.printStackTrace();
         }
     }
@@ -413,17 +416,23 @@ public class GUIClient extends JFrame {
     public void adjustCurtainWidthAndHeight(String pythonClientAddress, int pythonClientPort, float width, float height) {
         try {
             Socket clientSocket = new Socket(pythonClientAddress, pythonClientPort);
-            PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream());
+            DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
+            DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
             String payload = width + "," + height;
-            printWriter.write(payload);
-            printWriter.flush();
-            printWriter.close();
-            clientSocket.close();
+            outputStream.writeUTF(payload);
+            outputStream.flush();
+            System.out.println("Message send to adjust width and height of the curtain");
+            String messageFromServer = inputStream.readUTF();
+            System.out.println("Message receives from Python socket server " + messageFromServer);
+            String[] msg = messageFromServer.split(",");
+            curtainGUI.getCurtainStatusTextPane().setText("Curtain: Open");
+            curtainGUI.getWidthTextPane().setText("Width: " + msg[0] + " cm.");
+            curtainGUI.getHeightTextPane().setText("Height: " + msg[1] + " cm.");
         } catch (UnknownHostException e) {
-            System.out.println("Failed to establish connection");
+            System.out.println("Failed to establish connection with Python socket server");
             e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("Failed IO");
+            System.out.println("Failed IO for Python socket server connection");
             e.printStackTrace();
         }
     }
@@ -443,15 +452,15 @@ public class GUIClient extends JFrame {
 
            @Override
            public void onError(Throwable t) {
-
+               System.out.println("Error: " + t.getMessage());
+               t.printStackTrace();
            }
 
            @Override
            public void onCompleted() {
-
+               System.out.println("Live content stream completed");
            }
        };
-
        StreamObserver<StringRequest> request = asyncStub.liveContent(responseObserver);
         try {
             request.onNext(StringRequest.newBuilder().setStringRequestValue("Bil is 19").build());
@@ -459,15 +468,15 @@ public class GUIClient extends JFrame {
             request.onNext(StringRequest.newBuilder().setStringRequestValue("Bil becomes the greatest engineer").build());
             request.onNext(StringRequest.newBuilder().setStringRequestValue("Bil marries with a girl named Sandra").build());
             threadSleep();
-            request.onCompleted();
         } catch (RuntimeException e) {
             // Cancel RPC
+            System.out.println("RPC failed: " + e.getMessage());
+            e.printStackTrace();
             request.onError(e);
             throw e;
         }
-
+        request.onCompleted();
         System.out.println("Live contents " + liveContents.size());
-
         for(String content : liveContents) {
             JOptionPane.showMessageDialog(null, content);
         }
@@ -479,58 +488,79 @@ public class GUIClient extends JFrame {
             @Override
             public void onNext(IntResponse value) {
                 System.out.println("The current volume is " + value.getNumOutput());
-                JOptionPane.showMessageDialog(null, "Current TV volume is " + value.getNumOutput());
+                speakersGUI.getVolumeTextPane().setText("Current Volume: " + value.getNumOutput());
             }
 
             @Override
             public void onError(Throwable t) {
-
+                System.out.println("Error: " + t.getMessage());
+                t.printStackTrace();
             }
 
             @Override
             public void onCompleted() {
-
+                System.out.println("Increase volume stream completed");
             }
         };
         StreamObserver<IntRequest> request = asyncStub.increaseVolume(responseObserver);
         try {
             request.onNext(IntRequest.newBuilder().setNumInput(volume).build());
             threadSleep();
-            request.onCompleted();
         } catch (RuntimeException e) {
             // Cancel RPC
+            System.out.println("RPC failed: " + e.getMessage());
+            e.printStackTrace();
             request.onError(e);
             throw e;
         }
+        request.onCompleted();
     }
 
 
     public void turnOn() {
         BooleanRequest request = BooleanRequest.newBuilder().setBooleanRequestValue(true).build();
-        StringResponse response = blockingStub.turnOn(request);
-        System.out.println("TV" + response.getStringResponseValue());
-        onText.setText("TV: " + response.getStringResponseValue());
-        speakersGUI.getSpeakOn().setText("Speakers " + response.getStringResponseValue2());
-        turnOnButton.setVisible(false);
-        turnOffButton.setVisible(true);
+        try {
+            StringResponse response = blockingStub.turnOn(request);
+            System.out.println("TV" + response.getStringResponseValue());
+            onText.setText("TV: " + response.getStringResponseValue());
+            speakersGUI.getSpeakOn().setText("Speakers " + response.getStringResponseValue2());
+            turnOnButton.setVisible(false);
+            turnOffButton.setVisible(true);
+        } catch (StatusRuntimeException e) {
+            System.out.println("RPC failed: " + e.getStatus());
+            e.printStackTrace();
+        }
+
     }
 
     public void turnOff() {
         BooleanRequest request = BooleanRequest.newBuilder().setBooleanRequestValue(false).build();
-        StringResponse response = blockingStub.turnOn(request);
-        System.out.println(response.getStringResponseValue());
-        onText.setText("TV: " + response.getStringResponseValue());
-        speakersGUI.getSpeakOn().setText("Speakers " + response.getStringResponseValue2());
-        turnOnButton.setVisible(true);
-        turnOffButton.setVisible(false);
+        try {
+            StringResponse response = blockingStub.turnOn(request);
+            System.out.println(response.getStringResponseValue());
+            onText.setText("TV: " + response.getStringResponseValue());
+            speakersGUI.getSpeakOn().setText("Speakers " + response.getStringResponseValue2());
+            speakersGUI.getMusicStreamingTextPane().setText("");
+            speakersGUI.getMusicStreamingTextPane2().setText("");
+            speakersGUI.getMusicStreamingTextPane3().setText("");
+            speakersGUI.getMusicStreamingTextPane4().setText("");
+            speakersGUI.getMusicStreamingTextPane5().setText("");
+            speakersGUI.getMusicStreamingTextPane6().setText("");
+            speakersGUI.getMusicStreamingTextPane7().setText("");
+            speakersGUI.getMusicStreamingTextPane8().setText("");
+            speakersGUI.getMusicStreamingTextPane9().setText("");
+            speakersGUI.getVolumeTextPane().setText("");
+            turnOnButton.setVisible(true);
+            turnOffButton.setVisible(false);
+        } catch (StatusRuntimeException e) {
+            System.out.println("RPC failed: " + e.getStatus());
+            e.printStackTrace();
+        }
     }
 
     public void displayChannelList() {
-
         ArrayList<String> ch = new ArrayList<>();
-
         StringRequest request = StringRequest.newBuilder().setStringRequestValue("Display channels").build();
-
         StreamObserver<StringResponse> responseObserver = new StreamObserver<StringResponse>() {
             @Override
             public void onNext(StringResponse value) {
@@ -540,7 +570,8 @@ public class GUIClient extends JFrame {
 
             @Override
             public void onError(Throwable t) {
-
+                System.out.println("Error: " + t.getMessage());
+                t.printStackTrace();
             }
 
             @Override
@@ -548,13 +579,16 @@ public class GUIClient extends JFrame {
                 System.out.println("On completed");
             }
         };
-
-        asyncStub.displayChannelList(request, responseObserver);
-
-        threadSleep();
-        String channelDisplay = "Available channels include: " + ch.get(0) + ", " + ch.get(1) + ", and " + ch.get(2);
-        System.out.println(channelDisplay);
-        channelListTextPane.setText(channelDisplay);
+        try {
+            asyncStub.displayChannelList(request, responseObserver);
+            threadSleep();
+            String channelDisplay = "Available channels include: " + ch.get(0) + ", " + ch.get(1) + ", and " + ch.get(2);
+            System.out.println(channelDisplay);
+            channelListTextPane.setText(channelDisplay);
+        } catch (StatusRuntimeException e) {
+            System.out.println("RPC failed: " + e.getStatus());
+            e.printStackTrace();
+        }
     }
     //----------------End of TV commands-----------------------------------
 
@@ -563,16 +597,26 @@ public class GUIClient extends JFrame {
 
     public void turnOnLights() {
         io.grpc.project.smarthome.lights.BooleanRequest request = io.grpc.project.smarthome.lights.BooleanRequest.newBuilder().setBooleanValue(true).build();
-        io.grpc.project.smarthome.lights.StringResponse response = lightsServiceBlockingStub.lightSwitch(request);
-        System.out.println(response.getStringResponseValue());
-        lightsGUI.getLightsSwitchTextPane().setText(response.getStringResponseValue());
+        try {
+            io.grpc.project.smarthome.lights.StringResponse response = lightsServiceBlockingStub.lightSwitch(request);
+            System.out.println(response.getStringResponseValue());
+            lightsGUI.getLightsSwitchTextPane().setText(response.getStringResponseValue());
+        } catch (StatusRuntimeException e) {
+            System.out.println("RPC failed: " + e.getStatus());
+            e.printStackTrace();
+        }
     }
 
     public void turnOffLights() {
         io.grpc.project.smarthome.lights.BooleanRequest request = io.grpc.project.smarthome.lights.BooleanRequest.newBuilder().setBooleanValue(false).build();
-        io.grpc.project.smarthome.lights.StringResponse response = lightsServiceBlockingStub.lightSwitch(request);
-        System.out.println(response.getStringResponseValue());
-        lightsGUI.getLightsSwitchTextPane().setText(response.getStringResponseValue());
+        try {
+            io.grpc.project.smarthome.lights.StringResponse response = lightsServiceBlockingStub.lightSwitch(request);
+            System.out.println(response.getStringResponseValue());
+            lightsGUI.getLightsSwitchTextPane().setText(response.getStringResponseValue());
+        } catch (StatusRuntimeException e) {
+            System.out.println("RPC failed: " + e.getStatus());
+            e.printStackTrace();
+        }
     }
 
     public void displayLightsMode() {
@@ -587,7 +631,8 @@ public class GUIClient extends JFrame {
 
             @Override
             public void onError(Throwable t) {
-
+                System.out.println("Error: " + t.getMessage());
+                t.printStackTrace();
             }
 
             @Override
@@ -595,14 +640,20 @@ public class GUIClient extends JFrame {
                 System.out.println("Lights mode on completed");
             }
         };
-        lightsServiceAsyncStub.displayLightModes(request, responseStreamObserver);
-        threadSleep();
-        if (arr.size() > 0) {
-            String tmp = "Available lights modes: " + arr.get(0) + ", "+ arr.get(1) + ", " + arr.get(2);
-            lightsGUI.getAvailableLightsMode().setText(tmp);
-        } else {
-            String tmp = "No available lights mode";
-            lightsGUI.getAvailableLightsMode().setText(tmp);
+
+        try {
+            lightsServiceAsyncStub.displayLightModes(request, responseStreamObserver);
+            threadSleep();
+            if (arr.size() > 0) {
+                String tmp = "Available lights modes: " + arr.get(0) + ", "+ arr.get(1) + ", " + arr.get(2);
+                lightsGUI.getAvailableLightsMode().setText(tmp);
+            } else {
+                String tmp = "No available lights mode";
+                lightsGUI.getAvailableLightsMode().setText(tmp);
+            }
+        } catch (StatusRuntimeException e) {
+            System.out.println("RPC failed: " + e.getStatus());
+            e.printStackTrace();
         }
     }
 
@@ -616,7 +667,8 @@ public class GUIClient extends JFrame {
 
             @Override
             public void onError(Throwable t) {
-
+                System.out.println("Error: " + t.getMessage());
+                t.printStackTrace();
             }
 
             @Override
@@ -624,10 +676,17 @@ public class GUIClient extends JFrame {
                 System.out.println("Light combiner on completed");
             }
         });
-
-        requestStreamObserver.onNext(io.grpc.project.smarthome.lights.StringRequest.newBuilder().setStringRequestValue(color1).build());
-        requestStreamObserver.onNext(io.grpc.project.smarthome.lights.StringRequest.newBuilder().setStringRequestValue(color2).build());
-        threadSleep();
+        try {
+            requestStreamObserver.onNext(io.grpc.project.smarthome.lights.StringRequest.newBuilder().setStringRequestValue(color1).build());
+            requestStreamObserver.onNext(io.grpc.project.smarthome.lights.StringRequest.newBuilder().setStringRequestValue(color2).build());
+            threadSleep();
+        } catch (RuntimeException e) {
+            // Cancel RPC
+            System.out.println("RPC failed: " + e.getMessage());
+            e.printStackTrace();
+            requestStreamObserver.onError(e);
+            throw e;
+        }
         requestStreamObserver.onCompleted();
     }
 
@@ -645,40 +704,47 @@ public class GUIClient extends JFrame {
             System.out.println("Light mode " + response.getStringResponseValue());
             lightsGUI.getLightsModeTextPane().setText("Mode: " + response.getStringResponseValue());
         } catch (StatusRuntimeException e) {
-            System.out.println(e.getMessage());
+            System.out.println("RPC failed: " + e.getStatus());
+            e.printStackTrace();
         }
     }
 
     //---------------Speakers server functions------------------
-
     public void displayAvailableSpeakersInputs() {
         StringRequest request = StringRequest.newBuilder().setStringRequestValue("Display available inputs for speakers").build();
-        StringResponse responses = blockingStub.displayInputsSpeakersCommand(request);
-        System.out.println("Available speakers inputs " + responses.getStringResponseValue());
-        speakersGUI.getAvailableInputs().setText("Available speakers inputs " + responses.getStringResponseValue());
+        try {
+            StringResponse responses = blockingStub.displayInputsSpeakersCommand(request);
+            System.out.println("Available speakers inputs " + responses.getStringResponseValue());
+            speakersGUI.getAvailableInputs().setText("Available speakers inputs " + responses.getStringResponseValue());
+        } catch (StatusRuntimeException e) {
+            System.out.println("RPC failed: " + e.getStatus());
+            e.printStackTrace();
+        }
     }
 
     public void musicStreaming() {
         StringTokenizer st;
         ArrayList<String> arr = new ArrayList<>();
         StringRequest request = StringRequest.newBuilder().setStringRequestValue("Play Get Down on Saturday night").build();
-        StringResponse response = blockingStub.musicStreamingSpeakersCommand(request);
-        st = new StringTokenizer(response.getStringResponseValue(),  ",");
-        while (st.hasMoreElements()) {
-            arr.add(st.nextToken());
+        try {
+            StringResponse response = blockingStub.musicStreamingSpeakersCommand(request);
+            st = new StringTokenizer(response.getStringResponseValue(),  ",");
+            while (st.hasMoreElements()) {
+                arr.add(st.nextToken());
+            }
+            speakersGUI.getMusicStreamingTextPane().setText("Playing Get Down on Saturday night...");
+            speakersGUI.getMusicStreamingTextPane2().setText(arr.get(0));
+            speakersGUI.getMusicStreamingTextPane3().setText(arr.get(1));
+            speakersGUI.getMusicStreamingTextPane4().setText(arr.get(2));
+            speakersGUI.getMusicStreamingTextPane5().setText(arr.get(3));
+            speakersGUI.getMusicStreamingTextPane6().setText(arr.get(4));
+            speakersGUI.getMusicStreamingTextPane7().setText(arr.get(5));
+            speakersGUI.getMusicStreamingTextPane8().setText(arr.get(6));
+            speakersGUI.getMusicStreamingTextPane9().setText(arr.get(7));
+        } catch (StatusRuntimeException e) {
+            System.out.println("RPC failed: " + e.getStatus());
+            e.printStackTrace();
         }
-
-        speakersGUI.getMusicStreamingTextPane().setText("Playing Get Down on Saturday night...");
-        speakersGUI.getMusicStreamingTextPane2().setText(arr.get(0));
-        speakersGUI.getMusicStreamingTextPane3().setText(arr.get(1));
-        speakersGUI.getMusicStreamingTextPane4().setText(arr.get(2));
-        speakersGUI.getMusicStreamingTextPane5().setText(arr.get(3));
-        speakersGUI.getMusicStreamingTextPane6().setText(arr.get(4));
-        speakersGUI.getMusicStreamingTextPane7().setText(arr.get(5));
-        speakersGUI.getMusicStreamingTextPane8().setText(arr.get(6));
-        speakersGUI.getMusicStreamingTextPane9().setText(arr.get(7));
-
     }
-
     //---------------End of Speakers server functions------------------
 }

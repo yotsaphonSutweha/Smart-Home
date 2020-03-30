@@ -10,12 +10,13 @@ import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public class LightsServer extends LightsServiceImplBase {
     private Lights lights = new Lights();
-    private static final Logger logger = Logger.getLogger(LightsServer.class.getName());
+
     public static void main(String[] args) throws IOException, InterruptedException {
         try {
             int PORT = 8002;
@@ -27,9 +28,13 @@ public class LightsServer extends LightsServiceImplBase {
                     .addService(smServer)
                     .build()
                     .start();
-            logger.info("Server started, listening on " + PORT);
+            System.out.println("Lights server started, listening on " + PORT);
             server.awaitTermination();
+        } catch (UnknownHostException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         } catch (IOException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }
@@ -74,7 +79,8 @@ public class LightsServer extends LightsServiceImplBase {
 
             @Override
             public void onError(Throwable t) {
-
+                System.out.println("Error: " + t.getMessage());
+                t.printStackTrace();
             }
 
             @Override

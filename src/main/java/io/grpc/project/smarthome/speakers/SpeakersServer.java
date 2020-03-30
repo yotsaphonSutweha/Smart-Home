@@ -7,6 +7,7 @@ import objects.Speakers;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import javax.jmdns.JmDNS;
@@ -15,7 +16,6 @@ import javax.jmdns.ServiceInfo;
 
 public class SpeakersServer extends SpeakersServiceImplBase{
     private Speakers speakers = new Speakers();
-    private static final Logger logger = Logger.getLogger(SpeakersServer.class.getName());
 
     public static void main(String[] args) throws IOException, InterruptedException {
         try {
@@ -28,9 +28,13 @@ public class SpeakersServer extends SpeakersServiceImplBase{
                     .addService(smServer)
                     .build()
                     .start();
-            logger.info("Server started, listening on " + PORT);
+            System.out.println("Speakers server started, listening on " + PORT);
             server.awaitTermination();
+        } catch (UnknownHostException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         } catch (IOException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }
@@ -47,7 +51,8 @@ public class SpeakersServer extends SpeakersServiceImplBase{
 
             @Override
             public void onError(Throwable t) {
-
+                System.out.println("Error: " + t.getMessage());
+                t.printStackTrace();
             }
 
             @Override
@@ -71,8 +76,16 @@ public class SpeakersServer extends SpeakersServiceImplBase{
         }
     }
 
+    @Override
+    public void setVolume(IntRequest request, StreamObserver<IntResponse> responseObserver) {
+        int volume = request.getNumInput();
+        speakers.setVolume(volume);
+        IntResponse response = IntResponse.newBuilder().setNumOutput(speakers.getVolume()).build();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
 
-
+    @Override
     public void turnOnSpeakers(BooleanRequest request, StreamObserver<StringResponse> responseObserver) {
         System.out.println("Receiving message");
         boolean turnOn = request.getBooleanRequestValue();

@@ -10,6 +10,7 @@ service SpeakersService {
     rpc turnOnSpeakers(BooleanRequest) returns (StringResponse) {}
     rpc displayInputs(BooleanRequest) returns (stream StringResponse) {}
     rpc musicStreaming(stream StringRequest) returns (stream StringResponse) {}
+    rpc setVolume(IntRequest) returns (IntResponse) {}
 }
 
 message StringRequest {

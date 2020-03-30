@@ -37,7 +37,7 @@ class CurtainService(curtain_pb2_grpc.CurtainServiceServicer):
         print("Width {0}".format(width))
         print("Height {0}".format(height))
         response = curtain_pb2.StringResponse()
-        response.stringResponseValue = "Width and height have been adjusted"
+        response.stringResponseValue = str(width) + "," + str(height)
         return response
 
 class ServiceRegistration:

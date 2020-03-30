@@ -53,15 +53,17 @@ public final class SpeakersServiceImpl {
       "ngResponse\022\033\n\023stringResponseValue\030\001 \001(\t\"" +
       "-\n\016BooleanRequest\022\033\n\023booleanRequestValue" +
       "\030\001 \001(\010\"\036\n\nIntRequest\022\020\n\010numInput\030\001 \001(\005\" " +
-      "\n\013IntResponse\022\021\n\tnumOutput\030\001 \001(\0052\363\001\n\017Spe" +
+      "\n\013IntResponse\022\021\n\tnumOutput\030\001 \001(\0052\261\002\n\017Spe" +
       "akersService\022H\n\016turnOnSpeakers\022\031.smartho" +
       "me.BooleanRequest\032\031.smarthome.StringResp" +
       "onse\"\000\022I\n\rdisplayInputs\022\031.smarthome.Bool" +
       "eanRequest\032\031.smarthome.StringResponse\"\0000" +
       "\001\022K\n\016musicStreaming\022\030.smarthome.StringRe" +
-      "quest\032\031.smarthome.StringResponse\"\000(\0010\001B;" +
-      "\n\"io.grpc.project.smarthome.speakersB\023Sp" +
-      "eakersServiceImplP\001b\006proto3"
+      "quest\032\031.smarthome.StringResponse\"\000(\0010\001\022<" +
+      "\n\tsetVolume\022\025.smarthome.IntRequest\032\026.sma" +
+      "rthome.IntResponse\"\000B;\n\"io.grpc.project." +
+      "smarthome.speakersB\023SpeakersServiceImplP" +
+      "\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

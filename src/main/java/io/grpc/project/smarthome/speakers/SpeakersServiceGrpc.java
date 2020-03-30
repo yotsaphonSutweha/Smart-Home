@@ -123,6 +123,38 @@ public final class SpeakersServiceGrpc {
      return getMusicStreamingMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.IntRequest,
+      io.grpc.project.smarthome.speakers.IntResponse> getSetVolumeMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "setVolume",
+      requestType = io.grpc.project.smarthome.speakers.IntRequest.class,
+      responseType = io.grpc.project.smarthome.speakers.IntResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.IntRequest,
+      io.grpc.project.smarthome.speakers.IntResponse> getSetVolumeMethod() {
+    io.grpc.MethodDescriptor<io.grpc.project.smarthome.speakers.IntRequest, io.grpc.project.smarthome.speakers.IntResponse> getSetVolumeMethod;
+    if ((getSetVolumeMethod = SpeakersServiceGrpc.getSetVolumeMethod) == null) {
+      synchronized (SpeakersServiceGrpc.class) {
+        if ((getSetVolumeMethod = SpeakersServiceGrpc.getSetVolumeMethod) == null) {
+          SpeakersServiceGrpc.getSetVolumeMethod = getSetVolumeMethod = 
+              io.grpc.MethodDescriptor.<io.grpc.project.smarthome.speakers.IntRequest, io.grpc.project.smarthome.speakers.IntResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "smarthome.SpeakersService", "setVolume"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.grpc.project.smarthome.speakers.IntRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.grpc.project.smarthome.speakers.IntResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new SpeakersServiceMethodDescriptorSupplier("setVolume"))
+                  .build();
+          }
+        }
+     }
+     return getSetVolumeMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -171,6 +203,13 @@ public final class SpeakersServiceGrpc {
       return asyncUnimplementedStreamingCall(getMusicStreamingMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void setVolume(io.grpc.project.smarthome.speakers.IntRequest request,
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.IntResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getSetVolumeMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -194,6 +233,13 @@ public final class SpeakersServiceGrpc {
                 io.grpc.project.smarthome.speakers.StringRequest,
                 io.grpc.project.smarthome.speakers.StringResponse>(
                   this, METHODID_MUSIC_STREAMING)))
+          .addMethod(
+            getSetVolumeMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                io.grpc.project.smarthome.speakers.IntRequest,
+                io.grpc.project.smarthome.speakers.IntResponse>(
+                  this, METHODID_SET_VOLUME)))
           .build();
     }
   }
@@ -239,6 +285,14 @@ public final class SpeakersServiceGrpc {
       return asyncBidiStreamingCall(
           getChannel().newCall(getMusicStreamingMethod(), getCallOptions()), responseObserver);
     }
+
+    /**
+     */
+    public void setVolume(io.grpc.project.smarthome.speakers.IntRequest request,
+        io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.IntResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getSetVolumeMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -273,6 +327,13 @@ public final class SpeakersServiceGrpc {
       return blockingServerStreamingCall(
           getChannel(), getDisplayInputsMethod(), getCallOptions(), request);
     }
+
+    /**
+     */
+    public io.grpc.project.smarthome.speakers.IntResponse setVolume(io.grpc.project.smarthome.speakers.IntRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getSetVolumeMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -300,11 +361,20 @@ public final class SpeakersServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getTurnOnSpeakersMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<io.grpc.project.smarthome.speakers.IntResponse> setVolume(
+        io.grpc.project.smarthome.speakers.IntRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getSetVolumeMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_TURN_ON_SPEAKERS = 0;
   private static final int METHODID_DISPLAY_INPUTS = 1;
-  private static final int METHODID_MUSIC_STREAMING = 2;
+  private static final int METHODID_SET_VOLUME = 2;
+  private static final int METHODID_MUSIC_STREAMING = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -330,6 +400,10 @@ public final class SpeakersServiceGrpc {
         case METHODID_DISPLAY_INPUTS:
           serviceImpl.displayInputs((io.grpc.project.smarthome.speakers.BooleanRequest) request,
               (io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.StringResponse>) responseObserver);
+          break;
+        case METHODID_SET_VOLUME:
+          serviceImpl.setVolume((io.grpc.project.smarthome.speakers.IntRequest) request,
+              (io.grpc.stub.StreamObserver<io.grpc.project.smarthome.speakers.IntResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -398,6 +472,7 @@ public final class SpeakersServiceGrpc {
               .addMethod(getTurnOnSpeakersMethod())
               .addMethod(getDisplayInputsMethod())
               .addMethod(getMusicStreamingMethod())
+              .addMethod(getSetVolumeMethod())
               .build();
         }
       }
