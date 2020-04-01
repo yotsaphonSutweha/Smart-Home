@@ -21,7 +21,7 @@ public class LightsServer extends LightsServiceImplBase {
         try {
             int PORT = 8002;
             JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
-            ServiceInfo serviceInfo = ServiceInfo.create("_lights._tcp.local.", "localhost", PORT, "Lights server");
+            ServiceInfo serviceInfo = ServiceInfo.create("_lightserver._tcp.local.", "lights", PORT, "This is lights server");
             jmdns.registerService(serviceInfo);
             LightsServer smServer = new LightsServer();
             Server server = ServerBuilder.forPort(PORT)

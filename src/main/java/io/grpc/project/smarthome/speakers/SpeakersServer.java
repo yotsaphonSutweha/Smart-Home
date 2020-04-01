@@ -21,7 +21,7 @@ public class SpeakersServer extends SpeakersServiceImplBase{
         try {
             int PORT = 8001;
             JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
-            ServiceInfo serviceInfo = ServiceInfo.create("_speakers._tcp.local.", "localhost", PORT, "Speakers server");
+            ServiceInfo serviceInfo = ServiceInfo.create("_speakerserver._tcp.local.", "speakers", PORT, "This is speakers server");
             jmdns.registerService(serviceInfo);
             SpeakersServer smServer = new SpeakersServer();
             Server server = ServerBuilder.forPort(PORT)

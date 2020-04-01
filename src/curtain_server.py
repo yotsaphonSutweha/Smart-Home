@@ -41,13 +41,13 @@ class CurtainService(curtain_pb2_grpc.CurtainServiceServicer):
         return response
 
 class ServiceRegistration:
-    PORT = 8080
+    PORT = 8004
     def dns_service_registration(self):
-        info = ServiceInfo("_curtainserver._tcp.local.", 
-                        "localhost._curtainserver._tcp.local.",
-                            socket.inet_aton("127.0.0.1"), self.PORT, 0, 0,)
+        info = ServiceInfo(type_="_curtainserver._tcp.local.", 
+                        name="curtain._curtainserver._tcp.local.",
+                            address=socket.inet_aton("127.0.0.1"), port=self.PORT, weight=0, priority=0)
         zeroconf = Zeroconf()
-        print("Curtain server is at PORT 8080")
+        print("Curtain server is running")
         zeroconf.register_service(info)
     
     def serve(self):
@@ -55,7 +55,7 @@ class ServiceRegistration:
         self.dns_service_registration()
         server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
         curtain_pb2_grpc.add_CurtainServiceServicer_to_server(CurtainService(), server)
-        print("gRPC services are listening on PORT 8080")
+        print("gRPC services are listening on PORT 8004")
         server.add_insecure_port("[::]:{0}".format(self.PORT))
         server.start()
         server.wait_for_termination()

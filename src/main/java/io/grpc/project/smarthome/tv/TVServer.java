@@ -40,22 +40,23 @@ public class TVServer extends TvServiceImplBase {
         public void serviceResolved(ServiceEvent serviceEvent) {
             System.out.println("Service resolved: " + serviceEvent.getInfo());
             try {
-                ManagedChannel speakerChannel = ManagedChannelBuilder.forAddress(serviceEvent.getName(), serviceEvent.getInfo().getPort()).usePlaintext().build();
+                ManagedChannel speakerChannel = ManagedChannelBuilder.forAddress("localhost", serviceEvent.getInfo().getPort()).usePlaintext().build();
                 speakersServiceBlockingStub = SpeakersServiceGrpc.newBlockingStub(speakerChannel);
                 speakersServiceAsyncStub = SpeakersServiceGrpc.newStub(speakerChannel);
             } catch (IllegalArgumentException e) {
-                System.out.println("Incorrect PORT for Tv server");
+                System.out.println("Incorrect PORT for Speakers server");
+                e.printStackTrace();
             }
         }
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
         try {
-            int PORT = 8000;
+            int PORT = 8003;
             JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
-            ServiceInfo serviceInfo = ServiceInfo.create("_http._tcp.local.", "localhost", PORT, "TV server");
+            ServiceInfo serviceInfo = ServiceInfo.create("_tvserver._tcp.local.", "tv", PORT, "This is TV server");
             jmdns.registerService(serviceInfo);
-            jmdns.addServiceListener("_speakers._tcp.local.", new TVServer.Listener());
+            jmdns.addServiceListener("_speakerserver._tcp.local.", new TVServer.Listener());
             TVServer smServer = new TVServer();
             Server server = ServerBuilder.forPort(PORT)
                     .addService(smServer)

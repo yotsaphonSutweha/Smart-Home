@@ -1,6 +1,7 @@
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
+import io.grpc.project.smarthome.curtain.CurtainServiceGrpc;
 import io.grpc.project.smarthome.lights.LightsServiceGrpc;
 import io.grpc.project.smarthome.lights.Modes;
 import io.grpc.project.smarthome.tv.*;
@@ -40,17 +41,18 @@ public class GUIClient extends JFrame {
     private JButton playMusicBtn;
     private JLabel volumeLabel;
     private static int tvPort  = 0;
-    private static String tvServerName = "";
+    private static String tvServerHost = "";
     private static int lightsPort  = 0;
-    private static String lightsServerName = "";
+    private static String lightsServerHost = "";
     private static TvServiceGrpc.TvServiceBlockingStub blockingStub;
     private static TvServiceGrpc.TvServiceStub asyncStub;
     private static TvServiceGrpc.TvServiceFutureStub futureStub;
     private static LightsServiceGrpc.LightsServiceBlockingStub lightsServiceBlockingStub;
     private static LightsServiceGrpc.LightsServiceStub lightsServiceAsyncStub;
     private static LightsServiceGrpc.LightsServiceFutureStub lightsServiceFutureStub;
-    private static int pythonClientPort = 0;
-    private static String pythonClientAddress = "";
+    private static CurtainServiceGrpc.CurtainServiceBlockingStub curtainServiceBlockingStub;
+    private static int pythonCurtainPort = 0;
+    private static String pythonCurtainServerHost = "";
     private SpeakersGUI speakersGUI;
     private LightsGUI lightsGUI;
     private CurtainGUI curtainGUI;
@@ -71,15 +73,15 @@ public class GUIClient extends JFrame {
         @Override
         public void serviceResolved(ServiceEvent serviceEvent) {
             System.out.println("Service resolved: " + serviceEvent.getInfo());
-            if (serviceEvent.getType().equals("_http._tcp.local.")) {
+            if (serviceEvent.getName().equals("tv")) {
                 tvPort = serviceEvent.getInfo().getPort();
-                tvServerName = serviceEvent.getName();
-            } else if (serviceEvent.getType().equals("_lights._tcp.local.")) {
+                tvServerHost = "localhost";
+            } else if (serviceEvent.getName().equals("lights")) {
                 lightsPort = serviceEvent.getInfo().getPort();
-                lightsServerName = serviceEvent.getName();
-            } else if (serviceEvent.getType().equals("_curtain._tcp.local.")){
-                pythonClientPort = serviceEvent.getInfo().getPort();
-                pythonClientAddress = serviceEvent.getInfo().getHostAddresses()[0];
+                lightsServerHost = "localhost";
+            } else if (serviceEvent.getName().equals("curtain")){
+                pythonCurtainPort = serviceEvent.getInfo().getPort();
+                pythonCurtainServerHost = "localhost";
             }
         }
     }
@@ -90,6 +92,7 @@ public class GUIClient extends JFrame {
 
         System.out.println("TV Port: " + tvPort);
         System.out.println("Lights Port: " + lightsPort);
+        System.out.println("Curtain Port: " + pythonCurtainPort);
 
         add(rootPanel);
         setTitle("TV GUI");
@@ -111,7 +114,7 @@ public class GUIClient extends JFrame {
         playMusicBtn.setVisible(false);
 
         try {
-            ManagedChannel tvChannel = manageChannel(tvServerName, tvPort);
+            ManagedChannel tvChannel = manageChannel(tvServerHost, tvPort);
             blockingStub = TvServiceGrpc.newBlockingStub(tvChannel);
             asyncStub = TvServiceGrpc.newStub(tvChannel);
         } catch (IllegalArgumentException e) {
@@ -119,11 +122,19 @@ public class GUIClient extends JFrame {
         }
 
         try {
-            ManagedChannel lightsChannel = manageChannel(lightsServerName, lightsPort);
+            ManagedChannel lightsChannel = manageChannel(lightsServerHost, lightsPort);
             lightsServiceBlockingStub = LightsServiceGrpc.newBlockingStub(lightsChannel);
             lightsServiceAsyncStub = LightsServiceGrpc.newStub(lightsChannel);
         } catch (IllegalArgumentException e) {
             System.out.println("Incorrect PORT for Lights server");
+            e.printStackTrace();
+        }
+
+        try {
+            ManagedChannel curtainChannel = manageChannel(pythonCurtainServerHost, pythonCurtainPort);
+            curtainServiceBlockingStub = CurtainServiceGrpc.newBlockingStub(curtainChannel);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Incorrect PORT for Curtain server");
             e.printStackTrace();
         }
 
@@ -138,8 +149,9 @@ public class GUIClient extends JFrame {
         displayLightsModeBtn();
         lightsCombinerBtn();
         lightsModeBtn();
-
-        displayCurtainPanelWhenConnectionEstablished(pythonClientAddress, pythonClientPort);
+        openCurtainBtn();
+        closeCurtainBtn();
+        adjustCurtainWidthHeightBtn();
 
 //        turnOnBtn()
     }
@@ -151,9 +163,9 @@ public class GUIClient extends JFrame {
             // create a JmDNS instance
             JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
             // add service listener
-            jmdns.addServiceListener("_http._tcp.local.", new GUIClient.Listener());
-            jmdns.addServiceListener("_lights._tcp.local.", new GUIClient.Listener());
-            jmdns.addServiceListener("_curtain._tcp.local.", new GUIClient.Listener());
+            jmdns.addServiceListener("_tvserver._tcp.local.", new GUIClient.Listener());
+            jmdns.addServiceListener("_lightserver._tcp.local.", new GUIClient.Listener());
+            jmdns.addServiceListener("_curtainserver._tcp.local.", new GUIClient.Listener());
         } catch (UnknownHostException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -176,16 +188,6 @@ public class GUIClient extends JFrame {
         return channel;
     }
 
-    public void displayCurtainPanelWhenConnectionEstablished(String pythonClientAddress, int pythonClientPort) {
-        if (pythonClientPort == 0) {
-            System.out.println("Python client is not detected. Please start the Python gRPC server and gRPC client...");
-        } else {
-            System.out.println("Python client is running at " + pythonClientPort + " with address " + pythonClientAddress);
-            openCurtainBtn(pythonClientAddress, pythonClientPort);
-            closeCurtainBtn(pythonClientAddress, pythonClientPort);
-            adjustCurtainWidthHeightBtn(pythonClientAddress, pythonClientPort);
-        }
-    }
 
     //---------------------------------------------------------
 
@@ -319,25 +321,25 @@ public class GUIClient extends JFrame {
         });
     }
 
-    public void openCurtainBtn(String pythonClientAddress, int pythonClientPort) {
+    public void openCurtainBtn() {
         curtainGUI.getOpenCurtainBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                openCurtainCommand(pythonClientAddress, pythonClientPort);
+                openCurtain();
             }
         });
     }
 
-    public void closeCurtainBtn(String pythonClientAddress, int pythonClientPort) {
+    public void closeCurtainBtn() {
         curtainGUI.getCloseCurtainBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                closeCurtainCommand(pythonClientAddress, pythonClientPort);
+                closeCurtain();
             }
         });
     }
 
-    public void adjustCurtainWidthHeightBtn(String pythonClientAddress, int pythonClientPort) {
+    public void adjustCurtainWidthHeightBtn() {
         curtainGUI.getAdjustWidthHeightBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -348,7 +350,7 @@ public class GUIClient extends JFrame {
                         if ((width > 100.00) || (height > 100.00)) {
                             JOptionPane.showMessageDialog(null, "The width and height of the curtain should be below 100.00 cm.");
                         } else {
-                            adjustCurtainWidthAndHeight(pythonClientAddress, pythonClientPort, width, height);
+                            adjustWidthAndHeightOfCurtain(width, height);
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Width and height must be provided!");
@@ -363,80 +365,32 @@ public class GUIClient extends JFrame {
 
     //---------------------- Curtain commands ------------------------------
 
-    public void openCurtainCommand(String pythonClientAddress, int pythonClientPort) {
-        try {
-            Socket clientSocket = new Socket(pythonClientAddress, pythonClientPort);
-            DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
-            DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
-            outputStream.writeUTF("Open");
-            outputStream.flush();
-            System.out.println("Message send to open curtain");
-            String messageFromServer = inputStream.readUTF();
-            System.out.println("Message receives from Python socket server " + messageFromServer);
-            curtainGUI.getCurtainStatusTextPane().setText(messageFromServer);
-            curtainGUI.getWidthTextPane().setText("Width: 100.00 cm.");
-            curtainGUI.getHeightTextPane().setText("Height: 100.00 cm.");
-            inputStream.close();
-            outputStream.close();
-            clientSocket.close();
-        } catch (UnknownHostException e) {
-            System.out.println("Failed to establish connection with Python socket server");
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("Failed IO for Python socket server connection");
-            e.printStackTrace();
-        }
+    public void openCurtain() {
+        io.grpc.project.smarthome.curtain.StringRequest request = io.grpc.project.smarthome.curtain.StringRequest.newBuilder().setStringRequestValue("Open").build();
+        io.grpc.project.smarthome.curtain.StringResponse response = curtainServiceBlockingStub.open(request);
+        System.out.println(response.getStringResponseValue());
+        curtainGUI.getCurtainStatusTextPane().setText(response.getStringResponseValue());
+        curtainGUI.getWidthTextPane().setText("Width: 100.00 cm.");
+        curtainGUI.getHeightTextPane().setText("Height: 100.00 cm.");
     }
 
-    public void closeCurtainCommand(String pythonClientAddress, int pythonClientPort) {
-        try {
-            Socket clientSocket = new Socket(pythonClientAddress, pythonClientPort);
-            DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
-            DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
-            outputStream.writeUTF("Close");
-            outputStream.flush();
-            System.out.println("Message send to close curtain");
-            String messageFromServer = inputStream.readUTF();
-            System.out.println("Message receives from Python socket server " + messageFromServer);
-            curtainGUI.getCurtainStatusTextPane().setText(messageFromServer);
-            curtainGUI.getWidthTextPane().setText("Width: 0.00 cm.");
-            curtainGUI.getHeightTextPane().setText("Height: 0.00 cm.");
-            inputStream.close();
-            outputStream.close();
-            clientSocket.close();
-        } catch (UnknownHostException e) {
-            System.out.println("Failed to establish connection with Python socket server");
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("Failed IO for Python socket server connection");
-            e.printStackTrace();
-        }
+    public void closeCurtain() {
+        io.grpc.project.smarthome.curtain.StringRequest request = io.grpc.project.smarthome.curtain.StringRequest.newBuilder().setStringRequestValue("Close").build();
+        io.grpc.project.smarthome.curtain.StringResponse response = curtainServiceBlockingStub.close(request);
+        System.out.println(response.getStringResponseValue());
+        curtainGUI.getCurtainStatusTextPane().setText(response.getStringResponseValue());
+        curtainGUI.getWidthTextPane().setText("Width: 0.00 cm.");
+        curtainGUI.getHeightTextPane().setText("Height: 0.00 cm.");
     }
 
-    public void adjustCurtainWidthAndHeight(String pythonClientAddress, int pythonClientPort, float width, float height) {
-        try {
-            Socket clientSocket = new Socket(pythonClientAddress, pythonClientPort);
-            DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
-            DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
-            String payload = width + "," + height;
-            outputStream.writeUTF(payload);
-            outputStream.flush();
-            System.out.println("Message send to adjust width and height of the curtain");
-            String messageFromServer = inputStream.readUTF();
-            System.out.println("Message receives from Python socket server " + messageFromServer);
-            String[] msg = messageFromServer.split(",");
-            curtainGUI.getCurtainStatusTextPane().setText("Curtain: Open");
-            curtainGUI.getWidthTextPane().setText("Width: " + msg[0] + " cm.");
-            curtainGUI.getHeightTextPane().setText("Height: " + msg[1] + " cm.");
-        } catch (UnknownHostException e) {
-            System.out.println("Failed to establish connection with Python socket server");
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("Failed IO for Python socket server connection");
-            e.printStackTrace();
-        }
+    public void adjustWidthAndHeightOfCurtain(float width, float height) {
+        io.grpc.project.smarthome.curtain.HeightAndWidth request = io.grpc.project.smarthome.curtain.HeightAndWidth.newBuilder().setWidth(width).setHeight(height).build();
+        io.grpc.project.smarthome.curtain.StringResponse response = curtainServiceBlockingStub.adjustHeightAndWidth(request);
+        String[] msg = response.getStringResponseValue().split(",");
+        curtainGUI.getCurtainStatusTextPane().setText("Curtain: Open");
+        curtainGUI.getWidthTextPane().setText("Width: " + msg[0] + " cm.");
+        curtainGUI.getHeightTextPane().setText("Height: " + msg[1] + " cm.");
     }
-
     //---------------------- End of Curtain commands ------------------------------
 
 
