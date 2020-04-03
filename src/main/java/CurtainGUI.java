@@ -1,5 +1,8 @@
 import javax.swing.*;
 
+/*
+    This class is used to build the curtain panel. It contains the getters for using each UI component.
+*/
 public class CurtainGUI extends JFrame{
     private JPanel rootPane;
     private JLabel curtainPanelLabel;

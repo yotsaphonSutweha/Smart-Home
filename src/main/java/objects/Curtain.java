@@ -1,7 +1,9 @@
 package objects;
 
 import interfaces.CurtainInterface;
-
+/*
+    Not in use
+ */
 public class Curtain implements CurtainInterface {
     @Override
     public void fullySlideOpens() {

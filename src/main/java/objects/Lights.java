@@ -3,7 +3,9 @@ package objects;
 import interfaces.LightsInterface;
 
 import java.util.ArrayList;
-
+/*
+    This class is used to represents the light device
+ */
 public class Lights implements LightsInterface{
 
     private boolean lightSwitch;

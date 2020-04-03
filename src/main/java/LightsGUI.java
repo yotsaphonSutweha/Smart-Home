@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/*
+    This class is used to build the lights panel. It contains the getters for using each UI component.
+*/
 public class LightsGUI extends JFrame{
     private JPanel rootPane;
     private JLabel lightsLabel;
@@ -27,7 +29,7 @@ public class LightsGUI extends JFrame{
     public LightsGUI () {
         add(rootPane);
         setTitle("Lights GUI");
-        setSize(500, 300);
+        setSize(500, 350);
         lightsModeComboBox.addItem("LIGHT");
         lightsModeComboBox.addItem("DARK");
         lightsModeComboBox.addItem("DISCO");

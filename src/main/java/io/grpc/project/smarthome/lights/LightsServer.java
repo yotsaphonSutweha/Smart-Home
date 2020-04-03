@@ -18,6 +18,9 @@ public class LightsServer extends LightsServiceImplBase {
     private Lights lights = new Lights();
 
     public static void main(String[] args) throws IOException, InterruptedException {
+        /*
+            Use jmDNS to register the lights service.
+         */
         try {
             int PORT = 8002;
             JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
@@ -38,6 +41,10 @@ public class LightsServer extends LightsServiceImplBase {
             e.printStackTrace();
         }
     }
+
+    /*
+       The methods below are the implementations of the lights' gRPC methods.
+   */
 
     @Override
     public void lightSwitch(BooleanRequest request, StreamObserver<StringResponse> responseObserver) {

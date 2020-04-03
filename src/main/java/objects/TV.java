@@ -4,6 +4,10 @@ import interfaces.TVInterface;
 
 import java.util.ArrayList;
 
+/*
+    This class is used to represents the tv device
+ */
+
 public class TV implements TVInterface {
     private ArrayList<String> speakersInputs;
     private ArrayList<String> musicLyrics;

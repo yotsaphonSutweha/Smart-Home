@@ -25,6 +25,10 @@ public class TVServer extends TvServiceImplBase {
     private static SpeakersServiceGrpc.SpeakersServiceStub speakersServiceAsyncStub;
     private ArrayList<String> deviceList = new ArrayList<>();
 
+
+    /*
+        The listener class for TV server. The implementation is the same on the client but it is used for discovering speakers service.
+     */
     public static class Listener implements ServiceListener {
         @Override
         public void serviceAdded(ServiceEvent serviceEvent) {
@@ -51,6 +55,9 @@ public class TVServer extends TvServiceImplBase {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
+        /*
+            Registering the service information with jmDNS. And also add the speaker service for discovery.
+         */
         try {
             int PORT = 8003;
             JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
@@ -84,6 +91,9 @@ public class TVServer extends TvServiceImplBase {
         }
     }
 
+    /*
+        The server side of the TV gRPC server.
+     */
     @Override
     public StreamObserver<io.grpc.project.smarthome.tv.StringRequest> liveContent(StreamObserver<io.grpc.project.smarthome.tv.StringResponse> responseObserver) {
         return new StreamObserver<io.grpc.project.smarthome.tv.StringRequest>() {
@@ -143,7 +153,7 @@ public class TVServer extends TvServiceImplBase {
             int currentVolume = 0;
             @Override
             public void onNext(IntRequest value) {
-                System.out.println("Receiving volumn -> " + value.getNumInput());
+                System.out.println("Receiving volume -> " + value.getNumInput());
                 currentVolume += value.getNumInput();
             }
 
@@ -163,7 +173,10 @@ public class TVServer extends TvServiceImplBase {
         };
     }
 
-
+    /*
+        displayInputsSpeakersCommand and musicStreamingSpeakersCommand are used for accepting the command from the GUI client and invoke
+        the functions within the speakers server.
+     */
     @Override
     public void displayInputsSpeakersCommand(StringRequest request, StreamObserver<StringResponse> responseObserver) {
         String command = request.getStringRequestValue();
@@ -198,7 +211,13 @@ public class TVServer extends TvServiceImplBase {
         }
         responseObserver.onCompleted();
     }
+    /*
+        End of the server side of the TV gRPC server.
+     */
 
+    /*
+        The client side of the speakers gRPC server. These methods are used to invokes the functions on the speakers gRPC server.
+    */
     public String turnOnSpeakers() {
         io.grpc.project.smarthome.speakers.BooleanRequest request = io.grpc.project.smarthome.speakers.BooleanRequest.newBuilder().setBooleanRequestValue(true).build();
         try {
@@ -207,6 +226,7 @@ public class TVServer extends TvServiceImplBase {
             return response.getStringResponseValue();
         } catch (StatusRuntimeException e) {
             System.out.println("RPC failed: " + e.getStatus());
+            JOptionPane.showMessageDialog(null, "Speakers server error: Unable to process the request");
             e.printStackTrace();
         }
         return "RPC failed";
@@ -220,6 +240,7 @@ public class TVServer extends TvServiceImplBase {
             return response.getStringResponseValue();
         } catch (StatusRuntimeException e) {
             System.out.println("RPC failed: " + e.getStatus());
+            JOptionPane.showMessageDialog(null, "Speakers server error: Unable to process the request");
             e.printStackTrace();
         }
         return "RPC failed";
@@ -250,6 +271,7 @@ public class TVServer extends TvServiceImplBase {
             threadSleep(3000);
         } catch (StatusRuntimeException e) {
             System.out.println("RPC failed: " + e.getStatus());
+            JOptionPane.showMessageDialog(null, "Speakers server error: Unable to process the request");
             e.printStackTrace();
         }
     }
@@ -261,6 +283,7 @@ public class TVServer extends TvServiceImplBase {
             return response.getNumOutput();
         } catch (StatusRuntimeException e) {
             System.out.println("RPC failed: " + e.getStatus());
+            JOptionPane.showMessageDialog(null, "Speakers server error: Unable to process the request");
             e.printStackTrace();
         }
         return 0;
@@ -299,10 +322,16 @@ public class TVServer extends TvServiceImplBase {
             request.onNext(io.grpc.project.smarthome.speakers.StringRequest.newBuilder().setStringRequestValue("Can't wait for the night to begin").build());
             threadSleep(3000);
         } catch (RuntimeException e) {
+            System.out.println("RPC failed: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Speakers server error: Unable to process the request");
+            e.printStackTrace();
             request.onError(e);
             throw e;
         }
         request.onCompleted();
         return  musicLyrics;
     }
+    /*
+        End of client side for speakers gRPC service.
+     */
 }

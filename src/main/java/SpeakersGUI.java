@@ -1,5 +1,7 @@
 import javax.swing.*;
-
+/*
+    This class is used to build the speakers panel. It contains the getters for using each UI component.
+*/
 public class SpeakersGUI extends JFrame{
     private JLabel spkearsJPanel;
     private JPanel rootPane;

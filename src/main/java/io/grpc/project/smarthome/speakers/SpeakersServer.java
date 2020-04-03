@@ -18,6 +18,9 @@ public class SpeakersServer extends SpeakersServiceImplBase{
     private Speakers speakers = new Speakers();
 
     public static void main(String[] args) throws IOException, InterruptedException {
+        /*
+            Use jmDNS to register the speakers service.
+         */
         try {
             int PORT = 8001;
             JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
@@ -39,6 +42,9 @@ public class SpeakersServer extends SpeakersServiceImplBase{
         }
     }
 
+    /*
+        The methods below are the implementations of the speaker's gRPC methods.
+    */
     @Override
     public StreamObserver<StringRequest> musicStreaming(StreamObserver<StringResponse> responseObserver) {
         return new StreamObserver<StringRequest>() {

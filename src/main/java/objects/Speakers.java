@@ -4,6 +4,10 @@ import interfaces.SpeakerInterface;
 
 import java.util.ArrayList;
 
+/*
+    This class is used to represents the speakers device
+ */
+
 public class Speakers implements SpeakerInterface {
     private int volume;
     private ArrayList<String> deviceList;
@@ -23,8 +27,9 @@ public class Speakers implements SpeakerInterface {
     @Override
     public ArrayList<String> availableInputs() {
         ArrayList<String> availableInputList = new ArrayList<>();
-        availableInputList.add("HDMI");
-        availableInputList.add("VGD");
+        availableInputList.add("USB-B");
+        availableInputList.add("USB-C");
+        availableInputList.add("Micro-USB");
         availableInputList.add("Bluetooth");
         return availableInputList;
     }

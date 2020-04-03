@@ -40,6 +40,9 @@ public class GUIClient extends JFrame {
     private JButton displaySpeakersInputsBtn;
     private JButton playMusicBtn;
     private JLabel volumeLabel;
+    private JTextPane speakersConnectionStatusTextPane;
+    private JTextPane lightsConnectionStatusTextPane;
+    private JTextPane curtainConnectionStatusTextPane;
     private static int tvPort  = 0;
     private static String tvServerHost = "";
     private static int lightsPort  = 0;
@@ -58,7 +61,11 @@ public class GUIClient extends JFrame {
     private CurtainGUI curtainGUI;
 
 
-
+    /*
+        The listener class is used to discover and access information inside the serviceEvent object. This is part of the jmDNS service
+        discovery process. Once the service is resolved, the if statements are used to identify which service is which. The get the PORT number
+        from the service event and assign it to the appropriate variable for building the channel for gRPC servers.
+     */
     public static class Listener implements ServiceListener {
         @Override
         public void serviceAdded(ServiceEvent serviceEvent) {
@@ -98,13 +105,14 @@ public class GUIClient extends JFrame {
         setTitle("TV GUI");
         setSize(500, 500);
 
-        // Display speakers GUI
+        // Instantiate GUI classes and Display the GUIs
         speakersGUI = new SpeakersGUI();
         lightsGUI = new LightsGUI();
         curtainGUI = new CurtainGUI();
         lightsGUI.setVisible(true);
         curtainGUI.setVisible(true);
 
+        // Initially, set the buttons and fields invisible
         turnOffButton.setVisible(false);
         displayChannelList.setVisible(false);
         liveShowBtn.setVisible(false);
@@ -113,6 +121,7 @@ public class GUIClient extends JFrame {
         displaySpeakersInputsBtn.setVisible(false);
         playMusicBtn.setVisible(false);
 
+        // Build the gRPC channel for TV service
         try {
             ManagedChannel tvChannel = manageChannel(tvServerHost, tvPort);
             blockingStub = TvServiceGrpc.newBlockingStub(tvChannel);
@@ -121,23 +130,28 @@ public class GUIClient extends JFrame {
             System.out.println("Incorrect PORT for Tv server");
         }
 
+        // Build the gRPC channel for Lights service
         try {
             ManagedChannel lightsChannel = manageChannel(lightsServerHost, lightsPort);
             lightsServiceBlockingStub = LightsServiceGrpc.newBlockingStub(lightsChannel);
             lightsServiceAsyncStub = LightsServiceGrpc.newStub(lightsChannel);
+            lightsConnectionStatusTextPane.setText("Lights: Connected");
         } catch (IllegalArgumentException e) {
             System.out.println("Incorrect PORT for Lights server");
             e.printStackTrace();
         }
 
+        // Build the gRPC channel for Curtain service
         try {
             ManagedChannel curtainChannel = manageChannel(pythonCurtainServerHost, pythonCurtainPort);
             curtainServiceBlockingStub = CurtainServiceGrpc.newBlockingStub(curtainChannel);
+            curtainConnectionStatusTextPane.setText("Curtain: Connected");
         } catch (IllegalArgumentException e) {
             System.out.println("Incorrect PORT for Curtain server");
             e.printStackTrace();
         }
 
+        // These methods represent various buttons on the GUI for the users to invoke the actions
         turnOnBtn();
         turnOffBtn();
         displayChannels();
@@ -162,7 +176,7 @@ public class GUIClient extends JFrame {
         try {
             // create a JmDNS instance
             JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
-            // add service listener
+            // add service listeners for TV, lights, and curtain server
             jmdns.addServiceListener("_tvserver._tcp.local.", new GUIClient.Listener());
             jmdns.addServiceListener("_lightserver._tcp.local.", new GUIClient.Listener());
             jmdns.addServiceListener("_curtainserver._tcp.local.", new GUIClient.Listener());
@@ -174,6 +188,9 @@ public class GUIClient extends JFrame {
         }
     }
 
+    /*
+        This method is used for putting the thread to sleep
+     */
     public void threadSleep() {
         try {
             Thread.sleep(3000);
@@ -183,15 +200,19 @@ public class GUIClient extends JFrame {
         }
     }
 
+    /*
+        This method is used to build the gRPC channels
+     */
     public ManagedChannel manageChannel(String name, int port) {
         ManagedChannel channel = ManagedChannelBuilder.forAddress(name, port).usePlaintext().build();
         return channel;
     }
-
-
     //---------------------------------------------------------
 
 
+    /*
+        Buttons GUIs that invokes various actions
+     */
     public void turnOnBtn() {
         turnOnButton.addActionListener(new ActionListener() {
             @Override
@@ -362,39 +383,65 @@ public class GUIClient extends JFrame {
             }
         });
     }
+    /*
+        End of button methods
+     */
 
-    //---------------------- Curtain commands ------------------------------
-
+    /*
+        The client side of Curtain service. Invokes actions such as open, close and adjust width and height of the curtain.
+    */
     public void openCurtain() {
         io.grpc.project.smarthome.curtain.StringRequest request = io.grpc.project.smarthome.curtain.StringRequest.newBuilder().setStringRequestValue("Open").build();
-        io.grpc.project.smarthome.curtain.StringResponse response = curtainServiceBlockingStub.open(request);
-        System.out.println(response.getStringResponseValue());
-        curtainGUI.getCurtainStatusTextPane().setText(response.getStringResponseValue());
-        curtainGUI.getWidthTextPane().setText("Width: 100.00 cm.");
-        curtainGUI.getHeightTextPane().setText("Height: 100.00 cm.");
+        try {
+            io.grpc.project.smarthome.curtain.StringResponse response = curtainServiceBlockingStub.open(request);
+            System.out.println(response.getStringResponseValue());
+            curtainGUI.getCurtainStatusTextPane().setText(response.getStringResponseValue());
+            curtainGUI.getWidthTextPane().setText("Width: 100.00 cm.");
+            curtainGUI.getHeightTextPane().setText("Height: 100.00 cm.");
+        } catch (StatusRuntimeException e) {
+            System.out.println("RPC failed: " + e.getStatus());
+            JOptionPane.showMessageDialog(null, "Curtain server error: Unable to process the request.");
+            e.printStackTrace();
+        }
     }
 
     public void closeCurtain() {
         io.grpc.project.smarthome.curtain.StringRequest request = io.grpc.project.smarthome.curtain.StringRequest.newBuilder().setStringRequestValue("Close").build();
-        io.grpc.project.smarthome.curtain.StringResponse response = curtainServiceBlockingStub.close(request);
-        System.out.println(response.getStringResponseValue());
-        curtainGUI.getCurtainStatusTextPane().setText(response.getStringResponseValue());
-        curtainGUI.getWidthTextPane().setText("Width: 0.00 cm.");
-        curtainGUI.getHeightTextPane().setText("Height: 0.00 cm.");
+        try {
+            io.grpc.project.smarthome.curtain.StringResponse response = curtainServiceBlockingStub.close(request);
+            System.out.println(response.getStringResponseValue());
+            curtainGUI.getCurtainStatusTextPane().setText(response.getStringResponseValue());
+            curtainGUI.getWidthTextPane().setText("Width: 0.00 cm.");
+            curtainGUI.getHeightTextPane().setText("Height: 0.00 cm.");
+        } catch (StatusRuntimeException e) {
+            System.out.println("RPC failed: " + e.getStatus());
+            JOptionPane.showMessageDialog(null, "Curtain server error: Unable to process the request.");
+            e.printStackTrace();
+        }
     }
 
     public void adjustWidthAndHeightOfCurtain(float width, float height) {
         io.grpc.project.smarthome.curtain.HeightAndWidth request = io.grpc.project.smarthome.curtain.HeightAndWidth.newBuilder().setWidth(width).setHeight(height).build();
-        io.grpc.project.smarthome.curtain.StringResponse response = curtainServiceBlockingStub.adjustHeightAndWidth(request);
-        String[] msg = response.getStringResponseValue().split(",");
-        curtainGUI.getCurtainStatusTextPane().setText("Curtain: Open");
-        curtainGUI.getWidthTextPane().setText("Width: " + msg[0] + " cm.");
-        curtainGUI.getHeightTextPane().setText("Height: " + msg[1] + " cm.");
+        try {
+            io.grpc.project.smarthome.curtain.StringResponse response = curtainServiceBlockingStub.adjustHeightAndWidth(request);
+            String[] msg = response.getStringResponseValue().split(",");
+            curtainGUI.getCurtainStatusTextPane().setText("Curtain: Open");
+            curtainGUI.getWidthTextPane().setText("Width: " + msg[0] + " cm.");
+            curtainGUI.getHeightTextPane().setText("Height: " + msg[1] + " cm.");
+        } catch (StatusRuntimeException e) {
+            System.out.println("RPC failed: " + e.getStatus());
+            JOptionPane.showMessageDialog(null, "Curtain server error: Unable to process the request.");
+            e.printStackTrace();
+        }
     }
-    //---------------------- End of Curtain commands ------------------------------
+    /*
+        End of curtain client
+     */
 
 
-    //------------------------ TV Commands -------------------------
+    /*
+        The client side of TV service
+     */
     public void showLiveContent() {
         ArrayList<String> liveContents = new ArrayList<>();
        StreamObserver<StringResponse> responseObserver = new StreamObserver<StringResponse>() {
@@ -425,6 +472,7 @@ public class GUIClient extends JFrame {
         } catch (RuntimeException e) {
             // Cancel RPC
             System.out.println("RPC failed: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "TV server error: Unable to process the request.");
             e.printStackTrace();
             request.onError(e);
             throw e;
@@ -463,6 +511,7 @@ public class GUIClient extends JFrame {
         } catch (RuntimeException e) {
             // Cancel RPC
             System.out.println("RPC failed: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "TV server error: Unable to process the request.");
             e.printStackTrace();
             request.onError(e);
             throw e;
@@ -480,8 +529,10 @@ public class GUIClient extends JFrame {
             speakersGUI.getSpeakOn().setText("Speakers " + response.getStringResponseValue2());
             turnOnButton.setVisible(false);
             turnOffButton.setVisible(true);
+            speakersConnectionStatusTextPane.setText("Speakers: Connected");
         } catch (StatusRuntimeException e) {
             System.out.println("RPC failed: " + e.getStatus());
+            JOptionPane.showMessageDialog(null, "TV server error: Unable to process the request.");
             e.printStackTrace();
         }
 
@@ -508,6 +559,7 @@ public class GUIClient extends JFrame {
             turnOffButton.setVisible(false);
         } catch (StatusRuntimeException e) {
             System.out.println("RPC failed: " + e.getStatus());
+            JOptionPane.showMessageDialog(null, "TV server error: Unable to process the request.");
             e.printStackTrace();
         }
     }
@@ -541,14 +593,18 @@ public class GUIClient extends JFrame {
             channelListTextPane.setText(channelDisplay);
         } catch (StatusRuntimeException e) {
             System.out.println("RPC failed: " + e.getStatus());
+            JOptionPane.showMessageDialog(null, "TV server error: Unable to process the request.");
             e.printStackTrace();
         }
     }
-    //----------------End of TV commands-----------------------------------
+    /*
+        End of the client side of TV service
+     */
 
 
-    // Lights server functions
-
+    /*
+        The client side of lights service
+     */
     public void turnOnLights() {
         io.grpc.project.smarthome.lights.BooleanRequest request = io.grpc.project.smarthome.lights.BooleanRequest.newBuilder().setBooleanValue(true).build();
         try {
@@ -557,6 +613,7 @@ public class GUIClient extends JFrame {
             lightsGUI.getLightsSwitchTextPane().setText(response.getStringResponseValue());
         } catch (StatusRuntimeException e) {
             System.out.println("RPC failed: " + e.getStatus());
+            JOptionPane.showMessageDialog(null, "Lights server error: Unable to process the request.");
             e.printStackTrace();
         }
     }
@@ -569,6 +626,7 @@ public class GUIClient extends JFrame {
             lightsGUI.getLightsSwitchTextPane().setText(response.getStringResponseValue());
         } catch (StatusRuntimeException e) {
             System.out.println("RPC failed: " + e.getStatus());
+            JOptionPane.showMessageDialog(null, "Lights server error: Unable to process the request.");
             e.printStackTrace();
         }
     }
@@ -607,6 +665,7 @@ public class GUIClient extends JFrame {
             }
         } catch (StatusRuntimeException e) {
             System.out.println("RPC failed: " + e.getStatus());
+            JOptionPane.showMessageDialog(null, "Lights server error: Unable to process the request.");
             e.printStackTrace();
         }
     }
@@ -637,6 +696,7 @@ public class GUIClient extends JFrame {
         } catch (RuntimeException e) {
             // Cancel RPC
             System.out.println("RPC failed: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Lights server error: Unable to process the request.");
             e.printStackTrace();
             requestStreamObserver.onError(e);
             throw e;
@@ -659,11 +719,17 @@ public class GUIClient extends JFrame {
             lightsGUI.getLightsModeTextPane().setText("Mode: " + response.getStringResponseValue());
         } catch (StatusRuntimeException e) {
             System.out.println("RPC failed: " + e.getStatus());
+            JOptionPane.showMessageDialog(null, "Lights server error: Unable to process the request.");
             e.printStackTrace();
         }
     }
+    /*
+        End of lights service
+    */
 
-    //---------------Speakers server functions------------------
+    /*
+        The followings are the TV commands that is used to invoke the functions within the speakers service.
+     */
     public void displayAvailableSpeakersInputs() {
         StringRequest request = StringRequest.newBuilder().setStringRequestValue("Display available inputs for speakers").build();
         try {
@@ -672,6 +738,7 @@ public class GUIClient extends JFrame {
             speakersGUI.getAvailableInputs().setText("Available speakers inputs " + responses.getStringResponseValue());
         } catch (StatusRuntimeException e) {
             System.out.println("RPC failed: " + e.getStatus());
+            JOptionPane.showMessageDialog(null, "TV server error: Unable to process the request for speakers server.");
             e.printStackTrace();
         }
     }
@@ -697,8 +764,11 @@ public class GUIClient extends JFrame {
             speakersGUI.getMusicStreamingTextPane9().setText(arr.get(7));
         } catch (StatusRuntimeException e) {
             System.out.println("RPC failed: " + e.getStatus());
+            JOptionPane.showMessageDialog(null, "TV server error: Unable to process the request for speakers server.");
             e.printStackTrace();
         }
     }
-    //---------------End of Speakers server functions------------------
+    /*
+        End
+     */
 }
