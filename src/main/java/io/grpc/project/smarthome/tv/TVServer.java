@@ -137,9 +137,15 @@ public class TVServer extends TvServiceImplBase {
         String speakersStatus = "";
         if (turnOn) {
             result = tv.turnOn();
+            /* Also invoking the turnOnSpeakers method for making the request to the speakers server. This
+                is also a part of implementation where the TV service invokes the Speakers service for the GUI client.
+             */
             speakersStatus = turnOnSpeakers();
         } else {
             result = tv.turnOff();
+            /* Also invoking the turnOffSpeakers method for making the request to the speakers server This
+                is also a part of implementation where the TV service invokes the Speakers service for the GUI client.
+            */
             speakersStatus = turnOffSpeakers();
         }
         StringResponse response = io.grpc.project.smarthome.tv.StringResponse.newBuilder().setStringResponseValue(result).setStringResponseValue2(speakersStatus).build();
@@ -175,15 +181,19 @@ public class TVServer extends TvServiceImplBase {
 
     /*
         displayInputsSpeakersCommand and musicStreamingSpeakersCommand are used for accepting the command from the GUI client and invoke
-        the functions within the speakers server.
+        the functions within the speakers server. This is part of the implementation where TV service acts like a middle man for the GUI client to use the
+        speakers service.
      */
     @Override
     public void displayInputsSpeakersCommand(StringRequest request, StreamObserver<StringResponse> responseObserver) {
         String command = request.getStringRequestValue();
         StringResponse response;
         ArrayList<String> speakersInputs = new ArrayList<>();
+        // Accepting the command from GUI client
         if (command.equalsIgnoreCase("Display available inputs for speakers")) {
+            // Make the request to the speakers server to get the speakers inputs.
             displayAvailableSpeakersInputs();
+            // From the tv object the the array of speakers' available inputs
             speakersInputs = tv.getSpeakersAvailableInputs();
             response = StringResponse.newBuilder().setStringResponseValue(speakersInputs.get(0) + " " + speakersInputs.get(1) + " " + speakersInputs.get(2)).build();
             responseObserver.onNext(response);
@@ -201,7 +211,9 @@ public class TVServer extends TvServiceImplBase {
         String command = request.getStringRequestValue();
         StringResponse response;
         if (command.equalsIgnoreCase("Play Get Down on Saturday night")) {
+            // Music streaming method is a speaker's gRPC client side methods, returning an arrayList.
             ArrayList<String> lyrics = musicStreaming();
+            // Use the arrayList to build the response for the GUI client.
             String strLyrics = lyrics.get(0) + "," + lyrics.get(1) + "," + lyrics.get(2) + "," + lyrics.get(3) + "," + lyrics.get(4) + "," + lyrics.get(5) + "," + lyrics.get(6) + "," + lyrics.get(7);
             response = StringResponse.newBuilder().setStringResponseValue(strLyrics).build();
             responseObserver.onNext(response);
@@ -216,7 +228,8 @@ public class TVServer extends TvServiceImplBase {
      */
 
     /*
-        The client side of the speakers gRPC server. These methods are used to invokes the functions on the speakers gRPC server.
+        The client side of the speakers gRPC server. These methods are used to invokes the functions on the speakers gRPC server. These methods are invoked by
+        the TV server in order to deliver contents to the GUI client. These are the implementations for a service that invokes another implemented service.
     */
     public String turnOnSpeakers() {
         io.grpc.project.smarthome.speakers.BooleanRequest request = io.grpc.project.smarthome.speakers.BooleanRequest.newBuilder().setBooleanRequestValue(true).build();
@@ -247,11 +260,14 @@ public class TVServer extends TvServiceImplBase {
     }
 
     public void displayAvailableSpeakersInputs() {
+        // Making the request.
         io.grpc.project.smarthome.speakers.BooleanRequest request = io.grpc.project.smarthome.speakers.BooleanRequest.newBuilder().setBooleanRequestValue(true).build();
+        // Use responseStreamObserver for the response
         StreamObserver<io.grpc.project.smarthome.speakers.StringResponse> responseStreamObserver = new StreamObserver<io.grpc.project.smarthome.speakers.StringResponse>() {
             String input = "";
             @Override
             public void onNext(io.grpc.project.smarthome.speakers.StringResponse value) {
+                // Use the tv object and store the responses inside the array by using setSpeakersAvailableInputs method
                 tv.setSpeakersAvailableInputs(value.getStringResponseValue());
             }
 

@@ -154,7 +154,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="Color: "/>
+              <text value="Color: White"/>
             </properties>
           </component>
           <component id="4cb11" class="javax.swing.JTextPane" binding="availableLightsMode">

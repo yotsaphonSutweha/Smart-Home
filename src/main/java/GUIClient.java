@@ -11,6 +11,7 @@ import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceListener;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.net.InetAddress;
@@ -109,8 +110,14 @@ public class GUIClient extends JFrame {
         speakersGUI = new SpeakersGUI();
         lightsGUI = new LightsGUI();
         curtainGUI = new CurtainGUI();
+
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        speakersGUI.setLocation(dim.width, dim.height/2);
+        curtainGUI.setLocation(0, dim.height/2);
+
         lightsGUI.setVisible(true);
         curtainGUI.setVisible(true);
+
 
         // Initially, set the buttons and fields invisible
         turnOffButton.setVisible(false);
@@ -211,7 +218,7 @@ public class GUIClient extends JFrame {
 
 
     /*
-        Buttons GUIs that invokes various actions
+        Buttons GUIs that invokes various actions on the gRPC servers
      */
     public void turnOnBtn() {
         turnOnButton.addActionListener(new ActionListener() {
@@ -464,10 +471,10 @@ public class GUIClient extends JFrame {
        };
        StreamObserver<StringRequest> request = asyncStub.liveContent(responseObserver);
         try {
-            request.onNext(StringRequest.newBuilder().setStringRequestValue("Bil is 19").build());
-            request.onNext(StringRequest.newBuilder().setStringRequestValue("Bil is a good student").build());
-            request.onNext(StringRequest.newBuilder().setStringRequestValue("Bil becomes the greatest engineer").build());
-            request.onNext(StringRequest.newBuilder().setStringRequestValue("Bil marries with a girl named Sandra").build());
+            request.onNext(StringRequest.newBuilder().setStringRequestValue("Bill is 19").build());
+            request.onNext(StringRequest.newBuilder().setStringRequestValue("Bill is a good student").build());
+            request.onNext(StringRequest.newBuilder().setStringRequestValue("Bill becomes a software engineer").build());
+            request.onNext(StringRequest.newBuilder().setStringRequestValue("Bill marries with a girl named Sandra").build());
             threadSleep();
         } catch (RuntimeException e) {
             // Cancel RPC
